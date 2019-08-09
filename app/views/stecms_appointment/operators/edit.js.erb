@@ -1,0 +1,19 @@
+$('#editEmployee').html("<%= j render 'edit' %>");
+$('#editEmployee.modal').modal({backdrop: 'static', keyboard: false});
+
+$('.delete-operator').on('click', function() {
+  $('#cancel-modal').modal({ backdrop: 'static', keyboard: false});
+  $('#editEmployee.modal').modal('hide');
+
+  var id = $('#operator_id').val();
+  var name = $('[dom="name"]').val();
+  
+  $('[dom="detail"]').text(name);
+  $('[dom="delete_customer"]').attr('href', '/backend/stecms_appointment/operators/' + id);
+});
+
+
+mobileDefault('#edit_mobile');
+removeLoadingOverlay();
+
+checkboxDays('.cb-active-day');

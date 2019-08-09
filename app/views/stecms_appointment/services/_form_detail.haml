@@ -1,0 +1,115 @@
+#details.tab-pane.active
+  - if params[:composed].present? or f.object.is_composed
+    .control-group
+      %label.control-label Composto da
+      .controls
+        = f.input :is_composed, as: :hidden, input_html: { value: true }
+        = f.input :duration, as: :hidden, input_html: { value: 1 }
+        #composed_treatments
+          = f.simple_fields_for :composed_treatments do |composed_treatment|
+            = render 'composed_treatment_fields', f: composed_treatment
+          .links
+            = link_to_add_association '+ Aggiungi trattamento composto', f, :composed_treatments, {class: 'add-composed-button'}
+  .control-group.string.optional.service_name
+    = f.label :preferred, 'Preferito', class: 'control-label'
+    .controls
+      = f.check_box :preferred
+  .control-group.grouped_select.optional.service_subcategory_id
+    = f.label :stecms_appointment_service_category_id, 'Categoria', class: 'grouped_select optional control-label'
+    .controls
+      = f.input_field :stecms_appointment_service_category_id, collection: @service_categories, id: 'service_subcategory_id', class: 'grouped_select validate', onchange: 'autocompleteServiceName($("option:selected", $(this)).text())'
+
+  .control-group.string.optional.service_name
+    = f.label :title, 'Nome Trattamento', class: 'control-label'
+
+    .controls
+      = f.input_field :title, class: 'service_name validate', maxlength: 36, dom: 'name'
+      %span{style: "font-size:12px;color:#91838b;display:block"} Lunghezza massima 36 caratteri
+
+  .control-group.text.optional.service_description
+    = f.label :description, 'Descrizione Trattamento', class: 'control-label text'
+
+    .controls
+      = f.input_field :description, as: :text, id: 'service_description', class:'text', maxlength: 1000
+      %span{style: "font-size:12px;color:#91838b;display:block"}
+        Caratteri a disposizione:
+        %span 1000
+
+  - if f.object.variants.present? and !f.object.is_composed
+    #service-pricing-list
+      .control-group
+        %label.control-label Varianti
+        .controls
+          - f.object.variants.each do |variant|
+            .item.service_pricing_level.well.well-small{"id"=>"service_pricing_level_#{variant.variant_id}"}
+              %span#pricing_level.pricing-level-name{"data-pricing-level"=>"#{ variant_type_level(variant) }"}
+                = variant.des_variant
+              %span#duration.pricing-level-duration{"data-duration-unit"=>'1', "data-duration-value"=>"#{variant.duration / 60}"}
+                = variant.duration_in_minute
+                | &nbsp;m
+
+              - if variant.discount_price.present? && variant.discount_price > 0
+                %span#price.text-right.pricing-level-price{"data-price"=>"#{variant.price}"}
+                  del = display_currency(variant.price, true)
+
+                %span#sale_price.sale_price{"data-sale-price"=>"#{variant.discount_price}", style: "color:#fe6523"}
+                  = display_currency(variant.discount_price, true)
+              - else
+                %span#price.text-right.pricing-level-price{"data-price"=>"#{variant.price}"}
+                  = display_currency(variant.price, true)
+
+              - if variant.discount_valid_from
+                %span#discount_valid_from.pricing-level-valid-from.hide{"data-discount-valid-from"=>"#{variant.discount_valid_from.strftime('%d-%m-%Y')}"}
+                  = variant.discount_valid_from
+                %span#discount_valid_to.pricing-level-valid-to.hide{"data-discount-valid-to"=>"#{variant.discount_valid_to.strftime('%d-%m-%Y')}"}
+                  = variant.discount_valid_to
+                %span#discount_public_from.pricing-level-public-from.hide{"data-discount-public-from"=>"#{variant.discount_public_from.strftime('%d-%m-%Y')}"}
+                  = variant.discount_public_from
+                %span#discount_public_to.pricing-level-public-to.hide{"data-discount-public-to"=>"#{variant.discount_public_to.strftime('%d-%m-%Y')}"}
+                  = variant.discount_public_to
+
+  - else
+    - if params[:composed].blank? and !f.object.is_composed
+      #service-pricing-list.hide
+        .control-group
+          = f.label :variant, 'Varianti', class: 'control-label'
+          .controls
+  #service-pricing{class: "#{ 'hide' if f.object.variants.present? }"}
+    .control-group.pull-left
+      = f.label :price, 'Prezzo intero', class: 'control-label price-label'
+      .controls
+        .input-prepend
+          %span.add-on €
+          = f.input_field :price, as: :decimal, value: f.object.price, id: 'service_pricing_level_price', class: 'input-mini validate', min: 0, dom: 'price'
+    - if params[:composed].blank? and !f.object.is_composed
+      .control-group
+        = f.label :duration, 'Durata', class: 'control-label duration-label'
+        .controls
+          .input-prepend
+            %span.add-on
+              %i.icon-time
+            = f.input_field :duration, id: 'service_pricing_level_duration_value', class: 'input-mini validate', value: f.object.duration_in_minute, min: 1, placeholder: 'minuti', dom: 'duration'
+    - if params[:composed].blank? and !f.object.is_composed
+      .control-group
+        = f.label :discount_price, 'Prezzo scontato', class: 'control-label sale-price-label'
+        .controls
+          .input-prepend
+            %span.add-on €
+            = f.input_field :discount_price, as: :decimal, value: (f.object.discount_price.to_f.try(:zero?) ? nil : f.object.discount_price), id: 'service_pricing_level_sale_price', class: 'input-mini', min: 0
+
+      .service_discount_valid
+        .control-group
+          = f.label :discount_valid_from, 'Validit&agrave; sconto'.html_safe, class: 'control-label'
+          .controls.input-daterange
+            .input-prepend
+              %span.add-on dal
+              = f.input_field :discount_valid_from, as: :string, value: f.object.discount_valid_from.try(:strftime, '%d-%m-%Y'), id: 'service_discount_valid_from', class: 'input-small service_discount_valid_from', style: 'position: relative; z-index: 2000'
+            
+            .input-prepend
+              %span.add-on al
+              = f.input_field :discount_valid_to, as: :string, value: f.object.discount_valid_to.try(:strftime, '%d-%m-%Y'), id: 'service_discount_valid_to', class: 'input-small service_discount_valid_to', style: 'position: relative; z-index: 2000'
+
+      .control-group
+        .control-label
+        .controls
+          = link_to '+ Aggiungi una variante', 'javascript:void(0)', id: 'new-service-pricing-link'

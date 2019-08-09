@@ -1,0 +1,32 @@
+.actions{"style"=>"float: left #{if booking.notes.present?}"}
+  %table.actions
+    %tbody
+      %tr
+        %td.first Trattamento
+        %td.second= booking.treatment.des_treatment
+      %tr
+        %td.first Operatore
+        %td.second = booking.operator.operator_name
+      %tr
+        %td.first Durata
+        %td.second= "#{fixnum_to_date(booking.start).strftime('%H:%M')} - #{fixnum_to_date(booking.end).strftime('%H:%M')} (#{booking.duration / 60} min)"
+      %tr
+        %td.first Prezzo
+        %td.second= "&euro; #{booking.price}"
+
+= notes_field(@booking.notes)
+
+.buttons{"style"=>"clear:left"}
+  - if hide_buttons
+    %a{"class"=>"btn actions-a event-link", "data-remote"=>"true", "href"=>"/bookings/#{booking.id}"}
+      %i.icon-edit style="padding-right: 7px;"
+      Visualizza
+  - else
+    = link_to edit_booking_path(booking.id), class: 'btn-flat primary actions-a event-link', remote: true
+      %i.icon-edit{"style"=>"padding-right: 0px;"}
+      Modifica
+
+    .btn-group   
+      = link_to confirm_delete_path(booking.id, status: 'cancelled'), class: 'btn btn-danger', method: :delete, remote: true
+        %i.icon-trash style="padding-right: 0px;"
+        Elimina

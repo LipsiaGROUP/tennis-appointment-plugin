@@ -1,0 +1,26 @@
+.control-group.string.optional.employee_first_name
+  %label.string.optional.control-label  Nome
+  .controls
+    = f.text_field :operator_name, id: 'edit_operator_name', dom: 'name'
+
+.control-group.string.optional.employee_mobile_number
+  %label.string.optional.control-label  Cellulare
+  .controls
+    = f.text_field :mobile, id: 'edit_mobile', data: { :'default-country' => 'it' }
+
+.control-group.email.optional.employee_email
+  %label.email.optional.control-label  Email
+  .controls
+    = f.text_field :email, id: 'edit_email'
+
+.control-group.email.optional.employee_picture
+  %label.string.optional.control-label Foto
+  - if f.object.avatar.present?
+    = image_tag f.object.avatar.thumb.url, style: 'margin-left: 9%;margin-bottom: 10px;'
+  .controls
+    = f.file_field :avatar, id: 'edit_avatar', validate: false
+
+.control-group.email.optional.employee_description
+  %label.string.optional.control-label Bio
+  .controls
+    = f.text_area :description, id: 'edit_description'

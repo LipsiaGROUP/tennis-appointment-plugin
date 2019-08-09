@@ -1,0 +1,5 @@
+removeLoadingOverlay();
+$('#blockTime .new-block-form').html("<%= j render 'busy_time_form' %>");
+$("#blockTime .modal-header h3").text('Modifica')
+initializeBusyTimeForm();
+$('#blockTime').modal({ backdrop: 'static', keyboard: false });

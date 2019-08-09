@@ -1,0 +1,25 @@
+.alert.alert-info
+  %i.icon-info-sign
+  I clienti non potranno prenotare trattamenti per i giorni della chiusura.
+
+= form_for @closed_date, html: { id: 'new_closed_date', class: 'form-horizontal new_closed_date' } do |f|
+  .modal-body
+    .control-group.string.optional.closed_date_start_date
+      = f.label :start, 'Data di Inizio', class: 'control-label', for: 'closed_date_start_date'
+      .controls
+        = f.text_field :start, id: 'closed_date_start_date', placeholder: 'Scegli la data di inizio', value: (Time.at(@closed_date.start).strftime('%d-%m-%Y') unless @closed_date.new_record?)
+
+    .control-group.string.optional.closed_date_end_date
+      = f.label :end, 'Data di fine', class: 'control-label', for: 'closed_date_end_date'
+      .controls
+        = f.text_field :end, id: 'closed_date_end_date', placeholder: 'Scegli la data di fine', value: (Time.at(@closed_date.end).strftime('%d-%m-%Y') unless @closed_date.new_record?)
+
+    .control-group.text.optional.closed_date_description
+      = f.label :description, 'Descrizione', class: 'control-label', for: 'closed_date_description'
+      .controls
+        = f.text_field :description, as: :text, id: 'closed_date_description'
+            
+  .modal-footer
+    %button.btn.modal_close{"aria-hidden"=> "", "data-dismiss"=>"modal"} Annulla
+    %button.btn.btn-primary{"onclick"=>"validateClosedDateForm(event);"} Salva
+

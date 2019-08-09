@@ -1,0 +1,21 @@
+#staff.tab-pane
+  - if @operators
+    .select-all-items
+      .alert.alert-info
+        %i.icon-info-sign
+        Seleziona gli operatori che possono eseguire questo trattamento
+      %label.checkbox
+        Tutti
+        %input#all_employees{type: "checkbox", value: "1"}
+
+    %ul.list.employees-list-small
+      - @operators.each do |operator|
+        %li.clearfix
+          .check-this
+            = check_box_tag 'service[operator_ids][]', operator.operator_id, @current_operator_ids.include?(operator.operator_id)
+          .thumb
+            = image_tag 'mio/operatore-small.png'
+          .info
+            = operator.operator_name
+  - else
+    %p Nessun operatore esistente.

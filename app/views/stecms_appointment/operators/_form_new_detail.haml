@@ -1,0 +1,14 @@
+.control-group.string.optional.employee_first_name
+  %label.string.optional.control-label  Nome
+  .controls
+    = f.text_field :operator_name, class: 'validate'
+
+.control-group.string.optional.employee_mobile_number
+  %label.string.optional.control-label  Cellulare
+  .controls
+    = f.text_field :mobile, data: { :'default-country' => 'it' }
+
+.control-group.email.optional.employee_email
+  %label.email.optional.control-label email
+  .controls
+    = f.text_field :email, as: :email

@@ -1,0 +1,57 @@
+=render layout: "stecms_appointment/shared/panel" do
+
+  =render_card_box title: "Service", collapse: false do
+    = link_to StecmsAppointment::Engine.routes.url_helpers.new_service_path, id: 'new-treatment-button3', class: 'btn-flat success pull-right event-link', remote: true do
+      %i.fa.fa-paper-plane
+      Nuovo Trattamento
+
+    = link_to StecmsAppointment::Engine.routes.url_helpers.new_service_path(composed: true), id: 'new-treatment-button3', class: 'btn-flat success pull-right event-link', style: 'margin-right: 15px', remote: true do
+      %i.fa.fa-paper-plane
+      Nuovo Trattamento composto
+
+    .table-responsive
+      %table.table.table-condensed.mt-3
+        %thead
+          %tr
+            %th= "Title"
+            %th= "Duration"
+            %th= "Price"
+            %th
+
+        %tbody
+          - if @collection.present?
+            - @collection.each do |item|
+              %tr{id: "service-#{item.id}"}
+                %td=item.title
+                %td=item.duration_in_minute
+                %td=item.price
+                %td
+                  =link_to t("admin.words.edit"), StecmsAppointment::Engine.routes.url_helpers.edit_service_path(item), class: 'mr-2 edit-treatment-btn', remote: true
+                  =link_to t("admin.words.delete"), StecmsAppointment::Engine.routes.url_helpers.service_path(item), method: :delete, class: 'text-danger', data: { confirm: t("admin.rpush_web.settings.index.delete") }
+
+= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js'
+= javascript_include_tag "stecms_appointment/treatments"
+= javascript_include_tag 'cocoon'
+
+
+- content_for :css_head do
+  = stylesheet_link_tag 'stecms_appointment/treatments'
+
+#newService.treatment.modal.hide
+  .modal-header
+    %button.close.modal_close{"aria-hidden"=> "true", "data-dismiss"=>"modal"} &times;
+    %h3 Nuovo Trattamento
+  .new-form
+
+#editService.treatment.modal.hide
+  .modal-header
+    %button.close.modal_close{"aria-hidden"=> "true", "data-dismiss"=>"modal"} &times;
+    %h3 Modifica Trattamento
+  .edit-form
+
+#new-service-pricing-level.modal.hide
+  .modal-header
+    %button.close{"aria-hidden"=> "true", "data-dismiss"=>"modal"} &times;
+    %h3 Aggiungi nuova variante
+
+  .new-variant-form

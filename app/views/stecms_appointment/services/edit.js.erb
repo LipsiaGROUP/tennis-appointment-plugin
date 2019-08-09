@@ -1,0 +1,9 @@
+$('.edit-form').html("<%= j render 'form' %>");
+$('.new-variant-form').html("<%= j render 'variant' %>");
+$('#editService.modal').modal({ backdrop: 'static', keyboard: false});
+removeLoadingOverlay();
+$("input[type=number].decimal").each(function (index, value){
+  var formattedVal = parseFloat($(this).val()).toFixed(2)
+  $(this).val(formattedVal);
+});
+initializeServiceForm();

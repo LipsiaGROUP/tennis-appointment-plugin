@@ -1,0 +1,28 @@
+=render layout: "stecms_appointment/shared/panel" do
+  =render_card_box title: "Setting", collapse: false do
+    = simple_form_for @setting, method: :put do |f|
+      .span9
+        .inputs
+          .control-group.string.optional.provider_rounding
+            = f.label :rounding, "Arrotondamento dell'orario appuntamenti", class: 'control-label'
+            .controls
+              = f.input_field :rounding, as: :select, collection: StecmsAppointment::SettingsHelper::ROUNDING
+
+          .control-group.string.optional.provider_colore_rounding
+            = f.label :booking_next_fifteen, "Consentire la prenotazione nei prossimi quindici minuti", class: 'control-label'
+            .controls
+              = f.input :booking_next_fifteen, as: :boolean, label: 'permettere'
+        .inputs
+          .control-group.string.optional.provider_email_addresses
+            %label.string.optional.control-label Paypal email
+            .controls
+              = f.input_field :paypal_email
+        .inputs
+          .control-group
+            = f.label :accepted_payment_options, "Opzioni di pagamento accettate", class: 'control-label'
+            .controls
+              = f.collection_check_boxes :accepted_payment_options, [["in_salon", "In salone"],["electronic_card", "Carta di credito"]], :first, :last, checked: lambda {|v| (f.object.accepted_payment_options.include? v.first) rescue nil } 
+          %br
+          .span6
+            .pull-right
+              = f.submit 'Salva modifiche', class: 'btn btn-primary'

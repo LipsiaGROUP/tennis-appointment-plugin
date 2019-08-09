@@ -1,0 +1,112 @@
+/* WIZARD */
+#wizard {
+    max-width: 800px;
+    margin: 0 auto;
+}
+#wizard h1 {
+    text-align: center;
+    text-transform: uppercase;
+    float: none;
+    padding: 60px 0 30px;
+}
+#wizard hr {
+    margin:50px 0 0;
+}
+#wizard p {
+    clear:left;
+}
+#wizard .subtitle {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.text-center {
+    text-align: center;
+}
+.text-left {
+    text-align: left !important;
+}
+.btn-big {
+    width:250px;
+    line-height: 40px;
+    font-size: 20px;
+    margin-top: 50px;
+    text-transform: uppercase;
+    height: 40px;
+}
+button.btn-big {
+    box-sizing: initial;
+}
+.btn-default.btn-big {
+    font-size: 15px;
+}
+.spaziatore {
+    height:30px;
+}
+#wizard .schedule.provider-schedule {
+    margin:0 auto;
+}
+#wizard .hours-tip-day,
+#wizard .hours-tip-evening {
+    font-size: 15px;
+    text-align: center;
+}
+#wizard .schedule.provider-schedule th,
+#wizard .schedule.provider-schedule td{
+    text-align: center ;
+}
+#wizard .schedule.provider-schedule input[type='checkbox'] {
+    vertical-align: top;
+}
+#wizard .schedule.provider-schedule select {
+    display: inline;
+}
+#lista-operatori {
+    width: 100%;
+    float: left;
+}
+#lista-operatori li{
+    float: left;
+    width:47%;
+    list-style-type: none;
+    border:1px solid #ebebe6;
+    margin-right: 1%;
+    margin-bottom: 1%;
+    position: relative;
+}
+#lista-operatori a {
+    float: left;
+    width:98%;
+    padding:1%;
+    color:#4a4a4a;
+}
+#lista-operatori a:hover {
+    text-decoration: none;
+    background: #f5f5f0;
+}
+#lista-operatori img {
+    width: 100px;
+    height: 100px;
+    float:left;
+    margin-right: 10px;
+}
+#lista-operatori span.operator-name {
+    display: block;
+    font-weight: bold;
+    height: 100px;
+    line-height: 100px;
+}
+#wizard .btn-default.btn-big {
+    margin-top: 0;
+}
+
+#wizard .provider_short_des label,
+#wizard .provider_description label {
+    width: 500px;
+    margin: 0 auto 20px;
+    font-weight: 500;
+    font-size: 15px;
+}
+.char-count-container {
+    width: 510px;
+    margin: 0 auto;
+}

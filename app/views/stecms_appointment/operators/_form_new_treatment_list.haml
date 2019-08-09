@@ -1,0 +1,17 @@
+.select-all-items
+  .alert.alert-info
+    %i.icon-info-sign
+    Assegna all'operatore i trattamenti a cui &egrave; abilitato
+  %label.checkbox
+    Tutti
+
+    %input#all_services{"name" => "all_services", "type"=> "checkbox", "value"=>"1"}
+    
+%ul.list.employees-list-small{style: "overflow:auto;height: 280px;"}
+  - if @services
+    - @services.each do |service|
+      %li.clearfix
+        .check-this
+          = check_box_tag 'operator[service_ids][]', service.id, @current_service_ids.include?(service.id)
+        .info
+          = service.title.html_safe

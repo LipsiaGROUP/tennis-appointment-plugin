@@ -1,0 +1,14 @@
+removeLoadingOverlay();
+
+$('#new-booking').modal('hide');
+$('.new-form').html("<%= j render 'form' %>");
+$('#newAppointment').modal({ backdrop: 'static', keyboard: false });
+$('#service_booking_location_id').val(selectedLocation);
+
+initializeServiceForm();
+
+$('body').append("<%= j render 'customer_new', is_remote: true %>");
+
+initializeCustomerForm();
+
+setBookingDateTime('service');

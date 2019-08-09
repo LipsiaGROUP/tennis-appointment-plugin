@@ -1,0 +1,15 @@
+#cancel-modal.modal.hide
+  .modal-header
+    button.close.modal_close aria-hidden="true" data-dismiss="modal" &times;
+    h3 Elimina Trattamento
+
+  .delete-form
+    .modal-body dom="delete"
+      h4 Il seguente trattamento sar&agrave; eliminato::
+      span dom="detail"
+
+    .modal-footer
+      button.btn.modal_close aria-hidden="true" data-dismiss="modal" Annulla
+      = link_to '#', class: 'btn btn-danger', dom: 'delete_treatment', data: { method: 'delete' }
+        i.icon-trash
+        | &nbsp;Elimina Trattamento

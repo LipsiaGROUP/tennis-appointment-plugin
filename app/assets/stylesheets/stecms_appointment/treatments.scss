@@ -1,0 +1,31 @@
+#newService, #editService {
+  top: 1%;
+}
+
+.modal-body {
+  max-height: 505px !important;
+}
+
+.input-service {
+  font-size: 14px;
+  width: 300px ;
+}
+
+.btn-save {
+  float:right;
+  margin-left:10px;
+}
+
+.service_discount_valid_from, .service_discount_valid_to,
+.service_discount_public_from, .service_discount_public_to {
+  position:relative;
+  z-index:2000;
+}
+
+.check-this .checkbox label{
+  margin-left: 20px;
+}
+
+.modal, .modal * {
+  box-sizing: initial !important;
+}

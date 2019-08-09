@@ -1,0 +1,45 @@
+=render layout: "stecms_appointment/shared/panel" do
+
+  =render_card_box title: "Closed date", collapse: false do
+    =link_to StecmsAppointment::Engine.routes.url_helpers.new_closed_date_path, class: 'btn btn-primary btn-sm event-link', id: 'new_operator_button', remote: true do
+      %i.fa.fa-paper-plane
+      =t("admin.words.new")
+
+    .table-responsive
+      %table.table.table-condensed.mt-3
+        %thead
+          %tr
+            %th= "Description"
+            %th= "Date"
+            %th= "Range"
+            %th
+
+        %tbody
+          - if @collection.present?
+            - @collection.each do |item|
+              %tr{id: "operator-#{item.id}"}
+                %td=item.description
+                %td=date_range(item)
+                %td=item.number_of_day_label
+                %td
+                  =link_to t("admin.words.edit"), StecmsAppointment::Engine.routes.url_helpers.edit_closed_date_path(item), class: 'mr-2', remote: true
+
+= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js'
+= javascript_include_tag 'stecms_appointment/salon_closed_dates'
+
+
+- content_for :css_head do
+  = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker3.min.css"
+
+#newClosedDate.modal.hide
+  .modal-header
+    %button.close.modal_close{"aria-hidden"=> "true", "data-dismiss"=>"modal"} &times;
+    %h3 Aggiungi Chiusura
+  .new-form
+
+#editClosedDate.modal.hide
+  .modal-header
+    %button.close.modal_close{"aria-hidden"=> "true", "data-dismiss"=>"modal"} &times;
+    %h3 Modifica Chiusura
+
+  .edit-form

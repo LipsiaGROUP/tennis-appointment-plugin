@@ -1,0 +1,259 @@
+.nav > .new-bookings.new-bookonline-notice > a {
+    color:#ffd659;
+}
+.new-bookings.new-bookonline-notice > a {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+    animation-iteration-count:infinite;
+    -webkit-animation-iteration-count:infinite;
+}
+@-webkit-keyframes pulse {
+    0% { text-shadow:0px 0px 0px #ffd659; }
+    50% { text-shadow:0px 0px 30px #ffd659; }
+    100% { text-shadow:0px 0px 0px #ffd659; }
+}
+@keyframes pulse {
+    0% { text-shadow:0px 0px 0px #ffd659; }
+    50% { text-shadow:0px 0px 30px #ffd659; }
+    100% { text-shadow:0px 0px 0px #ffd659; }
+}
+.new-bookings.new-bookonline-notice > a {
+    -webkit-animation-name: pulse;
+    animation-name: pulse;
+}
+
+#salonist-update-calendar {
+    top:4px;
+    opacity:0;
+    color:#91838b;
+    margin-right:30px;
+}
+#salonist-update-calendar img {
+    margin-right:10px;
+}
+.customer-list.customer-details-left.span12.customer-notes {
+    margin-left:0;
+}
+.customer-list.customer-details-left.span12.customer-notes li {
+    padding-top: 10px;
+    padding-bottom: 6px;
+    border-top: 1px solid #eee;
+}
+.char-count-container {
+    width:310px;
+    text-align:right;
+    font-size:.8em;
+}
+ul.customers {
+    min-width:180px
+}
+#import_manual input {
+    width:auto;
+    max-width:none
+}
+#import_excel td.success {
+    color:#468847
+}
+#import_excel td.error select,
+#import_excel td.error {
+    color:#b94a48
+}
+
+.sale-price-label {
+    width: 100px !important;
+    padding-right: 5px
+}
+.duration-label,
+.price-label {
+    padding-right: 5px
+}
+th.booking-notes,
+td.booking-notes {
+    max-width:180px;
+}
+td.booking-notes.readmore {
+    padding-right:20px;
+    margin-right:5px;
+    white-space:nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+td.booking-notes.readmore.truncated {
+    background: asset-url('stecms_appointment/plus2.png') no-repeat center right;
+}
+td.booking-notes.readmore.truncated.open {
+    background: asset-url('stecms_appointment/minus.png') no-repeat center right;
+    white-space: normal;
+    overflow: auto;
+    text-overflow: clip;
+}
+.table-hover tbody tr:hover>td,
+.table-hover tbody tr:hover>th {
+    background-color: #f7f7f7 !important;
+}
+
+table.schedule.employee-schedule {
+    margin-top:10px;
+}
+.hours-tip-day,
+.hours-tip-evening {
+    border-top:1px solid #ebebe6 !important;
+    border-bottom:1px solid #ebebe6;
+}
+.hours-tip-day {
+    color:#F65C5C
+}
+.hours-tip-evening {
+    color:#91838b
+}
+
+
+/* PLACEHOLDERS */
+
+#service-pricing input::-webkit-input-placeholder {
+    font-size:12px;
+    color:#91838b;
+}
+#service-pricing input:-moz-placeholder { /* Firefox 18- */
+    font-size:12px;
+    color:#91838b;
+}
+#service-pricing input::-moz-placeholder {  /* Firefox 19+ */
+    font-size:12px;
+    color:#91838b;
+}
+#service-pricing input:-ms-input-placeholder {
+    font-size:12px;
+    color:#91838b;
+}
+#service-pricing input[placeholder] {
+    font-size:12px;
+    color:#91838b;
+}
+
+.bookings-table-legend {
+    font-size: 0.8em;
+}
+.bookings-table-legend span {
+    font-weight: bold;
+}
+.bookings-table-legend sup {
+    font-size: 1.2em;
+    top: -1px;
+}
+
+/* TAB-PROMO */
+.service_promo_days_active {
+    position: absolute;
+    margin-left: -9999px;
+    visibility: hidden;
+}
+.service_promo_days_active + label {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+}
+
+input.service_promo_days_active + label {
+    margin: 0;
+    padding: 0;
+    width: 60px;
+    height: 30px;
+    background-color: #cccccc;
+    border-radius: 30px;
+}
+input.service_promo_days_active + label:before,
+input.service_promo_days_active + label:after {
+    display: block;
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    bottom: 1px;
+    content: "";
+}
+input.service_promo_days_active + label:before {
+    right: 1px;
+    background-color: #eeeeee;
+    border-radius: 30px;
+    transition: background 0.4s;
+    content: 'OFF';
+    color: #fff;
+    font-weight: bold;
+    line-height: 30px;
+    text-indent: 30px;
+    font-size: 12px;
+    color:#b1b1b1;
+}
+input.service_promo_days_active + label:after {
+    width: 29px;
+    background-color: #fff;
+    border-radius: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: margin 0.4s;
+}
+input.service_promo_days_active:checked + label:before {
+    background-color: #93e3da;
+    content: 'ON';
+    color: #fff;
+    font-weight: bold;
+    line-height: 30px;
+    text-indent: 5px;
+    font-size: 13px;
+}
+input.service_promo_days_active:checked + label:after {
+    margin-left: 30px;
+}
+
+.reset-promo {display: none}
+/* TAB-PROMO - FINE */
+
+/* Altezza celle agenda in base a granularità del salone */
+.agenda-slots-10 .fc-agenda-slots td div,
+.agenda-slots-15 .fc-agenda-slots td div {
+    height: 20px;
+}
+.agenda-slots-30 .fc-agenda-slots td div {
+    height: 40px;
+}
+.agenda-slots-60 .fc-agenda-slots td div {
+     height: 80px;
+ }
+.agenda-slots-30 .fc-agenda .fc-agenda-axis,
+.agenda-slots-60 .fc-agenda .fc-agenda-axis {
+    vertical-align: top;
+}
+/* Altezza celle agenda - FINE */
+
+/* Device Prenotazione */
+.bookings-table .booking-device {
+    display: block;
+    margin: 0 auto;
+    width:40px;
+    height:40px;
+}
+.bookings-table .booking-device.android,
+.bookings-table .booking-device.ios,
+.bookings-table .booking-device.website,
+.bookings-table .booking-device.mobile {
+    background: asset-url('stecms_appointment/device/app-salonist.png') no-repeat center center transparent;
+}
+.bookings-table .booking-device.brera13-io,
+.bookings-table .booking-device.brera13-an {
+    background: asset-url('stecms_appointment/device/app-brera13.png') no-repeat 0 0 transparent;
+}
+.fc-event.bookonline.device-brera13-io .fc-event-skin,
+.fc-event.bookonline.device-brera13-an .fc-event-skin {
+    background-color: #4a4a4a;
+    color:#FBDE86;
+}
+.fc-event.fc-event-skin.fc-event-vert.fc-corner-top.fc-corner-bottom.bookonline.device-brera13-io,
+.fc-event.fc-event-skin.fc-event-vert.fc-corner-top.fc-corner-bottom.bookonline.device-brera13-an {
+    border-left: 3px solid #FBDE86;
+}
+/* Device Prenotazione - FINE */

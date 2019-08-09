@@ -1,0 +1,29 @@
+<% if @new_booking_events_hashes.present? || @new_removed_events_hashes.any? %>
+  if($('#salonist-update-calendar').length <= 0){
+    $('.fc-header-right').prepend(
+      '<span id=\"salonist-update-calendar\" class=\"fc-button\">'+
+        '<%= image_tag "stecms_appointment/select2-spinner.gif" %>'+
+        'aggiornamento agenda in corso...'+
+      '</span>'
+    );
+  }
+
+  $('#salonist-update-calendar').animate({ opacity: '1' }, 500).delay(2000).animate({ opacity: '0'}, 500);
+<% else %>
+  console.log('No events to be added or removed');
+<% end %>
+
+<% if @new_booking_events_hashes.present? %>
+  <% @new_booking_events_hashes.each do |event_hash| %>
+    var existingEvents = $('#booking_calendar').fullCalendar('clientEvents', '<%= event_hash[:id] %>');
+
+    if(existingEvents.length <= 0)
+      $('#booking_calendar').fullCalendar('renderEvent', <%= event_hash.to_json.html_safe %>);
+  <% end %>
+<% end %>
+
+<% if @new_removed_events_hashes.any? %>
+  <% @new_removed_events_hashes.each do |event_hash| %>
+    var events = $('#booking_calendar').fullCalendar('removeEvents', '<%= event_hash[:id] %>');
+  <% end %>
+<% end %>

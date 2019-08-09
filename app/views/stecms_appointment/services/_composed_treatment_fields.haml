@@ -1,0 +1,5 @@
+.nested-fields.composed-treatment-item{"style"=>"margin-top: 10px"}
+  = f.input_field :stecms_appointment_service_id, collection: @active_treatments, class: 'grouped_select', include_blank: false
+  = f.input_field :pause_time_minutes, placeholder: 'Tempo di pausa'
+  = link_to_remove_association "   rimuovi", f
+  %br

@@ -1,0 +1,11 @@
+removeLoadingOverlay();
+
+$('#editAppointment').modal('hide');
+$('#cancel-modal').modal({ backdrop: 'static', keyboard: false});
+$('[dom="descriptionExtended"]').html("<%= @description_extended %>");
+
+var bookingId = <%= @booking.id %>;
+var status = "<%= params[:status] %>"
+
+$('[dom="deleteBooking"]').attr('href', '/backend/stecms_appointment/bookings/update_status?id=' + bookingId + '&status=' + status);
+$('#booking_status').val(status);

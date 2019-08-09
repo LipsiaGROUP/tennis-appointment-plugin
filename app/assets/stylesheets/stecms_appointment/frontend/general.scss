@@ -1,0 +1,496 @@
+$md-radio-checked-color: #08d9f5;
+$md-radio-border-color: #08d9f5;
+$md-radio-size: 20px;
+$md-radio-checked-size: 10px;
+
+.box-shadow{
+  box-shadow:1px 3px 6px 0 rgba(0,0,0,0.18);
+}
+
+.booking-action-cancel{
+  background: #f9f6f6;
+  min-height: 150px;
+
+  .undo-cancel-booking-button{
+    color: #f65c5c;
+    text-decoration: none;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+
+  .feedback-cancel-booking{
+    display: none;
+  }
+
+  .btn-brown {
+    background: rgb(153, 153, 153) !important;
+    color: #fff;
+  }
+
+  form.cancel_booking{
+    label{
+      width: 100%;
+    }
+    input[type='radio']{
+      margin-right: 10px;
+    }
+
+    .cancel-submit-button{
+      text-transform: uppercase;
+    }
+  }
+}
+
+.booking-list{
+  .main-title{
+    color: #9B9B9B;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    width: 100%;
+  }
+
+  .list{
+    width: 100%;
+    a{
+      text-decoration: none;
+    }
+    .item{
+      color: #9B9B9B;
+      border-bottom: 1px solid #ccd3d9;
+      .treatment-detail-label{
+        width: 100%;
+        color: #D8D8D8;
+        font-size: 14px;
+
+        .active{
+          color: #10CBD2;
+        }
+      }
+    }
+  }
+}
+
+.booking-container{
+
+  .label-calendar{
+    font-size:18px;
+    color: #4D4C4C;
+    letter-spacing:0.02px;
+    text-align:left;
+    border-bottom: 1px solid #d8d8d8;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+
+  .detail-booking-wrapper{
+
+    .non-login-booking{
+
+      .label{
+        border-bottom: none;
+      }
+
+      .info{
+        background-color: #F5F5F0;
+        font-family: 'Open Sans Semibold';
+        color: #4A4A4A;
+        font-size: 14px;
+        font-style: italic;
+      }
+
+
+    }
+
+
+    .label{
+      font-size:18px;
+      color:#9b9b9b;
+      letter-spacing:0.02px;
+      text-align:left;
+      border-bottom:1px solid #d8d8d8;
+      padding-bottom: 1px;
+    }
+
+    .operatore-wrapper{
+      .name{
+        font-size:18px;
+        color:#4a4a4a;
+        letter-spacing:0.02px;
+        text-align:left;
+      }
+    }
+
+    .cost-wrapper{
+      .label{
+        border-bottom:none;
+      }
+
+      .price{
+        background:#f9f6f6;
+
+        .price-grey{
+          font-family: 'Open Sans Semibold';
+          color: #9B9B9B;
+        }
+
+        .value{
+          font-family: 'Open Sans Semibold';
+          font-size:16px;
+          color:#f65c5c;
+          line-height:21px;
+          text-align:left;
+        }
+      }
+    }
+
+    .salone-wrapper{
+      .name{
+        font-size:18px;
+        color:#4a4a4a;
+        letter-spacing:0.02px;
+        text-align:left;
+      }
+
+      .address{
+        font-size:14px;
+        color:#9b9b9b;
+        letter-spacing:0.01px;
+        text-align:left;
+      }
+    }
+
+    .treatment-wrapper{
+      .name{
+        font-family: 'Open Sans Semibold';
+        font-size:21px;
+        color:#4a4a4a;
+        letter-spacing:0.02px;
+        line-height:20px;
+        text-align:left;
+      }
+
+      .duration{
+        font-size:14px;
+        color:#9b9b9b;
+        letter-spacing:0.01px;
+        text-align:left;
+      }
+    }
+  }
+}
+
+
+
+.swiper-container-month{
+
+  .swiper-month{
+    width: 1px;min-width: 100%;
+  }
+
+  .month-slider-item{
+    width: 90%;
+    border: 2px solid #D7D7D7;
+    background-color: #FFFFFF;
+    text-align: center;
+    border-radius: 5px;
+
+    a{
+      color: #D7D7D7;
+    }
+  }
+
+  .active{
+    background-color: #00CED4;
+    border: 2px solid #00CED4;
+
+    a{
+      color: #FFF;
+    }
+  }
+}
+
+.swiper-container-date{
+  margin-top: 10px;
+
+  .swiper-date{
+    width: 1px;min-width: 100%;
+  }
+
+  .date-slider-item{
+    background-color: #FFFFFF;
+    text-align: center;
+    border-radius: 5px;
+    color: #D7D7D7;
+
+    .text-day{
+      color: #9B9B9B;
+      text-align: left;
+      margin-left: 19%;
+      margin-top: 10px;
+      margin-bottom: -9px;
+    }
+
+    .text-date{
+      font-size: 53px;
+      text-align: center;
+      color: #9B9B9B;
+      font-family: 'Open Sans Light';
+    }
+  }
+
+  .active{
+    background-color: #00CED4;
+    border: none;
+
+    .text-day, .text-date{
+      color: #FFF;
+    }
+  }
+}
+
+.swiper-container-operator{
+  margin-top: 10px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #F5F5F0;
+
+  .swiper-operators{
+    width: 1px;min-width: 100%;
+  }
+
+  .operator_title{
+    font-family: 'Open Sans Semibold';
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .operator-slider-item{
+    width: 90%;
+    border: 2px solid #D7D7D7;
+    background-color: #FFFFFF;
+    height: 2.9rem;
+    line-height: 2.9rem;
+    text-align: center;
+    border-radius: 5px;
+
+    .hour-slide-item{
+      color: #D7D7D7;
+    }
+  }
+
+  .active{
+    background-color: #00CED4;
+    border: 2px solid #00CED4;
+
+    .hour-slide-item{
+      color: #FFF;
+    }
+  }
+}
+
+
+ul{
+  list-style: none;
+}
+
+
+#salonist-payment-tabs li {
+  float: left;
+  width: 50%;
+  padding: 20px 0;
+}
+
+.md-radio {
+  
+  &.md-radio-inline {
+    display: inline-block;
+  }
+
+  input[type="radio"] {
+    display: none;
+    &:checked + label:before {
+      border-color: $md-radio-checked-color;   
+    }
+    &:checked + label:after {
+      transform: scale(1);
+    }
+  }
+  
+  label {
+    display: inline-block;
+    height:$md-radio-size;
+    position: relative;
+    padding: 0 ($md-radio-size + 10px);
+    margin-bottom: 0;
+    cursor: pointer;
+    vertical-align: bottom;
+    font-size:16px;
+    color:#4a4a4a;
+    &:before, &:after {
+      position: absolute;            
+      content: '';  
+      border-radius: 50%;
+      transition: all .3s ease;
+      transition-property: transform, border-color;
+    }
+    &:before {
+      left: 0;
+      top: 0;
+      width: $md-radio-size;
+      height: $md-radio-size;
+      border: 2px solid $md-radio-border-color;
+    }
+    &:after {
+      top: 3px;
+      left: 3px;
+      width:14px;
+      height:14px;
+      transform: scale(0);
+      background:$md-radio-checked-color;
+    }
+  }
+}
+
+input[type="submit"]{
+  width: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 14px;
+  background: #fff;
+  width: 30%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.back-button{
+  font-size:18px;
+  color:#9b9b9b;
+  letter-spacing:0.02px;
+  text-align:center;
+  border:2px solid #9b9b9b;
+  border-radius:5px;
+}
+
+.thanks-page{
+  background-repeat:no-repeat; 
+  background-image: linear-gradient(90deg, #FFFFFF 50%, #FFFFFF 50%), linear-gradient(90deg, #FFFFFF 1%, #f9f6f6 99%);
+  background-position: 0 0, 0 0;
+  background-size: auto 60px, auto;
+
+  .thanks-wrapper{
+    .headline{
+      h1{
+        font-family: 'PlayfairDisplay-Bold';
+        font-size:36px;
+        color:#f65c5c;
+        letter-spacing:0.02px;
+        text-align:left;
+      }
+    }
+
+    .booking-info{
+      font-family: 'Open Sans Semibold';
+      color:#4a4a4a;
+      letter-spacing:0.02px;
+      text-align:left;
+
+      .salon-name{
+        font-size:18px;
+      }
+
+      .salon-address{
+        font-family: 'Open Sans';
+        font-size:14px;
+        color:#9b9b9b;
+      }
+
+      .total{
+        .text{
+          font-size: 16px;
+          font-style: italic;
+        }
+        .number{
+          color: #F65C5C;
+          font-family: 'Open Sans Bold';
+          font-size: 18px;
+        }
+
+        .pay-info{
+          font-family: 'Open Sans';
+          font-size:14px;
+          color:#4a4a4a;
+        }
+        
+      }
+
+      .pay-info{
+        font-size:14px;
+      }
+
+      .light-text{
+        font-family: 'Open Sans Light';
+      }
+    }
+  }
+
+}
+
+.booking-action-text{
+  font-style: italic;
+  font-size:16px;
+  color:#4a4a4a;
+  letter-spacing:0.01px;
+  text-align:left;
+}
+
+.booking-action-wrapper{
+  a{
+    font-size: 16px;
+  }
+}
+
+.review-form-wrapper{
+
+  .title{
+    font-size: 18px;
+    color: #9b9b9b;
+    letter-spacing: 0.02px;
+    text-align: left;
+    border-bottom: 1px solid #d8d8d8;
+    padding-bottom: 1px;  
+  }
+
+  #review_rules{
+    border-left: 1px solid #e6e9e9;
+  }
+
+}
+
+
+@media (max-width: 800px) {
+  .back-button{
+    font-size: 14px;
+  }
+
+  .booking-action-wrapper{
+    a{
+      font-size: 12px;
+    }
+  }
+
+  .thanks-page .thanks-wrapper .headline h1 {
+    font-size: 24px;
+  }
+}
+

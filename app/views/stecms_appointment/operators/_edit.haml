@@ -1,0 +1,40 @@
+.modal-header
+  %button.close{"aria-hidden"=> "true", "data-dismiss"=>"modal"} &times;
+  %h3 Modifica Operatore
+
+.edit_employee_form
+  = form_for @operator,  html: { id: 'edit_employee', class: 'form-horizontal new_employee', multipart: true, remote: false, data: { validate: true } } do |f|
+    = f.hidden_field :id
+    .modal-body
+      %ul#employeeTab.nav.nav-tabs{style: "margin-bottom: 20px;"}
+        %li.active
+          %a{"data-toggle" => "tab", "href" => "#editGeneral"}
+            %i.icon-book
+            Dettagli
+        %li
+          %a{"data-toggle" => "tab", "href" => "#editSchedule"}
+            %i.icon-time
+            Orari
+        %li
+          %a{"data-toggle" => "tab", "href" => "#editServices"}
+            %i.icon-signal
+            Trattamenti
+        
+      .tab-content
+        #editGeneral.tab-pane.active
+          = render 'form_edit_detail', f: f
+
+        #editSchedule.tab-pane
+          Imposta gli orari per questo operatore, questi orari determinano la disponibilit&agrave; in agenda.
+          = render 'form_edit_schedule', f: f
+                    
+        #editServices.tab-pane
+          = render 'form_edit_treatment_list', f: f
+          
+    .modal-footer
+      %button.btn{"aria-hidden" => "", "data-dismiss" => "modal"} Annulla
+      %button.btn.btn-primary{"onclick" => "$('.form-horizontal').enableClientSideValidations();"}  Salva
+      .pull-left
+        = link_to 'javascript:void(0)', class: 'btn btn-danger delete-operator' do
+          %i.icon-trash
+          Elimina

@@ -1,0 +1,62 @@
+:css
+  table td { padding: 5px; }
+  
+.modal-body
+  %ul#viewServiceAppointmentTab.nav.nav-tabs
+    %li.active
+      %a{"data-toggle"=>"tab", "href"=>"#details"} 
+        %i.icon-book 
+        Dettagli Appuntamento
+    %li
+      %a{"data-toggle"=>"tab", "href"=>"#notes"} 
+        %i.icon-user 
+        Note
+
+  .tab-content
+    #details.tab-pane.active
+      %table{"style"=>"font-family: Arial, sans-serif; font-size: 0.95em;height: 20px; line-height: 20px;"} 
+        %tr
+          %td{"style"=>"font-size: 0.95em; font-weight: bold"}
+            Cliente
+          %td
+            - if @booking.customer
+              = link_to mio_detail_customers_path(id: @booking.user_id)
+                = @booking.customer.full_name if @booking.customer
+            - else
+              Occasionale
+
+          %td{"style"=>"font-size: 0.95em; font-weight: bold;padding-left: 60px"} Trattamento
+          %td = @booking.treatment.des_treatment
+        %tr
+          %td{"colspan"=>"3"} 
+        %tr
+          %td{"style"=>"font-size: 0.95em; font-weight: bold"} Ora
+          %td = @booking.start_date.strftime('%H:%M')
+          %td{"style"=>"font-size: 0.95em; font-weight: bold;padding-left: 60px"} Data
+          %td = @booking.start_date.strftime('%Y-%m-%d')
+        %tr
+          %td{"colspan"=>"3"} 
+        %tr
+          %td{"style"=>"font-size: 0.95em; font-weight: bold"} Operatore
+          %td = @booking.operator.operator_name if @booking.operator
+          %td{"style"=>"font-size: 0.95em; font-weight: bold;padding-left: 60px"} Prezzo
+          %td
+            | &euro;&nbsp;
+            = @booking.price
+        %tr
+          %td{"colspan"=>"3"} 
+        %tr
+          %td{"style"=>"font-size: 0.95em; font-weight: bold"} Tipologia
+          %td = @booking.customer ? 'ServiceBooking' : 'Occasionale'
+          %td{"style"=>"font-size: 0.95em; font-weight: bold;padding-left: 60px"} Stato
+          %td
+            %span.label class="appointment-status" 
+              = @booking.status
+
+    #notes.tab-pane
+      %table{"style"=>"font-family: Arial, sans-serif;font-size: 0.95em;height: 20px;line-height: 20px;"} 
+        %tr
+          %td = @booking.notes
+            
+.modal-footer
+  %button.btn{"aria-hidden"=>"true", "data-dismiss"=>"modal"} Chiudi

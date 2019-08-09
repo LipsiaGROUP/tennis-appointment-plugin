@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  paypal_email: MyString
+  paypal_clientid: MyString
+  calendar_blocktime_colore: MyString
+  calendar_specialcategory_colore: MyString
+  calendar_treatment_colore: MyString
+  accepted_payment_options: MyString
+  time_slots_granularity: MyString
+
+two:
+  paypal_email: MyString
+  paypal_clientid: MyString
+  calendar_blocktime_colore: MyString
+  calendar_specialcategory_colore: MyString
+  calendar_treatment_colore: MyString
+  accepted_payment_options: MyString
+  time_slots_granularity: MyString

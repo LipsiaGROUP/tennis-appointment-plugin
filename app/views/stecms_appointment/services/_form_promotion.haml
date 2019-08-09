@@ -1,0 +1,75 @@
+#promo.tab-pane
+  .alert.alert-info
+    %i.icon-info-sign{style: "float:left"}
+    %span{style: "display:block;overflow:hidden"}
+      Seleziona i giorni nei quali il trattamento &egrave; in promozione, indica il prezzo scontato e il periodo di validit&agrave; della promozione.
+      %br
+      Ricordati di cliccare
+      %strong &nbsp;Salva&nbsp;
+      quando hai finito!
+
+  .control-group.promo-variant-selection{style: "border-bottom:1px solid #eee;padding-bottom:10px"} 
+    %label.control-label Applica a:
+
+    .controls
+      = f.input_field :promo_variant, as: :select, collection: [['Entrambe le varianti', 0], ['Capelli medio-corti', 'short-hair'], ['Capelli lunghi-folti', 'long-hair']], id: 'service_promo_variant', selected: f.object.get_promo_variant, class: 'input-medium'
+
+  %ul.list.promo-days
+    - (0..6).each do |day_index|
+      %li.clearfix
+        .control-group.promo-day
+          %label.control-label
+            = days_of_week[day_index].html_safe
+
+          .controls
+            = hidden_field_tag "service[promotions_attributes][][day]", day_index
+          .controls
+            = check_box_tag "service[promotions_attributes][][is_active]", 1, @discount_per_day.try(:[], day_index).try(:present?), id: "service_promo_days_active_#{day_index}", class: 'service_promo_days_active cb-active-day'
+            %label{"for"=> "service_promo_days_active_#{day_index}"}
+
+        .control-group.promo-price
+          - standard_promo_price = @promo_ids_prices_per_day.try(:[], day_index).try(:[], :standard_promo_price)
+          - short_promo_price = @promo_ids_prices_per_day.try(:[], day_index).try(:[], :short_promo_price)
+          - long_promo_price = @promo_ids_prices_per_day.try(:[], day_index).try(:[], :long_promo_price)
+
+          = f.label :discount_type, 'Sconto', class: 'control-label'
+          
+          .controls
+            = select_tag "service[promotions_attributes][][discount_type]", options_for_select(::StecmsAppointment::ServicesHelper::DISCOUNT_TYPE, selected: @discount_per_day.try(:[], day_index).try(:[], :type)), class: 'input-mini service_promo_discount_type'
+            = text_field_tag "service[promotions_attributes][][discount_value]", @discount_per_day.try(:[], day_index).try(:[], :value), class: 'input-mini service_promo_days_price', min: 0, type: 'number'
+            %button.btn.btn-primary.btn-lg.apply-promo{type: "button"} Mostra prezzo scontato
+            %button.btn.btn-lg.reset-promo{type: "button"} Reset
+
+        .promo-applied{class: "#{ 'hide' unless @discount_per_day.try(:[], day_index).present? }"}
+          .control-group.promo-applied-both-variant{class: "#{ 'hide' if short_promo_price.present? || long_promo_price.present? }"}
+            = f.label :discount_price, 'Prezzo finale', class: 'control-label'
+
+            .controls
+              = text_field_tag "service[promotions_attributes][][discount_price]", standard_promo_price, class: 'input-mini', readonly: true
+
+          .control-group.pull-left.promo-applied-short-hair{class: "#{ 'hide' if short_promo_price.nil? && long_promo_price.nil? }"}
+            = f.label :short_price, 'Capelli corti', class: 'control-label'
+            .controls
+              = hidden_field_tag "service[promotions_attributes][][short_price]", nil, class: 'promo-full-price', readonly: true
+              = text_field_tag "service[promotions_attributes][][discount_short_price]", short_promo_price, class: 'input-mini promo-discount-price', readonly: true
+
+          .control-group.promo-applied-long-hair{class: "#{ 'hide' if short_promo_price.nil? && long_promo_price.nil? }"}
+            = f.label :long_price, 'Capelli lunghi', class: 'control-label', style: 'margin-left:30px;'
+            .controls
+              = hidden_field_tag "service[promotions_attributes][][long_price]", nil, class: 'promo-full-price', readonly: true
+              = text_field_tag "service[promotions_attributes][][discount_long_price]", long_promo_price, class: 'input-mini promo-discount-price', readonly: true, style: 'margin-left:10px;'
+
+        .control-group.promo-date
+          = f.label :discount_valid_from, 'Validit&agrave;'.html_safe, class: 'control-label'
+
+          .controls.input-daterange
+            .input-prepend
+              %span.add-on dal
+              = text_field_tag "service[promotions_attributes][][discount_valid_from]", @discount_per_day.try(:[], day_index).try(:[], :valid_from), id: "treatment_promotions_attributes_#{day_index}_discount_valid_from", class: 'input-small service_promo_days_valid promo_from', style: 'position:relative;z-index:1100'
+
+            .input-prepend
+              %span.add-on al
+              = text_field_tag "service[promotions_attributes][][discount_valid_to]", @discount_per_day.try(:[], day_index).try(:[], :valid_to), id: "treatment_promotions_attributes_#{day_index}_discount_valid_to", class: 'input-small service_promo_days_valid promo_to', style: 'position:relative;z-index:1100'
+
+:javascript
+  initializeServiceForm();

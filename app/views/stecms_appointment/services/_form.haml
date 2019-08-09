@@ -1,0 +1,36 @@
+= simple_form_for @service, html: { id: 'new_service', class: 'form-horizontal new_service', remote: false } do |f|
+  .modal-body
+    %ul#serviceTab.nav.nav-tabs
+      - if params[:composed].blank?
+        %li.active
+          %a{"data-toggle"=>"tab", "href"=>"#details" }
+            %i.icon-book
+            Dettagli
+      - else
+        %li.active
+          %a{"data-toggle"=>"tab", "href"=>"#composito" }
+            %i.icon-book
+            Componi
+      - if params[:composed].blank?
+        %li
+          %a{"data-toggle"=>"tab", "href"=>"#staff" }
+            %i.icon-user
+            Operatori
+        %li
+          %a{"data-toggle"=>"tab", "href"=>"#promo" }
+            %i.icon-eur
+              %strong &euro;
+              Promozioni
+
+    .tab-content
+      = render 'form_detail', f: f
+      - if params[:composed].blank?
+        / tab Operator
+        = render 'form_operator', f: f
+        / tab promo
+        = render 'form_promotion', f: f
+        
+  /     /! TAB-PROMO FINE
+  .modal-footer
+    %button.btn.btn-primary.btn-save{"onclick"=>"validateServiceForm('.treatment', '#serviceTab')"} Salva
+    %button.btn.modal_close{"aria-hidden"=>"true", "data-dismiss"=>"modal"} Annulla

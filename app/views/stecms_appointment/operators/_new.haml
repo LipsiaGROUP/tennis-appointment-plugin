@@ -1,0 +1,39 @@
+#newEmployee.modal.hide{style: "width: 625px"}
+  .modal-header
+    %button.close{"aria-hidden"=> "true", "data-dismiss"=>"modal"} &times;
+    %h3 Nuovo Operatore
+
+  .employee_form
+    = form_for @operator, html: { id: 'new_employee', class: 'form-horizontal new_employee', data: { validate: true } } do |f|
+      
+      .modal-body
+        .notice
+        %ul#employeeTab.nav.nav-tabs{style: "margin-bottom: 20px;"}
+          %li.active
+            %a{"data-toggle" => "tab", "href" => "#newGeneral"} 
+              %i.icon-book
+              Dettagli
+          %li
+            %a{"data-toggle" => "tab", "href" => "#newSchedule"}
+              %i.icon-time
+              Orari
+          %li
+            %a{"data-toggle" => "tab", "href" => "#newServices"}
+              %i.icon-signal
+              Trattamenti
+          
+        .tab-content
+          #newGeneral.tab-pane.active
+            = render 'form_new_detail', f: f
+
+          #newSchedule.tab-pane
+            Imposta gli orari per questo operatore, questi orari determinano la disponibilitì in agenda.
+            = render 'form_new_schedule', f: f
+
+          #newServices.tab-pane
+            = render 'form_new_treatment_list', f: f
+
+      .modal-footer
+        %button.btn{"aria-hidden" => "", "data-dismiss" => "modal"} Annulla
+        %button.btn.btn-primary{"onclick" => "$('.form-horizontal').enableClientSideValidations();"}  Salva
+        .pull-left

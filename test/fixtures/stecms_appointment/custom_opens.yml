@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  start_date: MyString
+  end_date: MyString
+  time_open: MyString
+  time_closed: MyString
+
+two:
+  start_date: MyString
+  end_date: MyString
+  time_open: MyString
+  time_closed: MyString

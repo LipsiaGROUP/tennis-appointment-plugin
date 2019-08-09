@@ -1,0 +1,67 @@
+%form#new_service_pricing_level.simple_form.form-horizontal.new_service_pricing_level{"accept-charset"=>"UTF-8", "action"=>"#", "data-remote"=>"true", "data-validate"=>"true", "method"=> "post", "novalidate"=>"novalidate"}
+  %input#element_id{"name"=>"element_id", "type"=>"hidden"} 
+  
+  .modal-body
+    .control-group.select-variant-level
+      %label.control-label Variante
+      .controls
+        %select#pricing_level_id.pricing_level_id{"allow_blank"=>"false", "name"=>"pricing_level_id"}
+          %option{"value"=>"short-hair"} Capelli medio-corti
+          %option{"value"=>"long-hair"} Capelli lunghi-folti
+
+    .control-group.pull-left
+      %label.control-label.price-label Prezzo intero
+      .controls
+        .input-prepend
+          %span.add-on €
+          %input#service_pricing_level_price.service_pricing_level_price.input-mini{"min"=>"0", "name"=>"service_pricing_level_price", "type"=>"number"}
+
+    .control-group
+      %label.control-label.duration-label Durata
+      .controls
+        .input-prepend
+          %span.add-on
+            %i.icon-time
+          %input#service_pricing_level_duration_value.service_pricing_level_duration_value.numeric.integer.optional.input-mini.positive-integer{"min"=>"1", "name"=>"service_pricing_level[duration_value]", "step"=>"1", "type"=>"number"}
+
+    .control-group.hide
+      .controls
+        %select#service_pricing_level_duration_unit.duration-unit.hide{name: "service_pricing_level[duration_unit]" }
+          %option{"value"=>"1"} minuti
+          %option{"value"=>"2"} ore
+
+    .control-group
+      %label.control-label.sale-price-label Prezzo scontato
+      .controls
+        .input-prepend
+          %span.add-on €
+          %input#service_pricing_level_sale_price.service_pricing_level_sale_price.input-mini{"min"=>"0", "name"=>"service_pricing_level_sale_price", "type"=>"number"}
+
+    .service_discount_valid
+      .control-group
+        %label.string.optional.control-label Validit&agrave; sconto
+        .controls.input-daterange
+          .input-prepend
+            %span.add-on dal
+            %input.input-small.service_discount_valid_from{name: "service_discount_valid[from]", style: "position:relative;z-index:3000", type: "text"}
+          
+          .input-prepend
+            %span.add-on al
+            %input.input-small.service_discount_valid_to{name: "service_discount_valid[to]", style: "position:relative;z-index:3000", type: "text"}
+            
+      .control-group
+        %label.string.optional.control-label Visibilit&agrave; sconto
+        .controls.input-daterange
+          .input-prepend
+            %span.add-on dal
+            %input.input-small.service_discount_public_from{name: "service_discount_public[from]", style: "position:relative;z-index:3000", type: "text"}
+          | &nbsp;
+          .input-prepend
+            %span.add-on al
+            %input.input-small.service_discount_public_to{name: "service_discount_public[to]", style: "position:relative;z-index:3000", type: "text"}
+
+  .modal-footer
+    %button#new-service-pricing-level-button.btn.btn-primary{"onclick"=>"validateServicePricingLevelForm();", style: "float:right;margin-left:10px"} Salva
+    %button.btn{"aria-hidden"=>"true", "data-dismiss"=>"modal"} Annulla
+    #delete.pull-left
+      %a#delete-service-pricing-level.btn.btn-danger{href: "javascript:void(0)"} Elimina

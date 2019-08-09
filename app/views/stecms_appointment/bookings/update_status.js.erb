@@ -1,0 +1,15 @@
+removeLoadingOverlay();
+
+<% if params[:status].eql? 'cancelled' %>
+  $('#booking_calendar').fullCalendar( 'removeEvents', <%= @booking.id %> );
+  $('#cancel-modal').modal('hide');
+<% else %>
+	<% if @booking_event_hash.kind_of?(Hash) %>
+	  $.extend(curr_event, <%= @booking_event_hash.to_json.html_safe %>);
+	<% else %>
+		$('#booking_calendar').fullCalendar( 'removeEvents', <%= @booking.id %> );	
+		<% @booking_event_hash.each do |event| %>
+			$('#booking_calendar').fullCalendar( 'renderEvent', <%= event.to_json.html_safe %>);
+		<% end %>
+	<% end %>
+<% end %>

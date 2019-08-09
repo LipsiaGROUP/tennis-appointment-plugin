@@ -1,0 +1,33 @@
+=render layout: "stecms_appointment/shared/panel" do
+
+  =render_card_box title: "Operator", collapse: false do
+    =link_to 'javascript:void(0)', class: 'btn btn-primary btn-sm event-link', id: 'new_operator_button' do
+      %i.fa.fa-paper-plane
+      =t("admin.words.new")
+
+    .table-responsive
+      %table.table.table-condensed.mt-3
+        %thead
+          %tr
+            %th= "Name"
+            %th
+
+        %tbody
+          - if @collection.present?
+            - @collection.each do |item|
+              %tr{id: "operator-#{item.id}"}
+                %td=item.operator_name
+                %td
+                  =link_to t("admin.words.edit"), StecmsAppointment::Engine.routes.url_helpers.edit_operator_path(item), class: 'mr-2', remote: true
+
+
+- content_for :css_head do
+  = stylesheet_link_tag "stecms_appointment/operators"
+  / = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/15.0.2/css/intlTelInput.css"
+
+/ = javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/15.0.2/js/intlTelInput-jquery.min.js'
+= javascript_include_tag "stecms_appointment/operators"
+
+= render 'new'
+#editEmployee.modal.hide{style: "width: 625px"}
+= render 'delete'

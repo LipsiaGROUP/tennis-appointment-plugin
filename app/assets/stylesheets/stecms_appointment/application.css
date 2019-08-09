@@ -1,0 +1,41 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require stecms_appointment/application_b
+ *= require stecms_appointment/salonist
+ *= require stecms_appointment/salonist-wizard
+ *= require_self
+ */
+
+body {
+	font-weight: 0;
+}
+
+#provider_short_des, #provider_description, #provider_short_des_en, 
+#provider_short_des_en, #provider_description_en, #description_mobileapp {
+  width: 500px;
+}
+
+.remove-email, .add-new-email {
+  margin-left:20px;
+}
+
+.booking_popover {
+  position: absolute;
+}
+.fc-complete-sale {
+  display: none;
+}
+
+.fc-location{
+	display: none !important;
+}

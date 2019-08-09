@@ -1,0 +1,12 @@
+.check-this .checkbox label{
+  margin-left: 20px;
+}
+
+.schedule_select {
+  font-size: 13px;
+  font-family: 'Arial', 'sans-serif';
+}
+
+.employee-schedule input[type='checkbox'] {
+  margin-top: 4px;
+}

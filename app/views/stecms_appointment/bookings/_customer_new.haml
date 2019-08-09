@@ -1,0 +1,85 @@
+#newCustomer.modal.hide
+  .modal-header
+    %button.close{"aria-hidden"=>"true", "data-dismiss"=>"modal"} &times;
+    %h3 Nuovo Cliente
+  .new-form 
+    = simple_form_for @new_customer, url: customers_path, html: { id: 'new_customer', class: 'form-horizontal new_user', remote: is_remote, data: { validate: false } } do |f|
+      .modal-body
+        %ul#customerTab.nav.nav-tabs
+          %li.active
+            %a{"data-toggle"=>"tab", "href"=>"#customerDetails"} 
+              %i.icon-book
+              Dettagli
+          %li
+            %a{"data-toggle"=>"tab", "href"=>"#address"}
+              %i.icon-list
+              Indirizzo
+          %li
+            %a{"data-toggle"=>"tab", "href"=>"#customerNotes"} 
+              %i.icon-user
+              Note
+
+        .tab-content
+          #customerDetails.tab-pane.active
+            .control-group.string.optional.user_name
+              %label.string.optional.control-label{"for"=>"user_name"} Nome
+              .controls
+                = f.input_field :name, class: 'validate'
+
+            .control-group.email.optional.user_email
+              %label.email.optional.control-label{"for"=>"user_email"} e-mail
+              .controls
+                = f.input_field :email, class: 'validate'
+
+            .control-group.email.optional.user_password
+              %label.email.optional.control-label{"for"=>"customer_password"} Password
+              .controls
+                = f.input_field :password, maxlength: 15
+
+            .control-group.string.optional.user_contact_numbers
+              %label.string.optional.control-label{"for"=>"user_contact_numbers"} Cellulare
+              .controls
+                = f.input_field :cell, class: 'customer-cell'
+
+            .control-group.gender.user_gender
+              %abel.control-label{"for"=>"user_gender"} Sesso
+              .controls
+                #serviceGender.btn-group{"data-toggle"=>"buttons-radio"} 
+                  %button#male.btn{"class"=>"#{ 'active' if(f.object.gender.eql?('M') || f.object.gender.blank?)}", "data-value"=> "M", "type"=>"button"} Uomo
+                  %button#female.btn{"class"=>"#{ 'active' if f.object.gender.eql?('F') }", "data-value"=>"F", "type"=>"button"} Donna
+
+            .control-group.string.optional.user_birthday
+              %label.string.optional.control-label{"for"=>"customer_birthday"} Data di nascita
+              .controls
+                = f.input_field :birthday, as: :string, id: 'customer_birthday', class: 'string optional', placeholder: 'Scegli data di nascita'
+
+          #address.tab-pane
+            .control-group.text.optional.user_address
+              %label.text.optional.control-label{"for"=>"user_address"} Indirizzo
+              .controls
+                = f.input_field :address, as: :text, rows: 3, maxlength: 150
+
+            .control-group.string.optional.user_city
+              %label.string.optional.control-label{"for"=>"user_city"} Citt&agrave;
+              .controls
+                = f.input_field :city
+
+            .control-group.string.optional.user_post_code
+              %label.string.optional.control-label{"for"=>"user_post_code"} CAP
+              .controls
+                = f.input_field :zip, maxlength: 5
+
+          #customerNotes.tab-pane
+            .control-group.text.optional.user_notes
+              %label.text.optional.control-label{"for"=>"user_notes"} Note
+              .controls
+                = f.input_field :notes, as: :text, rows: 3
+                    
+      .modal-footer
+        %button.btn{"aria-hidden"=>"", "data-dismiss"=>"modal"} Annulla
+        %button.btn.btn-primary{"onclick"=>"$('.form-horizontal').enableClientSideValidations()"} Salva
+
+%script{"src"=>"https://cdn.rawgit.com/biesbjerg/jquery.disable-autofill/master/jquery.disable-autofill.js"}
+
+:javascript
+  $('input').disableAutofill();

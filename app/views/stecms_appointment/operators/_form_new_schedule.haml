@@ -1,0 +1,27 @@
+%table.schedule.employee-schedule
+  %tbody
+    %tr
+      %th
+      %th.hours-tip-day{colspan: "2"} Se fai orario continuato compila SOLO queste due colonne.
+      %th
+      %th.hours-tip-evening{colspan: "2"} Se chiudi per la pausa pranzo indica qui gli orari pomeridiani.
+    %tr
+      %th
+      %th dalle ore
+      %th alle ore
+      %th +
+      %th dalle ore
+      %th alle ore
+
+    = f.fields_for :operator_hours do |hour|
+      %tr
+        %td
+          %fieldset.schedule_select
+            = hour.hidden_field :day
+            = hour.check_box :is_active, label: false, class: 'cb-active-day', checked: hour.object.new_record? ? false : true
+            = hour.label days_of_week[hour.object.day].html_safe
+        %td= hour.select :h_start, get_time_collection, include_blank: false
+        %td= hour.select :h_end, get_time_collection, include_blank: false
+        %td
+        %td= hour.select :h_start2, get_time_collection, include_blank: false
+        %td= hour.select :h_end2, get_time_collection, include_blank: false

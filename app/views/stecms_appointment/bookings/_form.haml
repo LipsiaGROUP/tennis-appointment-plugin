@@ -1,0 +1,88 @@
+= simple_form_for @booking, url: @action_url, html: { id: 'new_service_booking', class: 'form-horizontal new_service_booking', remote: true } do |f|
+  
+  .modal-body
+    %ul#serviceAppointmentTab.nav.nav-tabs
+      %li.active
+        %a{"data-toggle"=>"tab", "href"=>"#details"}
+          %i.icon-book
+          Dettagli
+      %li
+        %a{"data-toggle"=>"tab", "href"=>"#notes"} 
+          %i.icon-user
+          Note
+
+    .tab-content
+      #details.tab-pane.active
+        .control-group.string.optional.service_booking_user_id.pull-left
+          = f.label :user_id, 'Cliente', class: 'control-label', for: 'service_booking_user_id'
+          .controls
+            = f.input_field :stecms_appointment_customer_id, as: :string, id: 'service_booking_user_id', class: 'search', placeholder: 'Cerca per nome o telefono'
+            
+        %a#walkInCustomer.btn.event-link.pull-right{"href"=>"javascript:void(0);"} Occasionale
+        = link_to '+ Nuovo', 'javascript:void(0)', id: 'addNewCustomer', class: 'btn event-link pull-right'
+        .clearfix
+        
+        #customerBox.control-group.hide
+          .control-label Cliente
+          .controls
+            %address#appointmentCustomerDetails
+              .btn-group.pull-right
+                %a#removeCustomer.btn{"href"=>"javascript:void(0);"} Cambia Cliente
+              %strong
+                .name
+                .contact.hide
+
+        .control-group.string.optional.service_booking_schedule_date.pull-left
+          = f.label :start_time, 'Data', class: 'control-label', for: 'service_booking_schedule_date'
+          .controls
+            = f.input_field :start_time, as: :string, id: 'service_booking_schedule_date', placeholder: 'Scegli data', value: f.object.start_time ? l(f.object.start_date, format: '%A, %d %B %Y') : l(Time.at(cookies[:start_calendar].to_i), format: '%A, %d %B %Y')
+
+        .control-group.time.optional.service_booking_schedule_time{"style"=> ("margin-bottom: 0px !important") }
+          .controls
+            - if f.object.new_record?
+              = f.input_field :schedule_time, as: :select, collection: times_by_interval(60), id: 'service_booking_schedule_time_5i', class: 'time', style: 'margin-left: 4px;', include_blank: false, selected: "#{params[:time]}:00"
+            - else
+              - selected_time = fixnum_to_date(f.object.start_time)
+              - collection_time = mio_collection_time(selected_time, times_by_interval(60))
+              = f.input_field :schedule_time, as: :select, collection: collection_time, id: 'service_booking_schedule_time_5i', class: 'time', style: 'margin-left: 4px;', selected: selected_time.strftime('%H:%M:%S'), include_blank: false
+
+        .control-group.integer.optional.service_booking_service_id
+          = f.label :stecms_appointment_service_id, 'Trattamento', class: 'integer control-label', for: 'service_booking_service_id'
+          .controls
+            = f.input_field :stecms_appointment_service_id, collection: @service_categories, id: 'service_booking_service_id', class: 'select2-container', onchange: 'selectServicePricingLevel($(this).val());'
+
+        .control-group.select.optional.service_booking_employee_id
+          = f.label :operator_id, 'Operatore', class: 'select control-label', for: 'service_booking_employee_id'
+          .controls
+            - if params[:employee_id].present?
+              = f.input_field :stecms_appointment_operator_id, as: :select, collection: @operators.pluck(:operator_name, :id), id: 'service_booking_employee_id', selected: params[:employee_id]
+            - else
+              = f.input_field :stecms_appointment_operator_id, as: :select, collection: @operators.pluck(:operator_name, :id), id: 'service_booking_employee_id', data: { placeholder: "Scegli operatore" }
+
+        .control-group.select.optional.service_booking_status.hide
+          = f.label :status, 'Stato', class: 'select control-label', for: 'service_booking_status'
+          .controls
+            = f.input_field :status, as: :select, collection: [['Nuovo', 'unconfirmed'], ['Confermato', 'confirmed'], ['Non presentato', 'noshow']], id: 'service_booking_status', class: 'select', include_blank: false
+
+      #notes.tab-pane
+        .control-group.text.optional.service_booking_notes
+          = f.label :notes, 'Note', class: 'text control-label', for: 'service_booking_notes'
+          .controls
+            = f.input_field :note, as: :text, id: 'service_booking_notes text', rows: 3, style: 'width: 300px'
+                
+  .modal-footer
+    %p.error-messages{"style"=> 'float: left;'}
+    %button.btn{"aria-hidden"=>"true", "data-dismiss"=>"modal"} Annulla
+    %button#save-event.btn.btn-primary{"onclick"=>"$('.form-horizontal').enableClientSideValidations()"} Salva
+
+    - unless @booking.new_record?
+      .pull-left
+        = link_to confirm_delete_bookings_path(@booking, status: 'cancelled'), class: 'btn btn-danger', dom: 'deleteBooking', remote: true, data: {method: "delete"} do
+          %i.icon-trash
+          Elimina Appuntamento
+
+:javascript
+  $('#addNewCustomer').on('click', function() {
+    $('#newCustomer').modal({ backdrop: 'static', keyboard: false });
+    $('form#new_customer').get(0).reset();
+  });

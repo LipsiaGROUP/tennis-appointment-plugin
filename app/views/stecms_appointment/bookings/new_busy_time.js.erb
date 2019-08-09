@@ -1,0 +1,7 @@
+removeLoadingOverlay();
+$('#blockTime .new-block-form').html("<%= j render 'busy_time_form' %>");
+$("#blockTime .modal-header h3").text('Blocca orario')
+initializeBusyTimeForm();
+setBookingDateTime('busy');
+$("#employee_schedule_status_employee_id").val(selectedEmployee);
+$('#blockTime').modal({ backdrop: 'static', keyboard: false });

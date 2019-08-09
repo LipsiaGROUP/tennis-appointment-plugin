@@ -1,0 +1,91 @@
+=render layout: "stecms_appointment/shared/panel" do
+	= render_card_box title: "Schedule", collapse: false do
+		.row-fluid
+			%div.span12
+				.hide#loading_image
+					= image_tag "stecms_appointment/loading.gif"
+				.booking_popover{"data-title" => "Scegli azione", "data_trigger" => "manual"}
+				#bookings-page.page.two-folds
+					.row-fluid
+						.sidebar
+							#default-glance
+								#staff.page-contents.hide
+									%ul#location-filter{"data-locations" => location_data}
+									%ul#employee-filter{data: {employee_schedules: get_operators_schedules_hashes, employees: get_operators_infos_hashes}}
+						.calendar-content.leaf-left{style: "margin-right: 0px; overflow:hidden;"}
+							.page-header.clearfix.hide
+								.pull-left
+									%h1 Appuntamenti
+								.pull-right
+									%a#appointmentLink.btn.btn-primary.btn-large{href: "#"} Nuovo Appuntamento
+									%a.btn.btn-large.print{href: "#", rel: "booking_calendar"}
+										%i.icon-print
+							#content.page-contents{style: "background-color: #ffffff"}
+								#booking_calendar{class: "agenda-slots"}
+				#daysOpen.hide
+				#maxShopTime.hide
+				#parameter.hide
+				#service_id.hide
+		%footer
+
+		%input#salon_location{name: "salon_location", type: "hidden", value: "4"}
+		%input#slotMinutes{name: "slotMinutes", type:"hidden", data_value: ("")}
+
+		#new-booking.modal.hide{style: "bottom: 280px"}
+			.modal-header
+				%button.close{"aria-hidden" => "true", "data-dismiss" => "modal"} &times;
+				%h3{dom: "titleAndTime"}
+			.choose-action
+				.modal-body
+					.menu
+						= link_to "#", id: 'btnNewBooking', class: 'btn event-link', remote: true do
+							%i.icon-calendar{style: "padding-right: 7px;"}
+							Appuntamento
+						= link_to StecmsAppointment::Engine.routes.url_helpers.new_busy_time_bookings_path, id: 'btnNewBusyTime', class: 'btn event-link', remote: true do 
+							%i.icon-ban-circle{style: "padding-right: 7px;"}
+							Blocca orario
+				.modal-footer
+					%button.btn{"aria-hidden" => "true", "data-dismiss" => "modal"} Annulla  
+
+		#newAppointment.modal.hide
+			.modal-header
+				%button.close{"aria-hidden" => "true", "data-dismiss" => "modal"} &times;
+				%h3 Nuovo Appuntamento
+			.new-form
+
+		#blockTime.modal.hide
+			.modal-header
+				%button.close{"aria-hidden" => "true", "data-dismiss" => "modal"}  &times;
+				%h3 Blocca orario
+			.new-block-form
+
+		#editAppointment.modal.hide
+			.modal-header
+				%button.close{"aria-hidden" => "true", "data-dismiss" => "modal"} &times;
+				%h3 Modifica Appuntamento
+			.edit-form
+
+		#cancel-modal.modal.hide
+			.modal-header
+				%button.close{"aria-hidden" => "true", "data-dismiss" => "modal"} &times;
+				%h3 Elimina Appuntamento
+			.delete-form
+				.modal-body
+					%h4 Il seguente appuntamento sar&agrave; eliminato:
+					%div{dom: "descriptionExtended"}
+				.modal-footer
+					%button.btn{"aria-hidden" => "true", "data-dismiss" => "modal"} Annulla
+					= link_to '', class: 'btn btn-danger', dom: 'deleteBooking', method: :patch, remote: true do
+						%i.icon-trash
+						Elimina Appuntamento
+
+		        
+= javascript_include_tag 'stecms_appointment/load-calendar', 'stecms_appointment/customers', 'stecms_appointment/bookings', 'stecms_appointment/treatments'
+= javascript_include_tag "stecms_appointment/jquery.stellar"
+= javascript_include_tag "stecms_appointment/shortcut"
+= javascript_include_tag "stecms_appointment/salonist"
+= javascript_include_tag "stecms_appointment/variable"
+
+- content_for :js_head do
+	= javascript_include_tag "stecms_appointment/application"
+

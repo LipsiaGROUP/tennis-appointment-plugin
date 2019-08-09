@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  day: MyString
+  h_start: MyString
+  h_end: MyString
+  h_start2: MyString
+  h_end2: MyString
+
+two:
+  day: MyString
+  h_start: MyString
+  h_end: MyString
+  h_start2: MyString
+  h_end2: MyString

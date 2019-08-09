@@ -1,0 +1,35 @@
+= simple_form_for @busy_time, url: (@busy_time.persisted? ? StecmsAppointment::Engine.routes.url_helpers.update_busy_time_booking_path(@busy_time) : StecmsAppointment::Engine.routes.url_helpers.create_busy_time_bookings_path), method: (@busy_time.persisted? ? :put : :post), remote: true, html: { id: 'new_employee_schedule_status', class: 'simple_form form-horizontal new_employee_schedule_status', data: { validate: true } } do |f|
+
+  .modal-body
+    .control-group.string.optional.employee_schedule_status_busy_date_start
+      %label.string.optional.control-label{"for"=> "employee_schedule_status_busy_date_start"}  Data
+      .controls
+        = f.input_field :schedule_date, id: 'employee_schedule_status_busy_date_start', class: 'string optional', value: (l(f.object.start_date, format: '%A, %d %B %Y').titleize if f.object.start_time)
+
+    .control-group.time.optional.employee_schedule_status_busy_time_start
+      %label.time.optional.control-label{"for"=>"employee_schedule_status_busy_time_start_4i"} Inizio
+      .controls
+        = f.input_field :start_time, as: :select, collection: times_by_interval(60), selected: f.object.start_time_to_s, id: 'employee_schedule_status_busy_time_start_5i', class: 'time optional', include_blank: false
+
+    .control-group.time.optional.employee_schedule_status_busy_time_end
+      %label.time.optional.control-label{"for"=>"employee_schedule_status_busy_time_end_4i"}  Fine
+      .controls
+        = f.input_field :end_time, as: :select, collection: times_by_interval(60), selected: f.object.end_time_to_s, id: 'employee_schedule_status_busy_time_end_5i', class: 'time optional', include_blank: false
+
+    .control-group.select.optional.employee_schedule_status_employee_id
+      %label.select.optional.control-label{"for"=>"employee_schedule_status_employee_id"}  Operatore
+      .controls
+        = f.input_field :stecms_appointment_operator_id, as: :select, collection: @operators.pluck(:operator_name, :id), id: 'employee_schedule_status_employee_id', class: 'select optional', prompt: 'Scegli operatore'
+
+    .control-group.text.optional.employee_schedule_status_note
+      %label.text.optional.control-label{"for"=>"employee_schedule_status_note"} Note
+      .controls
+        = f.input_field :note, as: :text, id: 'employee_schedule_status_notes', class: 'text optional', rows: 3, style: 'width: 300px'
+            
+  .modal-footer
+    %button.btn{"aria-hidden"=>"", "data-dismiss"=>"modal"} Annulla
+    %button.btn.btn-primary{"onclick"=>"$('#new_employee_schedule_status').enableClientSideValidations()"} Salva
+    .pull-left
+
+:javascript
+  validateBusyTimeForm('new_employee_schedule_status');

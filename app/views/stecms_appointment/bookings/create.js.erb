@@ -1,0 +1,24 @@
+<% if @error_messages.present? %>
+  removeLoadingOverlay();
+  $('.error-messages').html("<%=j @error_messages %>");
+<% else %>
+  removeLoadingOverlay();
+  $('#newAppointment').modal('hide');
+  $('#newCustomer').remove();
+  $('#editCustomer').remove();
+  $('.new-form form').remove();
+  $('.form-horizontal').closest('.modal').unblock();
+
+  <% if @booking_event_hash.kind_of?(Hash) %>
+	  $('#booking_calendar').fullCalendar( 'renderEvent', <%= @booking_event_hash.to_json.html_safe %>);
+	<% else %>
+    <% if @booking_event_hash.nil? %>
+      removeLoadingOverlay();
+      $('.error-messages').html("<%=j @error_messages %>"); 
+    <% else %>
+  		<% @booking_event_hash.each do |event| %>
+  			$('#booking_calendar').fullCalendar( 'renderEvent', <%= event.to_json.html_safe %>);
+  		<% end %>
+    <% end %>
+	<% end %>
+<% end %>

@@ -1,0 +1,54 @@
+%div{"id"=>"booking-#{booking.id}"}
+  - if booking.tag.eql? 'busyTime'
+    .buttonsAutoWidth{"id"=>"#booking-#{booking.id}"}
+      %a.btn-flat.primary.actions-a.item.event-link{"data-remote"=>'true', "href"=>"/backend/stecms_appointment/bookings/#{booking.id}/edit_busy_time"}
+        %i.icon-edit{"style"=>'padding-right: 0px;'}
+        Modifica
+
+      %a.btn.actions-a.item.event-link.btn-danger{"data-method"=>'delete', "data-remote"=>'true', "href"=>"/backend/stecms_appointment/bookings/#{booking.id}/delete_busy_time"}
+        %i.icon-trash{"style"=>'padding-right: 0px;'}
+        Elimina
+
+  - else
+    .actions{"style"=>"#{ 'float: left' if booking.note.present? }"}
+      %table.actions
+        %tbody
+          %tr
+            %td.first Trattamento
+            %td.second= "#{ booking.title }"
+          %tr
+            %td.first Operatore
+            %td.second= booking.operator_name
+          %tr
+            %td.first Durata
+            %td.second= duration
+          %tr
+            %td.first Prezzo
+            %td.second="&euro; #{booking.price.round(2)}"
+
+    - if booking.note.present?
+      .actions{"style"=>'float:left;max-width:200px'}
+        %table.actions
+          %tbody
+            %tr
+              %td.first Note
+            %tr
+              %td.second{"style"=>'padding: 5px 0;font-size:.8em'}
+                = h(booking.note)
+
+    .buttons{"style"=>'clear:left'}
+      - if hide_buttons && booking.status.eql?('checkout')
+        %a.btn.actions-a.btn-visualize.event-link{"data-remote"=>"true", "href"=>"/bookings/#{booking.id}"}
+          %i.icon-edit{"style"=>"padding-right: 7px;"}
+          Visualizza
+        .btn-group
+      - else
+        .btn_actions
+          %a.btn-flat.primary.actions-a.btn-modify.event-link{"data-remote"=>'true', "href"=>"bookings/#{booking.id}/edit"}
+            %i.icon-edit{"style"=>'padding-right: 0px;'}
+            Modifica
+
+          .btn-group
+            %a.btn.btn-danger.btn-delete{"class"=>"btn-delete-#{booking.id}", "data-remote"=>'true', "data-method"=>'delete', "href"=>"bookings/#{booking.id}/confirm_delete?status=cancelled"}
+              %i.icon-trash{"style"=>'padding-right: 0px;'}
+              Elimina

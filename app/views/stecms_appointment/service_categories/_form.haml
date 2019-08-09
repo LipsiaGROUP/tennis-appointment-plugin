@@ -1,0 +1,15 @@
+=form_for @service_category do |f|
+  - if @service_category.errors.any?
+    .alert.alert-danger{role: "alert"}
+      %h4.alert-heading
+        =t("errors.template.header", model: f.object.model_name.human, count: @service_category.errors.count)
+      %hr
+      -@service_category.errors.full_messages.each do |message|
+        %div=message
+  .form-row.align-items-center
+    .form-group.col-sm-12
+      =f.label :title
+      =f.text_field :title, class: 'form-control'
+
+  .fixed-buttons
+    =f.submit class: 'btn btn-primary'

@@ -1,0 +1,14 @@
+#cancel-modal.modal.hide
+  .modal-header
+    %button.close{"aria-hidden"=> "true", "data-dismiss"=>"modal"} &times;
+    %h3 Elimina Operatore
+
+  .modal-body
+    %h4 Il seguente operatore sarà eliminato:
+    %span{"dom"=>"detail"}
+
+  .modal-footer
+    %button.btn{"aria-hidden"=>"true", "data-dismiss"=>"modal"} Annulla
+    = link_to '#', class: 'btn btn-danger', dom: 'delete_customer', data: { method: 'delete' } do
+      %i.icon-trash
+      Elimina Operatore

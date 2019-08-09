@@ -1,0 +1,44 @@
+removeLoadingOverlay();
+
+$('.edit-form').html("<%= j render 'form' %>");
+$('#editAppointment').modal({ backdrop: 'static', keyboard: false });
+$('#service_booking_location_id').val(selectedLocation);
+
+initializeServiceForm();
+
+$('.service_booking_status').show();
+
+<% unless @booking.stecms_appointment_customer_id %>
+  $('#service_booking_booking_type').val('Occasionale');
+<% end %>
+
+<% if @customer %>
+  var customerHash = <%= @customer_hash %>;
+  logCustomerDetails(customerHash);
+  $('#walkInCustomer').hide();
+<% else %>
+  $('#service_booking_user_id').hide();
+  $('#addNewCustomer').hide();
+  $('#service_booking_user_id').closest('.controls').append('<b>Cliente Occasionale</b>');
+  $('#walkInCustomer').attr('id', 'removeWalkInCustomer');
+  $('#removeWalkInCustomer').html('Cambia Cliente');
+<% end %>
+
+$('#save-event').on('click',function(){
+  if($('#service_booking_booking_type').val().length > 0 || ($('#service_booking_user_id').val().length > 0 && !isNaN($('#service_booking_user_id').val()))) {
+    return true;
+  } else {
+    bootbox.alert("Selezionare un cliente");
+    //alert('Selezionare un cliente');
+    return false;
+  }
+});
+
+$('body').append("<%= j render 'customer_new', is_remote: true %>");
+
+$('#addNewCustomer').on('click', function() {
+  $('#newCustomer').modal({ backdrop: 'static', keyboard: false });
+  $('form#new_customer').get(0).reset();
+});
+
+initializeCustomerForm();
