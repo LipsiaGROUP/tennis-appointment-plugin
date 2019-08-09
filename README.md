@@ -37,6 +37,12 @@ Run this command to generate required migration:
  rake railties:install:migrations
 ```
 
+We need modify the backend layout for calendar page only, edit on app/views/layouts/backend.haml
+```ruby
+- unless action_name.eql?('index') and controller_name.eql?('bookings')
+  =javascript_include_tag "backend/backend"
+```
+
 and then `rake db:migrate`
 
 You can setup link (usually on `app/views/backend/_backend_menu.haml`) with this:
