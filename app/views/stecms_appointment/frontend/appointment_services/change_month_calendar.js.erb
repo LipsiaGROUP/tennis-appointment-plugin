@@ -1,0 +1,4 @@
+$('.calendar_date_container').html("<%=j render partial: 'stecms_appointment/frontend/appointment_services/booking_calendar_date', locals: {calendar_content: @calendar_content, month: @month, year: @year} %>");
+$('.month-slider-item').removeClass('active');
+$(".month-slider-item-number-<%= params[:month].to_i %>").addClass('active');
+$(".operator-container").html("<%=j render partial: 'stecms_appointment/frontend/appointment_services/booking_operator_list', locals: {operators: @operators, date: @date_value} %>");

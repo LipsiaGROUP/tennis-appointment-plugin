@@ -1,0 +1,57 @@
+.swiper-container-date
+  .swiper-wrapper.swiper-date
+    - calendar_content[:days].each_with_index do |day, i|
+      .swiper-slide
+        .date-slider-item{class: "#{'active' if i.zero?}"} 
+          .select-date{"data-date"=>"#{day[:date]}/#{@month}/#{@year}"}
+            .text-day= day[:shortDay]
+            .text-date= day[:date]
+
+:javascript
+  $(document).ready(function(){
+    $('.swiper-date').slick({
+      infinite: false,
+      slidesToShow: 7,
+      slidesToScroll: 7,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 4,
+            slidesToScroll: 4
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3
+          }
+        }
+      ]
+    });
+  });
+
+  $(".select-date").on('click', function(){
+    var date = $(this).attr('data-date');
+    var treatmentId = $(".booking-container").attr('data-treatment');
+    $(".date-slider-item").removeClass("active");
+    $(this).parent().addClass("active");
+    $(".submit-booking-button").hide();
+    $.ajax({
+      'url':'/stecms_appointment/frontend/appointment_services/change_date_calendar',
+      'type':'get',
+      'data':{
+        mode: "ajax",
+        treatment: treatmentId,
+        date: date 
+      }
+    })
+  })

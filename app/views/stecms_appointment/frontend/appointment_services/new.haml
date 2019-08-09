@@ -1,0 +1,113 @@
+= stylesheet_link_tag "stecms_appointment/frontend/appointment"
+
+- service_price = @service.show_price.last
+-# back_link = @iframe_layout.present? ? salon_treatments_path(@salon.alias) : salon_path(@salon.alias)
+
+.booking-container{"data-treatment"=> @service.id}
+  %div{class: "#{@iframe_layout.present? ? 'container-fluid' : 'container' }"}
+    .row
+      .col-7.col-md-3
+    .row.no-gutters
+      .col-md-7.col-sm-12.disponibli-wrapper
+        .row
+          .col-11
+            .label-calendar ORARI DISPONIBILI
+            .swiper-container-month.pl-4.pr-4
+              .swiper-wrapper.swiper-month
+                - @calendar_content[:months].each_with_index do |month, i|
+                  .swiper-slide
+                    %div{class: "month-slider-item month-slider-item-number-#{month[:month_id]} #{'active' if i.zero?}"} 
+                      = link_to (@is_mobile ? month[:month_mobile] : month[:month]), frontend_change_month_calendar_path(month[:month_id], month[:year], @service.id), class: 'btn', remote: true
+            .calendar_date_container.pl-4.pr-4
+              .swiper-container-date
+                .swiper-wrapper.swiper-date
+                  - @calendar_content[:days].each_with_index do |day, i|
+                    .swiper-slide
+                      .date-slider-item{class: "#{'active' if i.zero?}"} 
+                        .select-date{"data-date"=>"#{day[:date]}/#{@month}/#{@year}"}
+                          .text-day= day[:shortDay]
+                          .text-date= day[:date]
+            .operator-container.pl-4.pr-4
+              - if @operators.present?
+                - @operators.each do |operator|
+                  .swiper-container-operator
+                    .operator_title= operator[:operator_name]
+                    .swiper-wrapper.swiper-operators
+                      - operator[:hours].each do |hour|
+                        .swiper-slide
+                          .operator-slider-item
+                            .hour-slide-item{"data-integer-start" => "#{booking_date_time_integer_format(@date_value, hour[:hour])}", "data-integer-end" => "#{booking_date_time_integer_format(@date_value, hour[:hour]) + @service.duration}", "data-operator-id"=>"#{operator[:operator_id]}", "data-operator-name"=>"#{operator[:operator_name].upcase}"}= hour[:hour]
+              - else
+                %div{class: "alert alert-danger mt-4 no-operator-available", role: "alert"}
+                  | Nessuna disponibilità!
+      .col-md-5.col-sm-12.box-shadow{class: "#{'d-none' if @operators.blank?}"}
+        .d-block.d-sm-none
+          %br
+        .detail-booking-wrapper.pb-3
+          .treatment-wrapper.pl-3.pr-3#treatment-id-detail
+            - unless @iframe_layout.present?
+              .label Service
+            .name.mt-3= @service.title
+            .duration.mt-2= "#{@service.duration_in_minute} minuti" 
+          - unless @iframe_layout.present?
+            .operatore-wrapper.mt-3.pl-3.pr-3
+              .label OPERATORE
+              .name.mt-2.operator-name-selected NONE
+          .cost-wrapper.mt-3
+            .label.pl-3.pr-3 COSTO
+            .price-container
+              .price
+                - if @voucher.present?
+                  .price-discount.p-3
+                    .row
+                      .col-8 totale
+                      .col-4.price-grey= "€ #{service_price}"
+                    .row
+                      .col-8= "pagato con #{@voucher.code}" 
+                      .col-4.price-grey= "€ #{@voucher_value}"
+                    .row
+                      .col-8 rimanente da pagare
+                      .col-4.value= "€ #{@vouchered_price}"
+                - else
+                  .value.p-3= "€ #{service_price}"  
+          #salonist-payment-tabs
+            = form_tag "/voucher/verify", method: :post, remote: true, class: 'voucher-form-hidden' do 
+              = hidden_field_tag :code
+              = hidden_field_tag :price
+              = hidden_field_tag :stecms_appointment_service_id, @service.id
+            = simple_form_for(@booking, url: frontend_appointment_services_path, remote: true) do |f|
+              = f.error_notification
+              = f.input :stecms_appointment_operator_id, as: :hidden
+              = hidden_field_tag :iframe_layout, @iframe_layout
+              = f.input :start_time, as: :hidden
+              = f.input :end_time, as: :hidden
+              = f.input :stecms_appointment_service_id, as: :hidden, input_html: {value: @service.id}
+              = f.input :price, as: :hidden, input_html: {value: service_price}
+              .row
+                .col-12
+                  %ul
+                    - get_payment_options(@service).each do |payment_option|
+                      - payment_option.each_with_index do |payment_opt, index|
+                        - if payment_opt.class.name != "Symbol"
+                          %li 
+                            .md-radio
+                              %input{type: "radio", name: "payment_method", value: "#{payment_opt[:id]}", id: "#{payment_opt[:id]}-tab"}
+                              %label{for: "#{payment_opt[:id]}-tab"}= payment_opt[:text]
+              .non-login-booking
+                - unless user_signed_in?
+                  - unless @iframe_layout.present?
+                    .info
+                      .p-3
+                        | Per completare la prenotazione ci servono alcuni dati. In questo modo potremo contattarti in caso di necessità e il salone avra i tuoi riferimenti per eventuali comunicazioni.
+                    .confirmation-account.p-3
+                      .label Sei già registrato?
+                      = link_to "ACCEDI", new_user_session_path, class: 'btn btn-info w-100'
+                    .label.pr-3.pl-3 Non sei registrato?
+                    .desc.pr-3.pl-3 Inserisci i tuoi dati per completare la prenotazione
+                  .form-wrapper.p-3
+                    = f.input :guest_name, label: 'Il tuo nome', input_html: {class: 'form-control'}
+                    = f.input :guest_email, label: 'Il tuo indirizzo email', input_html: {class: 'form-control'}
+                    = f.input :guest_phone, label: 'Il tuo numero di telefono', input_html: {class: 'form-control'}
+              .pl-3.pr-3
+                .error-wrapper
+                = f.button :submit, "CONFERMA PRENOTAZIONE", class: 'btn btn-danger submit-booking-button', style: 'display:none'

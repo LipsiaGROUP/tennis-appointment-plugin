@@ -1,0 +1,8 @@
+$(".operator-container").html("<%=j render partial: 'stecms_appointment/frontend/appointment_services/booking_operator_list', locals: {operators: @operators, date: @date_value} %>");
+$('.operator-name-selected').text("NONE");
+
+<% if @operators.blank? %>
+	$('.box-shadow').removeClass('d-block').addClass('d-none');
+<% else %>
+	$('.box-shadow').removeClass('d-none').addClass('d-block');
+<% end %>

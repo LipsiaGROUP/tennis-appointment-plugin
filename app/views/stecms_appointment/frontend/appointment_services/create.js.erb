@@ -1,0 +1,7 @@
+var errorContent = '<div class="alert alert-danger alert-dismissable"><span>Compila tutti i campi per favore</span></div>';
+
+<% if @error %>
+	$('.error-wrapper').html(errorContent);
+<% else %>
+	window.location.href = '<%= @url_redirect %>';
+<% end %>

@@ -1,0 +1,35 @@
+.thanks-page
+	%div{class: "#{@iframe_layout.present? ? 'container-fluid' : 'container' }"}
+		.row.no-gutters
+			.col-12.col-md-5
+				.service-name= @booking.title
+			.col-12.col-md-7
+				.thanks-wrapper
+					.headline.pl-5
+						%h1 Grazie per la tua prenotazione!
+					.booking-info
+						.pt-4.pl-5
+							.day= I18n.l Time.at(@booking.start_time), format: "%A %d %B %Y"
+							.time
+								%span.light-text ore
+								= " #{Time.at(@booking.start_time).strftime("%H:%M")}"
+							.operator
+								%span.light-text con operatore
+								= " #{@booking.operator.operator_name}"
+						.pt-4.pl-5.pb-3
+							.total
+								%span.text= "Prezzo totale: "
+								%span.number= "€ #{@booking.price} "
+								%span.pay-info= "(Pagherai in loco)"
+
+
+%div{class: "#{@iframe_layout.present? ? 'container-fluid' : 'container' } mt-4 mb-4 booking-action-wrapper"}
+	.row
+		.col-12.col-md-8
+			.booking-action-text
+				p Si prega di prenotare in modo responsabile. È molto grave per i saloni quando non ti presenti ad un appuntamento. Certo, possono capitare degli imprevisti urgenti, quindi se sei impossibilitato ad andare all'appuntamento sii cortese e annullalo dalla sezione 'prenotazioni' del tuo profilo.
+
+		.col-12.col-md-4
+			= link_to "CREA PROMEMORIA", reminder_booking_frontend_appointment_service_path(@booking, iframe_layout: @iframe_layout), class: 'btn btn-info w-100 mt-3'
+			- unless @iframe_layout.present?
+				= link_to "NUOVA PRENOTAZIONE", root_path, class: 'btn btn-danger w-75 mt-3'

@@ -1,0 +1,53 @@
+- if operators.present?
+  - operators.each do |operator|
+    .swiper-container-operator
+      .operator_title= operator[:operator_name]
+      .swiper-wrapper.swiper-operators
+        - operator[:hours].each do |hour|
+          .swiper-slide
+            .operator-slider-item
+              .hour-slide-item{"data-integer-start"=>"#{booking_date_time_integer_format(date, hour[:hour])}", "data-integer-end"=>"#{booking_date_time_integer_format(date, hour[:hour]) + @service.duration}",  "data-operator-id"=>"#{operator[:operator_id]}", "data-operator-name"=>"#{operator[:operator_name].upcase}"}= hour[:hour]
+
+  :javascript
+    $('.swiper-operators').slick({
+      infinite: false,
+      slidesToShow: 7,
+      slidesToScroll: 7,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 5,
+            slidesToScroll: 5
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 4,
+            slidesToScroll: 4
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll:32
+          }
+        }
+      ]
+    });
+
+    $(".hour-slide-item").on('click', function(){
+      $(".operator-slider-item").removeClass('active');
+      $("#booking_start_time").val($(this).data('integer-start'));
+      $("#booking_end_time").val($(this).data('integer-end'));
+      $("#booking_stecms_appointment_operator_id").val($(this).data("operator-id"));
+      $('.operator-name-selected').text($(this).data("operator-name"));
+      $(this).parent().addClass('active');
+      $(".submit-booking-button").show();
+    })
+
+- else
+  %div{class: "alert alert-danger mt-4 no-operator-available", role: "alert"}
+    Nessuna disponibilità!
