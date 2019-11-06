@@ -11,7 +11,7 @@ gem 'stecms_appointment', github: 'LipsiaGROUP/stecms-appointment-plugin'
 And then execute:
 
     $ bundle
-    
+
 ## Usage
 
 Add this line to app/assets/javascripts/backend/backend.js
@@ -34,7 +34,7 @@ mount StecmsAppointment::Engine, at: "/stecms_appointment", as: 'stecms_appointm
 
 Run this command to generate required migration:
 ```ruby
- rake railties:install:migrations
+ rake stecms_appointment:generate
 ```
 
 We need modify the backend layout for calendar page only, edit on app/views/layouts/backend.haml
