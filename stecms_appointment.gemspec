@@ -18,4 +18,5 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 4.2.10"
+  s.add_dependency "ancestry", "3.0.7"
 end
