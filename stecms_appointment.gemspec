@@ -7,8 +7,8 @@ require "stecms_appointment/version"
 Gem::Specification.new do |s|
   s.name        = "stecms_appointment"
   s.version     = StecmsAppointment::VERSION
-  s.authors     = ["Mada Aryakusumah"]
-  s.email       = ["lokermada@gmail.com"]
+  s.authors     = ["lipsiagroup"]
+  s.email       = ["info@lipsiagroup.com"]
   s.homepage    = "http://lipsiagroup.it"
   s.summary     = "Appointment module of STECMS"
   s.description = "Appointment module of STECMS"

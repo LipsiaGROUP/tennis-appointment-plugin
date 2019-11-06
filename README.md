@@ -14,10 +14,12 @@ And then execute:
 
 ## Usage
 
-Add this line to app/assets/javascripts/backend/backend.js
+Add this line to config/application.rb
 
-```javascript
-//= require stecms_appointment
+```ruby
+require 'ancestry'
+require 'simple_form'
+require 'cocoon'
 ```
 
 Add this line to app/assets/stylesheets/backend/backend.scss
@@ -36,14 +38,13 @@ Run this command to generate required migration:
 ```ruby
  rake stecms_appointment:generate
 ```
+and then `rake db:migrate`
 
 We need modify the backend layout for calendar page only, edit on app/views/layouts/backend.haml
 ```ruby
 - unless action_name.eql?('index') and controller_name.eql?('bookings')
   =javascript_include_tag "backend/backend"
 ```
-
-and then `rake db:migrate`
 
 You can setup link (usually on `app/views/backend/_backend_menu.haml`) with this:
 ```ruby
