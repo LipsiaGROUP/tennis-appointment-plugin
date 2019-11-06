@@ -19,4 +19,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 4.2.10"
   s.add_dependency "ancestry", "3.0.7"
+  s.add_dependency "simple_form",  "4.0.0"
+  s.add_dependency "cocoon",  "1.2.14"
 end
