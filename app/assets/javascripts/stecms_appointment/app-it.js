@@ -2411,8 +2411,12 @@ for (; e = t[n++];) i += _(e);
                                                         t.getComputedStyle ? (ti = function(t) {
                                                           return t.ownerDocument.defaultView.getComputedStyle(t, null)
                                                         }, ei = function(t, e, i) {
-                                                          var n, s, o, r, a = t.style;
-                                                          return i = i || ti(t), r = i ? i.getPropertyValue(e) || i[e] : void 0, i && ("" !== r || se.contains(t.ownerDocument, t) || (r = se.style(t, e)), ni.test(r) && ii.test(e) && (n = a.width, s = a.minWidth, o = a.maxWidth, a.minWidth = a.maxWidth = a.width = r, r = i.width, a.width = n, a.minWidth = s, a.maxWidth = o)), void 0 === r ? r : r + ""
+                                                          if(t == undefined){
+                                                            return ""
+                                                          }else{
+                                                            var n, s, o, r, a = t.style;
+                                                            return i = i || ti(t), r = i ? i.getPropertyValue(e) || i[e] : void 0, i && ("" !== r || se.contains(t.ownerDocument, t) || (r = se.style(t, e)), ni.test(r) && ii.test(e) && (n = a.width, s = a.minWidth, o = a.maxWidth, a.minWidth = a.maxWidth = a.width = r, r = i.width, a.width = n, a.minWidth = s, a.maxWidth = o)), void 0 === r ? r : r + ""
+                                                          }
                                                         }) : fe.documentElement.currentStyle && (ti = function(t) {
                                                           return t.currentStyle
                                                         }, ei = function(t, e, i) {
