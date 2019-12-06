@@ -1,6 +1,6 @@
 StecmsAppointment::Engine.routes.draw do
-  resources :customers do 
-  	collection do 
+  resources :customers do
+  	collection do
   		get 'search'
   	end
   end
@@ -22,7 +22,7 @@ StecmsAppointment::Engine.routes.draw do
 			post :get_updates
 			post :drag_and_drop
 			post :agenda
-			patch :update_status 
+			patch :update_status
 		end
 	end
 	resources :services
@@ -30,35 +30,35 @@ StecmsAppointment::Engine.routes.draw do
 	resources :service_categories
 	resources :closed_dates
 
-	namespace :frontend do
-		resources :appointment_services, except: [:edit, :update] do 
-      collection do 
-        get :change_date_calendar
-      end
+	# namespace :frontend do
+	# 	resources :appointment_services, except: [:edit, :update] do
+ #      collection do
+ #        get :change_date_calendar
+ #      end
 
-      member do 
-        get :reminder_booking
-      end
-    end
+ #      member do
+ #        get :reminder_booking
+ #      end
+ #    end
 
-    get 'change-month/:month/:year/:treatment', to: 'appointment_services#change_month_calendar', as: :change_month_calendar
-	end
+ #    get 'change-month/:month/:year/:treatment', to: 'appointment_services#change_month_calendar', as: :change_month_calendar
+	# end
 
 	namespace :api do
-		resources :operators, only: [:index] do 
-			collection do 
+		resources :operators, only: [:index] do
+			collection do
 				post :available_for_treatments
 			end
 		end
 
-		resources :bookings, only: [:show, :create] do 
-			collection do 
+		resources :bookings, only: [:show, :create] do
+			collection do
 				post :month_calendar
 			end
 		end
 
-		resources :services, only: [:index, :show] do 
-			collection do 
+		resources :services, only: [:index, :show] do
+			collection do
 				post :price
 			end
 		end

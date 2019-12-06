@@ -6,6 +6,10 @@ module StecmsAppointment
       before_action :find_service, except: [:create, :show, :reminder_booking]
       skip_before_action :redirects, except: [:new]
 
+      def index
+        @services = ::StecmsAppointment::Service.all
+      end
+
       def new
       	@booking = ::StecmsAppointment::Booking.new
       	date = Time.now
@@ -90,7 +94,7 @@ module StecmsAppointment
         booking_params.delete(:guest_name)
         booking_params.delete(:guest_email)
         booking_params.delete(:guest_phone)
-        
+
         booking = ::StecmsAppointment::Booking.new(booking_params)
         booking.status = 'confirmed'
         booking.from_where = 'website'
@@ -110,7 +114,7 @@ module StecmsAppointment
               user = check_user
 
               customer = ::StecmsAppointment::Customer.where(email: user.email).last
-              unless customer 
+              unless customer
                 customer = ::StecmsAppointment::Customer.create(email: user.email, cell: params[:booking][:guest_phone], name: params[:booking][:guest_name])
               end
 
@@ -121,7 +125,7 @@ module StecmsAppointment
                 booking.stecms_appointment_customer_id = check_user.id
               else
                 customer = ::StecmsAppointment::Customer.new(email: params[:booking][:guest_email], cell: params[:booking][:guest_phone], name: params[:booking][:guest_name])
-                
+
                 if customer.save(validate: false)
                   booking.stecms_appointment_customer_id = customer.id
                 end
@@ -150,7 +154,7 @@ module StecmsAppointment
             booking.is_composed_treatment = true
             booking.save
           end
-          
+
           if params[:payment_method].eql?('paga-subito')
             redirect_to booking.paypal_checkout_url(return_feedback_path)
           else
@@ -169,10 +173,10 @@ module StecmsAppointment
 
         else
           respond_to do |format|
-            format.js { render layout: false } 
+            format.js { render layout: false }
             format.html { redirect_to new_frontend_appointment_service_url(url_hash), alert: 'Compila tutti i campi per favore' }
           end
-        end 
+        end
       end
 
       def show
@@ -189,10 +193,10 @@ module StecmsAppointment
       def booking_params
           params.require(:booking).permit(:stecms_appointment_operator_id, :start_time, :end_time, :stecms_appointment_service_id, :price,
             :discount_type, :discount_value, :discount_price, :voucher_id, :voucher_value, :vouchered_price, :note, :promo_code, :mobile, :guest_name, :guest_email, :guest_phone)
-      end 
+      end
 
       def find_service
-        @service = ::StecmsAppointment::Service.find(params[:treatment])
+        @service = ::StecmsAppointment::Service.first
       end
 
     end

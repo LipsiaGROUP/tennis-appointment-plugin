@@ -1,0 +1,27 @@
+.treatment-item.mt-3.pb-2
+  - url_hash = {treatment: treatment.id}
+  - url_hash[:iframe_layout] = true if @iframe_layout.present?
+  - price_today = treatment.show_price.last
+  - original_price = treatment.price
+  - image_file = price_today.zero? ? 'tel_icon.png' : 'add_icon.png'
+  = link_to "#", class: 'select-treatment-button', data: {turbolinks: false} do
+    .row
+      .col-5
+        .name= treatment.title
+        .duration
+          .label-duration
+            Durata:
+            %span.label-value.ml-1= "#{treatment.duration_in_minute} min."
+      .col-4.text-right.pt-2
+        - if price_today == original_price
+          %span.price
+            da
+            %span.value= "€ #{price_today}"
+        - else
+          %span.price
+            da
+            %span.value.ml-1{style="text-decoration: line-through;"}= "€ #{original_price}"
+            %span.discount-value.ml-1= "€ #{price_today}"
+
+      .col-3.text-center
+        %i.add-icon.fa.fa-plus-circle

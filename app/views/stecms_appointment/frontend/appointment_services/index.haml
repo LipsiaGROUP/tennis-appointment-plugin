@@ -1,0 +1,30 @@
+- content_for :css_head do
+  = stylesheet_link_tag "stecms_appointment/frontend/salon"
+
+.container
+  .row
+    .col-7
+      .salon-info-wrapper
+        .salon-info
+          .address
+            loren ifsume todo create address on seting stecms
+            %span.vedi-link VEDI MAPPA
+          .desc
+            loren ifsume todo create desc
+        .salon-treatment-wrapper.mt-5
+          .label LISTINO
+          = render partial: 'stecms_appointment/shared/salon_treatment', collection: @services, as: :treatment, cached: true
+    .col-5
+      .salon-hours-info.mt-4
+        .label.mb-3 ORARI DI APERTURA
+        .row
+          .col-9.mb-3
+            - if @salon_work_days.present?
+              - @salon_work_days.each do |work_day|
+                .row
+                  .col-4
+                    .day = work_day[:day]
+                  .col-8
+                    .time = work_day[:time]
+        = link_to 'PRENOTA', "#", class: 'btn btn-danger w-100 mt-4'
+        = link_to 'PRENOTA AL TELEFONO','#', class: 'btn w-100 back-button mt-3'

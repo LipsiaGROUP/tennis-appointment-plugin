@@ -1,0 +1,196 @@
+.label{
+  font-size:18px;
+  color:#4D4C4C;
+  letter-spacing:0.02px;
+  text-align:left;
+
+  padding-bottom: 9px;
+  border-bottom:1px solid #d8d8d8;
+}
+
+.salon-info-wrapper{
+  margin-top: 27px;
+
+  .salon-info{
+
+    .name{
+      font-family: 'Merriweather';
+      font-size:38px;
+      color:#4a4a4a;
+      letter-spacing:0.03px;
+      text-align:left;
+    }
+    .address{
+      font-size:14px;
+      color:#9b9b9b;
+      letter-spacing:0.01px;
+      text-align:left;
+    }
+
+    .desc{
+      font-size:16px;
+      color: #4D4C4C;
+      letter-spacing:0.01px;
+      line-height:26px;
+      text-align:left;
+    }
+  }
+
+  .salon-treatment-wrapper{
+
+    a:hover{
+      text-decoration: none;
+    }
+
+    .treatment-item{
+      border-bottom:1px solid #d8d8d8;
+
+      i{
+        &.fa.add-icon{
+          font: normal normal normal 42px/1 FontAwesome;
+          color: #c50c0c;
+        }
+      }
+
+
+      .price{
+        font-family: 'Open Sans Semibold';
+        font-size:18px;
+        color:#9b9b9b;
+        letter-spacing:0.02px;
+        text-align:left;
+
+        .value{
+          color: #4A4A4A
+        }
+
+        .discount-value{
+          color: #fe6523;
+        }
+      }
+
+      .name{
+        font-size:18px;
+        color:#4a4a4a;
+        letter-spacing:0.02px;
+        text-align:left;
+      }
+
+      .duration{
+        font-family:"Open Sans Semibold";
+        font-size:14px;
+        color:#d8d8d8;
+        letter-spacing:0.01px;
+        text-align:left;
+
+        .label-value{
+          color: #4A4A4A;
+        }
+      }
+    }
+  }
+
+}
+
+.salon-rating-info{
+
+  .label-rating{
+    color: #9B9B9B;
+    font-size: 14px;
+  }
+
+  .total-rating-average{
+    font-size: 40px;
+
+    .rating-average{
+      font-family: 'Merriweather';
+      color: #4A4A4A;
+    }
+
+    .max-rating{
+      font-family: 'Merriweather Light';
+      color: #9B9B9B;
+    }
+
+  }
+
+  .recensioni-total{
+    color: #9B9B9B;
+    font-size: 15px;
+  }
+}
+
+
+.orari-apertura{
+  margin-top: 70px;
+  min-height: 400px;
+
+  .salon-distance{
+    .name{
+      font-family:"Open Sans Semibold";
+      color: #4A4A4A;
+      font-size: 18px;
+    }
+
+    .address{
+      color: #9B9B9B;
+      font-size: 16px;
+    }
+
+    .piedi{
+      margin-top: 20px;
+    }
+
+    .label-distance{
+      font-size: 16px;
+      color: #9B9B9B;
+    }
+
+    .value{
+      font-family:"Open Sans Semibold";
+      color: #4A4A4A;
+      font-size: 16px;
+    }
+  }
+}
+
+.salon-hours-info{
+  .day{
+    color: #9B9B9B;
+    font-size: 14px;
+  }
+
+  .time{
+    font-family:"Open Sans Semibold";
+    color: #4A4A4A;
+    font-size: 14px;
+  }
+}
+
+
+@media (min-width: 320px) and (max-width: 570px) {
+  .salon-info-wrapper{
+    .salon-treatment-wrapper{
+      .treatment-item{
+
+        .duration{
+          .label-value{
+            font-size: 13px;
+          }
+        }
+
+        .name{
+          font-size: 16px;
+        }
+
+        .price{
+          font-size: 15px;
+
+          .value{
+            font-size: 15px;
+          }
+        }
+      }
+    }
+  }
+}
