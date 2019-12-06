@@ -151,7 +151,7 @@ module StecmsAppointment
 	          end
 	        else
 	          verified = false
-	          errors.add(:base, "failed because treatment not found")  
+	          errors.add(:base, "failed because treatment not found")
 	        end
 	      end
 
@@ -240,12 +240,12 @@ module StecmsAppointment
 	          'Occasionale'
 	        end
 
-	      if Time.now > end_date 
+	      if Time.now > end_date
 	        class_name = special_category ? 'category-special' : booking.status
-	      else 
+	      else
 	        if booking.tag.eql?('bookonline')
-	          class_name = "bookonline device-#{booking.from_where}" 
-	        else 
+	          class_name = "bookonline device-#{booking.from_where}"
+	        else
 	          class_name = special_category ? 'category-special' : booking.status
 	        end
 	      end
@@ -267,6 +267,8 @@ module StecmsAppointment
 	    booking_hash
 	  end
 
-
+	  def self.data_master_is_ready?
+	  	StecmsAppointment::Service.first.present? &&  StecmsAppointment::Operator.first.present? && StecmsAppointment::ServiceCategory.first.present?
+	  end
   end
 end

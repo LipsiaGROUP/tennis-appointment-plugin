@@ -2,7 +2,7 @@ require_dependency "stecms_appointment/application_controller"
 
 module StecmsAppointment
   class BookingsController < BackendController
-    before_action :set_booking, only: [:show, :edit, :update, :destroy, 
+    before_action :set_booking, only: [:show, :edit, :update, :destroy,
       :update_status, :confirm_delete, :drag_and_drop, :drag_and_drop_busy_time, :delete_busy_time, :edit_busy_time, :update_busy_time]
     before_action :set_active_page
     before_action :setup_form, only: [:new, :edit]
@@ -10,6 +10,7 @@ module StecmsAppointment
     # GET /bookings
     def index
       authorize ::StecmsAppointment::Booking
+      @data_master_is_ready = ::StecmsAppointment::Booking.data_master_is_ready?
     end
 
     def calendar
@@ -109,7 +110,7 @@ module StecmsAppointment
           else
             booking_with_info = ::StecmsAppointment::Booking.with_joined_tables.where('stecms_appointment_bookings.id = ?', booking.id).first
             @booking_event_hash = booking_with_info.generate_event_hash
-            
+
           end
           format.js
         else

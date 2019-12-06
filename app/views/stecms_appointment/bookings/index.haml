@@ -41,11 +41,11 @@
 						= link_to "#", id: 'btnNewBooking', class: 'btn event-link', remote: true do
 							%i.icon-calendar{style: "padding-right: 7px;"}
 							Appuntamento
-						= link_to StecmsAppointment::Engine.routes.url_helpers.new_busy_time_bookings_path, id: 'btnNewBusyTime', class: 'btn event-link', remote: true do 
+						= link_to StecmsAppointment::Engine.routes.url_helpers.new_busy_time_bookings_path, id: 'btnNewBusyTime', class: 'btn event-link', remote: true do
 							%i.icon-ban-circle{style: "padding-right: 7px;"}
 							Blocca orario
 				.modal-footer
-					%button.btn{"aria-hidden" => "true", "data-dismiss" => "modal"} Annulla  
+					%button.btn{"aria-hidden" => "true", "data-dismiss" => "modal"} Annulla
 
 		#newAppointment.modal.hide
 			.modal-header
@@ -79,8 +79,9 @@
 						%i.icon-trash
 						Elimina Appuntamento
 
-		        
-= javascript_include_tag 'stecms_appointment/load-calendar', 'stecms_appointment/customers', 'stecms_appointment/bookings', 'stecms_appointment/treatments'
+- if @data_master_is_ready
+	= javascript_include_tag 'stecms_appointment/load-calendar'
+= javascript_include_tag	'stecms_appointment/customers', 'stecms_appointment/bookings', 'stecms_appointment/treatments'
 = javascript_include_tag "stecms_appointment/jquery.stellar"
 = javascript_include_tag "stecms_appointment/shortcut"
 = javascript_include_tag "stecms_appointment/salonist"
