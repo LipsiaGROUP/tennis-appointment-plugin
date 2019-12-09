@@ -4,7 +4,7 @@
   - price_today = treatment.show_price.last
   - original_price = treatment.price
   - image_file = price_today.zero? ? 'tel_icon.png' : 'add_icon.png'
-  = link_to "#", class: 'select-treatment-button', data: {turbolinks: false} do
+  = link_to new_stecms_appointment_frontend_appointment_service_path(treatment: treatment.id), class: 'select-treatment-button', data: {turbolinks: false} do
     .row
       .col-5
         .name= treatment.title

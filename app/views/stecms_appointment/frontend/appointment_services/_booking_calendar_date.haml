@@ -2,7 +2,7 @@
   .swiper-wrapper.swiper-date
     - calendar_content[:days].each_with_index do |day, i|
       .swiper-slide
-        .date-slider-item{class: "#{'active' if i.zero?}"} 
+        .date-slider-item{class: "#{'active' if i.zero?}"}
           .select-date{"data-date"=>"#{day[:date]}/#{@month}/#{@year}"}
             .text-day= day[:shortDay]
             .text-date= day[:date]
@@ -46,12 +46,12 @@
     $(this).parent().addClass("active");
     $(".submit-booking-button").hide();
     $.ajax({
-      'url':'/stecms_appointment/frontend/appointment_services/change_date_calendar',
+      'url':'/frontend/appointment_services/change_date_calendar',
       'type':'get',
       'data':{
         mode: "ajax",
         treatment: treatmentId,
-        date: date 
+        date: date
       }
     })
   })

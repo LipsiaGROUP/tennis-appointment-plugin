@@ -3,11 +3,13 @@ module StecmsAppointment
 
     class AppointmentServicesController < FrontendController
       helper StecmsAppointment::ApplicationHelper
-      before_action :find_service, except: [:create, :show, :reminder_booking]
+      before_action :find_service, except: [:create, :show, :reminder_booking, :index]
       skip_before_action :redirects, except: [:new]
 
+
       def index
-        @services = ::StecmsAppointment::Service.all
+        @services = ::StecmsAppointment::Service.active
+        @salon_work_days = ::StecmsAppointment::BusinessHour.get_schedule
       end
 
       def new
@@ -63,7 +65,6 @@ module StecmsAppointment
         @operators = ::StecmsAppointment::Operator.get_available_operators_for_treatment(treatment_data, params[:date])
         date = params[:date].split("/")
         @date_value = "#{date[1]}/#{date[0]}/#{date[2]}"
-
         render layout: false
       end
 
@@ -196,7 +197,7 @@ module StecmsAppointment
       end
 
       def find_service
-        @service = ::StecmsAppointment::Service.first
+        @service = ::StecmsAppointment::Service.find(params[:treatment])
       end
 
     end

@@ -20,11 +20,15 @@
         .row
           .col-9.mb-3
             - if @salon_work_days.present?
-              - @salon_work_days.each do |work_day|
+              -  I18n.t("date.day_names").each_with_index do |day, i|
                 .row
                   .col-4
-                    .day = work_day[:day]
+                    .day= day.capitalize
                   .col-8
-                    .time = work_day[:time]
+                    -if (work_day = @salon_work_days[i]).present?
+                      .time= "#{work_day[:h_start]} - #{work_day[:h_end]}"
+                    -else
+                      .time= I18n.locale == :en ? "Closed" : "Chiuso"
+
         = link_to 'PRENOTA', "#", class: 'btn btn-danger w-100 mt-4'
         = link_to 'PRENOTA AL TELEFONO','#', class: 'btn w-100 back-button mt-3'

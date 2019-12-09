@@ -1,7 +1,18 @@
 module StecmsAppointment
   module BookingsHelper
+
+    def get_payment_options(treatment)
+    payment_options = {
+      in_salon: {
+        id: 'paga-salone', text: 'Paga in salone'
+      }
+    }
+    payment_options.merge!({electronic_card: {id: 'paga-subito', text: 'Paga con carta'}}) if treatment.price.to_i
+    payment_options
+  end
+
   	def location_data
-  		StecmsAppointment::Operator.get_hash.to_json 
+  		StecmsAppointment::Operator.get_hash.to_json
   	end
 
     def fixnum_to_date(fixnum)

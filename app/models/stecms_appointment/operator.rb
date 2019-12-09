@@ -96,7 +96,7 @@ module StecmsAppointment
 		            end
 		          end
 		        end
-		        
+
 		      end
 
 		      if operator and hours.blank?
@@ -139,7 +139,7 @@ module StecmsAppointment
 		          first_treatment_duration = first_treatment.duration
 		          second_treatment_duration = (second_treatment.duration rescue nil) || 60
 		          next_time_ready_insecond = (first_composed_treatment.pause_time_minutes * 60) + first_treatment_duration
-		          
+
 		          operators.each do |operator|
 		            first_treatment_available_hours = operator.get_available_hours_for_treatment(first_treatment_duration, when_param, rounding_time)
 		            second_treatment_available_hours = operator.get_available_hours_for_treatment(second_treatment_duration, when_param, rounding_time)
@@ -150,8 +150,8 @@ module StecmsAppointment
 		              else
 		                start_id = operators_with_hours.last[:hours].last[:id] + 1
 		              end
-		              
-		              first_hours = first_treatment_available_hours.map.with_index { |hour, i| {id: i+start_id, hour: hour} }   
+
+		              first_hours = first_treatment_available_hours.map.with_index { |hour, i| {id: i+start_id, hour: hour} }
 		              second_treatment_available_hours = second_treatment_available_hours.map { |time| [time, (time.to_time + rounding_time.second).to_formatted_s(:time)] }
 		              available_hours = []
 
@@ -180,7 +180,7 @@ module StecmsAppointment
 		              if available_hours.present?
 		                operators_with_hours << {operator_id: operator.id, operator_name: operator.operator_name, hours: available_hours}
 		              end
-		              
+
 		            end
 		          end
 		        else
@@ -198,7 +198,7 @@ module StecmsAppointment
 		          end
 		        end
 
-		      else      
+		      else
 		        operators.each do |operator|
 		          available_hours = operator.get_available_hours_for_treatment(duration_param, when_param, rounding_time)
 		          unless available_hours.empty?
@@ -356,6 +356,7 @@ module StecmsAppointment
 	  end
 
   	def get_overlap_time(time_array, end_time, end_time_2, start_time_2, date, second)
+
 	    today_overlap_hours = []
 	    current_time = Time.now
 	    e_time = (end_time_2.present? ? end_time_2 : end_time).split(":")
@@ -409,7 +410,7 @@ module StecmsAppointment
 	    today = Time.now
 	    special_open = ::StecmsAppointment::CustomOpen.get_special_open(date.to_time.to_i)
 
-	    if special_open[:status] 
+	    if special_open[:status]
 	      new_schedule = special_open[:new_schedule]
 	      start_time_special = new_schedule[:start_time].to_datetime.strftime("%H:%M")
 	      end_time_special = new_schedule[:end_time].to_datetime.strftime("%H:%M")
@@ -419,7 +420,7 @@ module StecmsAppointment
 	      hour_db = self.operator_hours.where(day: wday).first
 	      salon_hour_db = ::StecmsAppointment::BusinessHour.where(day: wday).first
 	    end
-	    
+
 	    time_array = []
 
 	    if hour_db && salon_hour_db
@@ -441,7 +442,7 @@ module StecmsAppointment
 	        bookings = self.bookings.select(:start_time, :duration, :end_time, :id, :stecms_appointment_service_id, :duration, :price).where("start_time BETWEEN ? AND ?", range_time[0], range_time[1]).where(is_composed_treatment: false)
 
 	        time_array += ::StecmsAppointment::Operator.time_step(start_time, end_time, rounding_time.to_i)
-	        
+
 	        if s_start2.to_i.zero? && !h_start2.to_i.zero?
 	          start_time_2 = h_start2
 	            end_time_2 = h_end2.to_i < s_end.to_i ? h_end2 : s_end
@@ -471,7 +472,7 @@ module StecmsAppointment
 	          (array_time - today) < 900
 	        end
 	      end
-	    else  
+	    else
 	      if ((today.hour >= 16) and date_treatment.eql?(today.tomorrow.to_date)) or ((today.hour < 11) and date_treatment.eql?(today.to_date))
 	        time_array.delete_if do |hour|
 	          hour_and_minutes = hour.split(":")

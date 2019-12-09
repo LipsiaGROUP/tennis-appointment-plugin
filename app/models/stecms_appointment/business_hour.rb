@@ -17,7 +17,7 @@ module StecmsAppointment
 	        result.each do |schedule|
 	          schedule.h_start2 = nil if schedule.h_start2 == "00:00"
 	          schedule.h_end2 = nil if schedule.h_end2 == "00:00"
-	          stamp_day = schedule.day == 0 ? 7 : schedule.day
+	          stamp_day = schedule.day# == 0 ? 7 : schedule.day
 	          if schedule.h_start2 == nil
 	            hours[stamp_day] = {h_start: schedule.h_start, h_end: schedule.h_end}
 	          else
@@ -27,6 +27,10 @@ module StecmsAppointment
 	      end
 	      return hours
 	    end
+
+	    def salon_work_days
+	    end
+
 	  end
   end
 end
