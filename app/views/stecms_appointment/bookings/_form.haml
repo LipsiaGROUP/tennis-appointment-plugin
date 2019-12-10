@@ -1,5 +1,5 @@
 = simple_form_for @booking, url: @action_url, html: { id: 'new_service_booking', class: 'form-horizontal new_service_booking', remote: true } do |f|
-  
+
   .modal-body
     %ul#serviceAppointmentTab.nav.nav-tabs
       %li.active
@@ -7,7 +7,7 @@
           %i.icon-book
           Dettagli
       %li
-        %a{"data-toggle"=>"tab", "href"=>"#notes"} 
+        %a{"data-toggle"=>"tab", "href"=>"#notes"}
           %i.icon-user
           Note
 
@@ -17,11 +17,11 @@
           = f.label :user_id, 'Cliente', class: 'control-label', for: 'service_booking_user_id'
           .controls
             = f.input_field :stecms_appointment_customer_id, as: :string, id: 'service_booking_user_id', class: 'search', placeholder: 'Cerca per nome o telefono'
-            
+
         %a#walkInCustomer.btn.event-link.pull-right{"href"=>"javascript:void(0);"} Occasionale
         = link_to '+ Nuovo', 'javascript:void(0)', id: 'addNewCustomer', class: 'btn event-link pull-right'
         .clearfix
-        
+
         #customerBox.control-group.hide
           .control-label Cliente
           .controls
@@ -69,7 +69,7 @@
           = f.label :notes, 'Note', class: 'text control-label', for: 'service_booking_notes'
           .controls
             = f.input_field :note, as: :text, id: 'service_booking_notes text', rows: 3, style: 'width: 300px'
-                
+
   .modal-footer
     %p.error-messages{"style"=> 'float: left;'}
     %button.btn{"aria-hidden"=>"true", "data-dismiss"=>"modal"} Annulla
@@ -77,7 +77,7 @@
 
     - unless @booking.new_record?
       .pull-left
-        = link_to confirm_delete_bookings_path(@booking, status: 'cancelled'), class: 'btn btn-danger', dom: 'deleteBooking', remote: true, data: {method: "delete"} do
+        = link_to confirm_delete_booking_path(@booking, status: 'cancelled'), class: 'btn btn-danger', dom: 'deleteBooking', remote: true, data: {method: "delete"} do
           %i.icon-trash
           Elimina Appuntamento
 

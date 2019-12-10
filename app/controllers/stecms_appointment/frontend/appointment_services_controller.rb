@@ -13,6 +13,7 @@ module StecmsAppointment
       end
 
       def new
+        @salon_work_days = ::StecmsAppointment::BusinessHour.get_schedule
       	@booking = ::StecmsAppointment::Booking.new
       	date = Time.now
         treatment_data = {
@@ -35,6 +36,8 @@ module StecmsAppointment
       end
 
       def change_month_calendar
+        @salon_work_days = ::StecmsAppointment::BusinessHour.get_schedule
+
         current_date = Time.now
         treatment_data = {
           treatment_id: @service.id,
@@ -58,6 +61,8 @@ module StecmsAppointment
       end
 
       def change_date_calendar
+        @salon_work_days = ::StecmsAppointment::BusinessHour.get_schedule
+
         treatment_data = {
           treatment_id: @service.id,
           duration: @service.duration

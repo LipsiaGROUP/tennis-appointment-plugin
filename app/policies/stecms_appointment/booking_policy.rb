@@ -43,6 +43,10 @@ class StecmsAppointment::BookingPolicy < StecmsAppointmentPolicy
     index?
   end
 
+  def get_variants?
+    true
+  end
+
   def get_updates?
     index?
   end

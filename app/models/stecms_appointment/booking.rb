@@ -1,6 +1,6 @@
 module StecmsAppointment
   class Booking < ActiveRecord::Base
-  	has_ancestry
+  	# has_ancestry
   	belongs_to :service, class_name: 'StecmsAppointment::Service', foreign_key: 'stecms_appointment_service_id'
   	belongs_to :operator, class_name: 'StecmsAppointment::Operator', foreign_key: 'stecms_appointment_operator_id'
   	belongs_to :user, class_name: 'StecmsAppointment::Customer', foreign_key: 'stecms_appointment_customer_id'
