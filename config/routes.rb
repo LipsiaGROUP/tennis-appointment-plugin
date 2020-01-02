@@ -17,6 +17,7 @@ StecmsAppointment::Engine.routes.draw do
 		collection do
 			get :calendar
 			get :agenda
+			get :get_variants
 			get :new_busy_time
 			post :create_busy_time
 			post :get_updates
@@ -43,6 +44,8 @@ StecmsAppointment::Engine.routes.draw do
 
  #    get 'change-month/:month/:year/:treatment', to: 'appointment_services#change_month_calendar', as: :change_month_calendar
 	# end
+	#
+
 
 	namespace :api do
 		resources :operators, only: [:index] do

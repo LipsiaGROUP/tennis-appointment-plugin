@@ -30,6 +30,6 @@
 				p Si prega di prenotare in modo responsabile. È molto grave per i saloni quando non ti presenti ad un appuntamento. Certo, possono capitare degli imprevisti urgenti, quindi se sei impossibilitato ad andare all'appuntamento sii cortese e annullalo dalla sezione 'prenotazioni' del tuo profilo.
 
 		.col-12.col-md-4
-			= link_to "CREA PROMEMORIA", reminder_booking_frontend_appointment_service_path(@booking, iframe_layout: @iframe_layout), class: 'btn btn-info w-100 mt-3'
+			= link_to "CREA PROMEMORIA", reminder_booking_stecms_appointment_frontend_appointment_service_path(@booking, iframe_layout: @iframe_layout), class: 'btn btn-info w-100 mt-3'
 			- unless @iframe_layout.present?
 				= link_to "NUOVA PRENOTAZIONE", root_path, class: 'btn btn-danger w-75 mt-3'

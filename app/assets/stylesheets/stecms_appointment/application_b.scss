@@ -6361,8 +6361,13 @@ input[type="submit"].btn.btn-mini {
     display: none
 }
 .popover-content {
-    padding: 0px
+    padding: 0px;
+    .buttons{
+    min-width: auto;
+    }
 }
+
+
 .popover .arrow,
 .popover .arrow:after {
     position: absolute;
@@ -6397,8 +6402,7 @@ input[type="submit"].btn.btn-mini {
     top: 50%;
     left: -11px;
     margin-top: -11px;
-    border-right-color: #999;
-    border-right-color: rgba(0, 0, 0, 0.25);
+    border-right-color: rgba(0, 0, 0, 0);
     border-left-width: 0
 }
 .popover.right .arrow:after {
@@ -11181,9 +11185,10 @@ span .pricing-level-name {
     background: #fff asset-url("stecms_appointment/ui-anim_basic_16x16.gif") right center no-repeat !important
 }
 #new-booking .menu {
-    padding-top: 30px;
-    padding-bottom: 30px;
-    padding-left: 22px
+    // padding-top: 30px;
+    // padding-bottom: 30px;
+    // padding-left: 22px
+    text-align: center;
 }
 #new-booking .menu .btn {
     padding: 20px 20px;

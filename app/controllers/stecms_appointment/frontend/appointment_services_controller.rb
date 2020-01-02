@@ -119,9 +119,9 @@ module StecmsAppointment
             if check_user
               user = check_user
 
-              customer = ::StecmsAppointment::Customer.where(email: user.email).last
-              unless customer
-                customer = ::StecmsAppointment::Customer.create(email: user.email, cell: params[:booking][:guest_phone], name: params[:booking][:guest_name])
+              @customer = ::StecmsAppointment::Customer.where(email: user.email).last
+              unless @customer
+                @customer = ::StecmsAppointment::Customer.create(email: user.email, cell: params[:booking][:guest_phone], name: params[:booking][:guest_name])
               end
 
               booking.stecms_appointment_customer_id = customer.try(:id)
@@ -129,21 +129,22 @@ module StecmsAppointment
               check_user = ::StecmsAppointment::Customer.where(email: params[:booking][:guest_email]).first
               if check_user
                 booking.stecms_appointment_customer_id = check_user.id
-              else
-                customer = ::StecmsAppointment::Customer.new(email: params[:booking][:guest_email], cell: params[:booking][:guest_phone], name: params[:booking][:guest_name])
+                 @customer = check_user
 
-                if customer.save(validate: false)
-                  booking.stecms_appointment_customer_id = customer.id
+              else
+                @customer = ::StecmsAppointment::Customer.new(email: params[:booking][:guest_email], cell: params[:booking][:guest_phone], name: params[:booking][:guest_name])
+
+                if @customer.save(validate: false)
+                  booking.stecms_appointment_customer_id = @customer.id
                 end
               end
             end
           end
         else
-          customer = current_user
+          @customer = current_user
         end
 
-        customer = ::StecmsAppointment::Customer.where(email: customer.email).last
-        booking.stecms_appointment_customer_id = customer.try(:id)
+        booking.stecms_appointment_customer_id = @customer.try(:id)
         service = ::StecmsAppointment::Service.find(booking_params[:stecms_appointment_service_id])
         booking.title = service.title + " (" + (service.duration / 60).to_s + " min)"
         booking.duration = service.duration
@@ -162,12 +163,14 @@ module StecmsAppointment
           end
 
           if params[:payment_method].eql?('paga-subito')
+            binding.pry
             redirect_to booking.paypal_checkout_url(return_feedback_path)
           else
             url_success_hash = {}
             url_success_hash[:iframe_layout] = true if params['iframe_layout'].present?
 
-            @url_redirect = frontend_appointment_service_url(booking, url_success_hash)
+            @url_redirect = main_app.stecms_appointment_frontend_appointment_service_url(booking, url_success_hash)
+
           end
 
           @error = false
@@ -180,7 +183,7 @@ module StecmsAppointment
         else
           respond_to do |format|
             format.js { render layout: false }
-            format.html { redirect_to new_frontend_appointment_service_url(url_hash), alert: 'Compila tutti i campi per favore' }
+            format.html { redirect_to main_app.new_stecms_appointment_frontend_appointment_service_url(url_hash), alert: 'Compila tutti i campi per favore' }
           end
         end
       end

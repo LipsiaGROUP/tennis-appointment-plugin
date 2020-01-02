@@ -45,6 +45,12 @@ module StecmsAppointment
       render json: operators_hashes
     end
 
+    def get_variants
+      authorize ::StecmsAppointment::Booking
+      service = ::StecmsAppointment::Service.find(params[:service_id])
+      render json: service
+    end
+
     def get_updates
       authorize ::StecmsAppointment::Booking
       @new_booking_events_hashes = ::StecmsAppointment::Booking.new_events_hashes(params[:interval], params[:resource_view],
@@ -226,7 +232,7 @@ module StecmsAppointment
       def setup_form
         @new_customer = Customer.new
         @operators = ::StecmsAppointment::Operator.all
-        @service_categories = ::StecmsAppointment::Service.all
+        @service_categories = ::StecmsAppointment::Service.active
       end
 
       def busy_time_params_dragged

@@ -11,7 +11,7 @@ module StecmsAppointment
       end
     end
 
-    
+
     def convert_to_hashes
       {
         id: self.id,

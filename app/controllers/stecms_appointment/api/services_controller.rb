@@ -1,9 +1,9 @@
 module StecmsAppointment
 	module Api
 	  class ServicesController < ApiController
-	  	
+
 	  	def index
-	  		@services = ::StecmsAppointment::Service.all
+	  		@services = ::StecmsAppointment::Service.active
 	  	end
 
 	  	def show

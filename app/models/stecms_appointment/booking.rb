@@ -196,6 +196,7 @@ module StecmsAppointment
     end
 
 	  def generate_event_hash(hide_buttons = false)
+
 	    booking = self
 	    booking_hash = {}
 
@@ -221,6 +222,7 @@ module StecmsAppointment
 
 	    hide_buttons = true if ['noshow', 'checkout'].include? booking.status
 
+	    # binding.pry
 	    if booking.tag.eql? 'busyTime'
 	      booking_hash[:description] = ''
 	      booking_hash[:name] = "Orario bloccato #{ start_date.strftime("%H:%M") } - #{ end_date.strftime("%H:%M") }"

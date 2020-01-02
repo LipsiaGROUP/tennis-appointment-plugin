@@ -459,7 +459,7 @@ module StecmsAppointment
 	        today_overlap_hours = get_overlap_time(time_array, end_time, end_time_2, start_time_2, date, second)
 
 	        time_array.delete("00:00")
-	        time_array = (time_array - bookings_time) #- today_overlap_hours
+	        time_array = (time_array - bookings_time) - today_overlap_hours
 	      end
 	    end
 
