@@ -372,7 +372,7 @@ module StecmsAppointment
 	      time_array.each do |time|
 	        time_splitted = time.split(":")
 	        schedule_time = current_time.change(hour: time_splitted[0], min: time_splitted[1])
-	        if schedule_time < current_time
+	        if schedule_time > current_time
 	          today_overlap_hours << time
 	        end
 	      end
@@ -381,7 +381,7 @@ module StecmsAppointment
 	    time_array.each do |time|
 	      time_splitted = time.split(":")
 	      schedule_time = current_time.change(hour: time_splitted[0], min: time_splitted[1]) + second.to_i
-	      if (schedule_time > close_time) || (break_time.present? && schedule_time > break_time && schedule_time < after_break_time)
+	      if (schedule_time < close_time) || (break_time.present? && schedule_time > break_time && schedule_time < after_break_time)
 	        today_overlap_hours << time
 	      end
 	    end
