@@ -22320,7 +22320,7 @@ _onDragStart = function(t, e, i, n) {
           }, window.selectServicePricingLevel = function(t) {
             return $.ajax({
               "type": "GET",
-              "url": "/bookings/get_variants?service_id=" + t + "&action_type=select_service_pricing_levels",
+              "url": "/backend/stecms_appointment/bookings/get_variants?service_id=" + t + "&action_type=select_service_pricing_levels",
               "beforeSend": function() {
                 var t;
                 return t = document.getElementById("service_booking_service_pricing_level_id")
