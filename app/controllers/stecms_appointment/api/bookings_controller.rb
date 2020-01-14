@@ -23,7 +23,7 @@ module StecmsAppointment
         render json: { status: I18n.t('Prenotazione annullata') }
 	  	end
 
-	  	def create
+      def create
 	  		new_user = false
         begin
           parsed_time = params[:booking][:time_id].split(":")
