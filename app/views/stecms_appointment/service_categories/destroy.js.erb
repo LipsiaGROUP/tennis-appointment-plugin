@@ -1,0 +1,7 @@
+<% if @service_category.errors.any? %>
+// TODO: errors alert, if cannot delete due to any relations
+<% else %>
+  $("tr#service-category-<%= @service_category.id %>").fadeOut(function () {
+    $(this).remove();
+  })
+<% end %>
