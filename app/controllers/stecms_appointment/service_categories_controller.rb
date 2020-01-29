@@ -49,7 +49,10 @@ module StecmsAppointment
     # DELETE /service_categories/1
     def destroy
       @service_category.destroy
-      redirect_to service_categories_url, notice: 'Service category was successfully destroyed.'
+      # redirect_to service_categories_url, notice: 'Service category was successfully destroyed.'
+      respond_to do |format|
+        format.js
+      end
     end
 
     private

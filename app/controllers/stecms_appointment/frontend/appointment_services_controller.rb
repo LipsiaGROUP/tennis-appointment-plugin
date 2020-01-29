@@ -163,7 +163,6 @@ module StecmsAppointment
           end
 
           if params[:payment_method].eql?('paga-subito')
-            binding.pry
             redirect_to booking.paypal_checkout_url(return_feedback_path)
           else
             url_success_hash = {}

@@ -20,4 +20,4 @@
                 %td
                   =link_to t("admin.words.edit"), StecmsAppointment::Engine.routes.url_helpers.edit_service_category_path(item), class: 'mr-2'
                   =link_to t("admin.words.show"), StecmsAppointment::Engine.routes.url_helpers.service_category_path(item), class: 'text-info mr-2', remote: true
-                  =link_to t("admin.words.delete"), StecmsAppointment::Engine.routes.url_helpers.service_category_path(item), method: :delete, class: 'text-danger', remote: true, data: { confirm: t("admin.rpush_web.settings.index.delete") }
+                  =link_to t("admin.words.delete"), StecmsAppointment::Engine.routes.url_helpers.service_category_path(item), method: :delete, class: 'text-danger', remote: true, data: { confirm: t("admin.rpush_web.settings.index.delete", app_name: item.title) }
