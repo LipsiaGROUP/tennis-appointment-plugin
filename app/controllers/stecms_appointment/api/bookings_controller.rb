@@ -43,7 +43,7 @@ module StecmsAppointment
               note: ''
             }
           end
-
+      
           params[:booking].except!("time_id", "month_id", "date_id", "year_id", "visitor_phone", "visitor_name", "visitor_email", "voucher_code")
           params[:booking][:start_time] = start_time
           params[:booking][:end_time] = end_time
@@ -65,7 +65,7 @@ module StecmsAppointment
           params[:booking][:stecms_appointment_operator_id] = params[:booking][:operator_id]
           params[:booking].delete(:s_treatment_id)
           params[:booking].delete(:operator_id)
-
+          
           booking = ::StecmsAppointment::Booking.new(booking_params)
 
           if params[:user_email].present?
@@ -118,7 +118,7 @@ module StecmsAppointment
       private 
 
       def booking_params
-        params.require(:booking).permit(:from_where, :price, :discount_price, :start_time, :end_time, :stecms_appointment_service_id, :stecms_appointment_operator_id, :status, :tag, :note)
+        params.require(:booking).permit(:from_where, :price, :discount_price, :start_time, :end_time, :stecms_appointment_service_id, :stecms_appointment_operator_id, :status, :tag, :note, :duration)
       end
 
 	  end

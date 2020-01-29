@@ -18,14 +18,16 @@ module StecmsAppointment
       date_start = params[:start].to_date.to_time.to_i
       cookies[:start_calendar] = date_start
       date_end = params[:end].to_date.to_time.to_i
-      calendar_bookings_hashes = ::StecmsAppointment::Booking.get_calendar_bookings(date_start, date_end,
+      calendar_bookings_hashes_param = ::StecmsAppointment::Booking.get_calendar_bookings(date_start, date_end,
         params[:employee_id])
 
       operators_schedules_hashes = ::StecmsAppointment::Operator.get_operators_schedules_hashes(date_start)
 
       puts operators_schedules_hashes
 
-      if calendar_bookings_hashes.present?
+      if calendar_bookings_hashes_param.present?
+
+        calendar_bookings_hashes = calendar_bookings_hashes_param.select{|v|v[:status] == "confirmed"}
         calendar_bookings_hashes << operators_schedules_hashes
         render json: calendar_bookings_hashes
       else
