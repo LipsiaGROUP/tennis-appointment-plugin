@@ -57,6 +57,14 @@ StecmsAppointment::Engine.routes.draw do
 		resources :bookings, only: [:show, :create] do
 			collection do
 				post :month_calendar
+				post :get_bookings
+				
+			end
+
+			member do 
+				get :get_booking
+				# post :get_booking
+				get :remove_booking
 			end
 		end
 

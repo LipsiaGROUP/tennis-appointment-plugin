@@ -16,7 +16,7 @@
 .control-group.email.optional.employee_picture
   %label.string.optional.control-label Foto
   - if f.object.avatar.present?
-    = image_tag f.object.avatar.thumb.url, style: 'margin-left: 9%;margin-bottom: 10px;'
+    -# = image_tag f.object.avatar.image_url(:original)
   .controls
     = f.file_field :avatar, id: 'edit_avatar', validate: false
 
