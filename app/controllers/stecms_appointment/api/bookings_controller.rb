@@ -2,15 +2,37 @@ module StecmsAppointment
 	module Api
 	  class BookingsController < ApiController
 
-	  	def show
+      def show
         booking = ::StecmsAppointment::Booking.find(params[:booking_id])
         BookingSerializer.new(booking)
 	  	end
-
-	  	def my
+ 
+      def my
         bookings = current_user.bookings.active.includes(:salon).order("created_at desc")
         {name: current_user.full_name, total_booking: bookings.count, bookings: ActiveModel::SerializableResource.new(bookings, each_serializer: MyBookingSerializer)}
-	  	end
+      end
+      
+      def get_bookings
+        bookings = Booking.joins(:user).select{|x|x.user.email == current_user.email}
+        render json: bookings
+      end
+
+      def get_booking
+        booking = ::StecmsAppointment::Booking.find(params[:id])
+        render :json => booking.to_json(:include => [:operator, :service])
+      end
+     
+      def remove_booking
+        booking = ::StecmsAppointment::Booking.find(params[:id])
+        
+        if booking.destroy
+          flash[:notice] = "Post successfully created"    
+          render json: flash
+        else
+          binding.pry
+          render json: "error"
+        end
+      end
 
       def month_calendar
         data = CalendarBooking.date_month_content(params[:month].to_i, params[:year].to_i)
