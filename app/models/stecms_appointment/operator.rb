@@ -117,7 +117,7 @@ module StecmsAppointment
 		    times.map {|time| time.to_formatted_s(:time)}
 		  end
 
-  		def get_available_operators_for_treatment(params, when_param)
+			def get_available_operators_for_treatment(params, when_param)
 		    treatment = ::StecmsAppointment::Service.find(params[:treatment_id])
 		    rounding_time = ::StecmsAppointment::Setting.last.try(:rounding)
 		    duration_param = params[:duration]
@@ -355,37 +355,81 @@ module StecmsAppointment
 	    }
 	  end
 
-  	def get_overlap_time(time_array, end_time, end_time_2, start_time_2, date, second)
+	  def get_overlap_time(time_array, end_time, end_time_2, start_time_2, date, second)
+			def set_breack_time(start_t, end_t)
+					today_overlap_hours = []
+					h_start2 = start_t.split(":")
+					h_end2	 = end_t.split(":")
+					time_h_start2 = Time.now.change(hour: h_start2[0], min: h_start2[1])
+					time_h_end2 = Time.now.change(hour: h_end2[0], min: h_end2[1])
 
-	    today_overlap_hours = []
-	    current_time = Time.now
-	    e_time = (end_time_2.present? ? end_time_2 : end_time).split(":")
-	    close_time = current_time.change(hour: e_time[0], min: e_time[1])
+					(time_h_start2.to_datetime.to_i .. time_h_end2.to_datetime.to_i).step(1.minute)  do  |x| 
+						t=  Time.at(x).strftime("%H:%M")
+						if t != end_t
+							today_overlap_hours << t
+						end
+					end
 
-	    if start_time_2.present? && end_time.present?
-	      end_time_splitted = end_time.split(":")
-	      break_time = current_time.change(hour: end_time_splitted[0], min: end_time_splitted[1])
-	      after_break_time = current_time.change(hour: start_time_2.split(":")[0], min: start_time_2.split(":")[1])
-	    end
+					today_overlap_hours
+			end
+			today_overlap_hours = []
+			date = date.to_date
+			buisnes = StecmsAppointment::BusinessHour.where(day: date.wday).first
 
-	    if date == current_time.strftime("%d/%m/%Y")
-	      time_array.each do |time|
-	        time_splitted = time.split(":")
-	        schedule_time = current_time.change(hour: time_splitted[0], min: time_splitted[1])
-	        if schedule_time > current_time
-	          today_overlap_hours << time
-	        end
-	      end
-	    end
+			if buisnes.present?
+				end_hour_b = buisnes.h_end
+				op = self.operator_hours.where(day: date.wday).first
+				
+				if op.present?
+					#  break time operator
+					if op.h_start2 != "00:00"
+						today_overlap_hours = set_breack_time(op.h_start2, op.h_end2)
+					elsif buisnes.h_start2 != "00:00"
+						today_overlap_hours = set_breack_time(buisnes.h_start2, buisnes.h_end2)
+					end
+					# end break time operator
+					
+					# end hours oprations 
+					today_overlap_hours << buisnes.h_end
+					
+				else
+				today_overlap_hours = time_array
+				end
+			else
+				# note 00:00 - 24:00 Holiday
+				today_overlap_hours = time_array
+			end
+			today_overlap_hours
 
-	    time_array.each do |time|
-	      time_splitted = time.split(":")
-	      schedule_time = current_time.change(hour: time_splitted[0], min: time_splitted[1]) + second.to_i
-	      if (schedule_time < close_time) || (break_time.present? && schedule_time > break_time && schedule_time < after_break_time)
-	        today_overlap_hours << time
-	      end
-	    end
-	    today_overlap_hours
+			# today_overlap_hours = []
+	    # current_time = Time.now
+	    # e_time = (end_time_2.present? ? end_time_2 : end_time).split(":")
+	    # close_time = current_time.change(hour: e_time[0], min: e_time[1])
+
+	    # if start_time_2.present? && end_time.present?
+	    #   end_time_splitted = end_time.split(":")
+	    #   break_time = current_time.change(hour: end_time_splitted[0], min: end_time_splitted[1])
+	    #   after_break_time = current_time.change(hour: start_time_2.split(":")[0], min: start_time_2.split(":")[1])
+	    # end
+
+	    # if date == current_time.strftime("%d/%m/%Y")
+	    #   time_array.each do |time|
+	    #     time_splitted = time.split(":")
+	    #     schedule_time = current_time.change(hour: time_splitted[0], min: time_splitted[1])
+	    #     if schedule_time > current_time
+	    #       today_overlap_hours << time
+	    #     end
+	    #   end
+	    # end
+
+	    # time_array.each do |time|
+	    #   time_splitted = time.split(":")
+	    #   schedule_time = current_time.change(hour: time_splitted[0], min: time_splitted[1]) + second.to_i
+	    #   if (schedule_time < close_time) || (break_time.present? && schedule_time > break_time && schedule_time < after_break_time)
+	    #     today_overlap_hours << time
+	    #   end
+	    # end
+	    # today_overlap_hours
 	  end
 
   	def get_booking_time(bookings, time_array, second, date)
@@ -408,7 +452,7 @@ module StecmsAppointment
 	    wday = date_treatment.wday
 	    today = Time.now
 	    special_open = ::StecmsAppointment::CustomOpen.get_special_open(date.to_time.to_i)
-
+		
 	    if special_open[:status]
 	      new_schedule = special_open[:new_schedule]
 	      start_time_special = new_schedule[:start_time].to_datetime.strftime("%H:%M")
@@ -417,7 +461,7 @@ module StecmsAppointment
 	      hour_db = ::StecmsAppointment::OperatorHour.new(h_start: start_time_special, h_end: end_time_special, h_start2: "00:00", h_end2: "00:00")
 	    else
 	      hour_db = self.operator_hours.where(day: wday).first
-	      salon_hour_db = ::StecmsAppointment::BusinessHour.where(day: wday).first
+		  salon_hour_db = ::StecmsAppointment::BusinessHour.where(day: wday).first
 	    end
 
 	    time_array = []
@@ -431,8 +475,8 @@ module StecmsAppointment
 	      s_end = salon_hour_db.h_end
 	      s_start2 = salon_hour_db.h_start2
 	      s_end2 = salon_hour_db.h_end2
-
-	      unless (h_start.to_i.zero? && h_end.to_i.zero? && h_start2.to_i.zero? && h_end2.to_i.zero?)
+		  
+		  unless (h_start.to_i.zero? && h_end.to_i.zero? && h_start2.to_i.zero? && h_end2.to_i.zero?)
 	        start_time = h_start.to_i > s_start.to_i ? h_start : s_start
 	        end_time = h_end.to_i < s_end.to_i ? h_end : s_end
 
@@ -441,28 +485,29 @@ module StecmsAppointment
 	        bookings = self.bookings.select(:start_time, :duration, :end_time, :id, :stecms_appointment_service_id, :duration, :price).where("start_time BETWEEN ? AND ?", range_time[0], range_time[1]).where(is_composed_treatment: false)
 
 	        time_array += ::StecmsAppointment::Operator.time_step(start_time, end_time, rounding_time.to_i)
-
-	        if s_start2.to_i.zero? && !h_start2.to_i.zero?
+			
+			if s_start2.to_i.zero? && !h_start2.to_i.zero?		  
 	          start_time_2 = h_start2
 	            end_time_2 = h_end2.to_i < s_end.to_i ? h_end2 : s_end
-	        elsif !s_start2.to_i.zero? && h_start2.to_i.zero?
+			elsif !s_start2.to_i.zero? && h_start2.to_i.zero?	  
 	          start_time_2 = s_start2
 	            end_time_2 = h_end.to_i < s_end2.to_i ? h_end : s_end2
-	        elsif !(s_start2.to_i.zero? && h_start2.to_i.zero?)
+			elsif !(s_start2.to_i.zero? && h_start2.to_i.zero?)	
 	          start_time_2 = h_start2.to_i > s_start2.to_i ? h_start2 : s_start2
 	            end_time_2 = h_end2.to_i < s_end2.to_i ? h_end2 : s_end2
 	        end
 
 	        time_array += ::StecmsAppointment::Operator.time_step(start_time_2, end_time_2, rounding_time.to_i) if start_time_2.present? && end_time_2.present?
 
-	        bookings_time = get_booking_time(bookings, time_array, second.to_f, date)
+					bookings_time = get_booking_time(bookings, time_array, second.to_f, date)
+					
 	        today_overlap_hours = get_overlap_time(time_array, end_time, end_time_2, start_time_2, date, second)
-
-	        time_array.delete("00:00")
+					
+					time_array.delete("00:00")
 	        time_array = (time_array - bookings_time) - today_overlap_hours
 	      end
-	    end
-
+		end
+		
 	    if setting.booking_next_fifteen
 	      if date_treatment.eql?(today.to_date)
 	        time_array.delete_if do |hour|
@@ -488,7 +533,7 @@ module StecmsAppointment
 	      end
 	    end
 
-	    time_array
+			time_array
 	  end
   end
 end
