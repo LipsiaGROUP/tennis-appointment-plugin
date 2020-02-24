@@ -58,7 +58,7 @@ StecmsAppointment::Engine.routes.draw do
 			collection do
 				post :month_calendar
 				post :get_bookings
-				
+				post :multiple_bookings
 			end
 
 			member do 
