@@ -160,7 +160,11 @@ module StecmsAppointment
                 note: ''
               }
             end
-        
+            
+            visitor_name_param = booking_obj[:booking][:visitor_name]
+            visitor_email_param = booking_obj[:booking][:visitor_email]
+            visitor_phone_param = booking_obj[:booking][:visitor_phone]
+            
             booking_obj[:booking].except!("time_id", "month_id", "date_id", "year_id", "visitor_phone", "visitor_name", "visitor_email", "voucher_code")
             booking_obj[:booking][:start_time] = start_time
             booking_obj[:booking][:end_time] = end_time
@@ -176,7 +180,7 @@ module StecmsAppointment
             if booking_obj[:booking][:from_where].blank? or booking_obj[:booking][:from_where].to_s.length > 9
               booking_obj[:booking][:from_where] = "caapp"
             end
-
+            
             booking_obj[:booking].merge!(booking_data)
             booking_obj[:booking][:stecms_appointment_service_id] = booking_obj[:booking][:s_treatment_id]
             booking_obj[:booking][:stecms_appointment_operator_id] = booking_obj[:booking][:operator_id]
@@ -193,7 +197,7 @@ module StecmsAppointment
               if user
                 customer = ::StecmsAppointment::Customer.where(email: user.email).last
                 unless customer 
-                  customer = ::StecmsAppointment::Customer.create(email: booking_obj[:user_email], cell: booking_obj[:visitor_phone], name: booking_obj[:visitor_name])
+                  customer = ::StecmsAppointment::Customer.create(email: booking_obj[:user_email], cell: booking_obj[:visitor_phone], name: user.name)
                 end
               end 
               booking.stecms_appointment_customer_id = customer.try(:id)
@@ -202,7 +206,7 @@ module StecmsAppointment
               if check_user
                 booking.stecms_appointment_customer_id = check_user.id
               else
-                user = ::StecmsAppointment::Customer.new(email: booking_obj[:visitor_email], cell: booking_obj[:visitor_phone], name: booking_obj[:visitor_name])
+                user = ::StecmsAppointment::Customer.new(email: visitor_email_param, cell: visitor_phone_param, name: visitor_name_param)
                 
                 if user.save(validate: false)
                   booking.stecms_appointment_customer_id = user.id
