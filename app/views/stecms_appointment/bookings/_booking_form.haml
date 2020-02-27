@@ -24,7 +24,7 @@
             %td.second= duration
           %tr
             %td.first Prezzo
-            %td.second="&euro; #{booking.price.round(2)}"
+            %td.second="€ #{booking.price.round(2)}"
 
     - if booking.note.present?
       .actions{"style"=>'float:left;max-width:200px'}

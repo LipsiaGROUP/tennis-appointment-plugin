@@ -136,6 +136,9 @@ module StecmsAppointment
 	  	end
 
       def multiple_bookings
+        @param_booking = []
+        
+        visitor_email_first = params["_json"][0][:booking][:visitor_email]
 
         params["_json"].each do |booking_obj|
           
@@ -232,9 +235,22 @@ module StecmsAppointment
             end
 
             @booking = booking
+            @param_booking << @booking
           else
             return {error: booking.errors.full_messages.join(", ")}
           end 
+        end
+        
+        if @param_booking.any?
+          email_param = params["_json"][0][:user_email]
+          user = User.where(email: email_param).last
+          
+          if user
+            LipsiaMailer.after_booking_mobile(user, @param_booking).deliver
+          else
+            customer = ::StecmsAppointment::Customer.where(email: visitor_email_first).last
+            LipsiaMailer.after_booking_mobile(customer, @param_booking).deliver
+          end
         end
       end
 

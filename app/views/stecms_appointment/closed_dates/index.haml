@@ -21,8 +21,10 @@
                 %td=item.description
                 %td=date_range(item)
                 %td=item.number_of_day_label
-                %td
+                %td.text-right
                   =link_to t("admin.words.edit"), StecmsAppointment::Engine.routes.url_helpers.edit_closed_date_path(item), class: 'mr-2', remote: true
+                %td
+                  =link_to t("admin.words.delete"), StecmsAppointment::Engine.routes.url_helpers.closed_date_path(item), class: "text-danger", method: :delete, data: { confirm: t("closed_date.confirm_remove")}
 
 = javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js'
 = javascript_include_tag 'stecms_appointment/salon_closed_dates'
