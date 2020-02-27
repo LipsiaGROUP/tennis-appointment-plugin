@@ -2,7 +2,7 @@ module StecmsAppointment
   class ClosedDate < ActiveRecord::Base
 
   	def self.closed_date_exist?(date)
-  		where("(start <= :date AND end >= :date) AND status = 'active'", {date: date}).present?
+  		where("start <= :date AND end >= :date", {date: date}).present?
   	end
 
   	def number_of_day_label

@@ -117,7 +117,10 @@ module StecmsAppointment
 			  times.map {|time| time.to_formatted_s(:time)}
 			end
   
-			  def get_available_operators_for_treatment(params, when_param)
+			def get_available_operators_for_treatment(params, when_param)
+				
+			  return [] if StecmsAppointment::ClosedDate.closed_date_exist? when_param.to_date.to_time.to_i
+
 			  treatment = ::StecmsAppointment::Service.find(params[:treatment_id])
 			  rounding_time = ::StecmsAppointment::Setting.last.try(:rounding)
 			  duration_param = params[:duration]
@@ -128,7 +131,7 @@ module StecmsAppointment
   
 			  if allow_booking
 				operators = treatment.operators.active_working
-  
+				
 				if treatment.is_composed
 				  composed_treatments = treatment.composed_treatments
 				  first_composed_treatment = composed_treatments.first
@@ -461,7 +464,7 @@ module StecmsAppointment
 			hour_db = ::StecmsAppointment::OperatorHour.new(h_start: start_time_special, h_end: end_time_special, h_start2: "00:00", h_end2: "00:00")
 		  else
 			hour_db = self.operator_hours.where(day: wday).first
-			salon_hour_db = ::StecmsAppointment::BusinessHour.where(day: wday).first
+			salon_hour_db = ::StecmsAppointment::BusinessHour.where(day: wday).last
 		  end
 		  
 		  time_array = []
@@ -499,7 +502,7 @@ module StecmsAppointment
 				start_time_2 = h_start2.to_i > s_start2.to_i ? h_start2 : s_start2
 				  end_time_2 = h_end2.to_i < s_end2.to_i ? h_end2 : s_end2
 			  end
-  
+
 			  time_array += ::StecmsAppointment::Operator.time_step(start_time_2, end_time_2, rounding_time.to_i) if start_time_2.present? && end_time_2.present?
   
 					  bookings_time = get_booking_time(bookings, time_array, second.to_f, date)
