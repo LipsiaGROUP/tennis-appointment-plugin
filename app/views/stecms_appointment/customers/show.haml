@@ -1,0 +1,47 @@
+=render layout: "stecms_appointment/shared/panel" do
+  =render_card_box title: "History Booking List", collapse: false do
+    %p
+      %strong Name:
+      = @customer.name
+    %p
+      %strong Email:
+      = @customer.email
+    %p
+      %strong Cell:
+      = @customer.cell
+    %p
+      %strong Birthday:
+      = @customer.birthday
+    %p
+      %strong Address:
+      = @customer.address
+    %p
+      %strong City:
+      = @customer.city
+
+
+
+    .table-responsive
+      %table.table.table-sm#user-roles-table
+        %thead
+          %tr
+            %th Date
+            %th Hour
+            %th Treatment
+            %th Operator
+            %th Price
+            %th Duration
+            %th Status
+            %th From
+        %tbody
+          - @customer.bookings.order("created_at DESC").limit(10).each do |book|
+            %tr
+              - service = book.service
+              %td= Time.at(book.start_time).to_date
+              %td= Time.at(book.start_time).strftime('%H:%M')
+              %td= service.title
+              %td= book.operator.operator_name
+              %td= book.price
+              %td= service.duration_in_minute
+              %td= book.status
+              %td= book.from_where

@@ -13,6 +13,7 @@ module StecmsAppointment
 
     # GET /service_categories/1
     def show
+      @service_category = ::StecmsAppointment::ServiceCategory.find(params[:id])
     end
 
     # GET /service_categories/new

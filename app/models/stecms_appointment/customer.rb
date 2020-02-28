@@ -1,5 +1,7 @@
 module StecmsAppointment
   class Customer < ActiveRecord::Base
+    has_many :bookings, class_name: 'StecmsAppointment::Booking', foreign_key: 'stecms_appointment_customer_id'
+
 
     def self.search_customers(term)
       salon_customers = select('id, name, cell')

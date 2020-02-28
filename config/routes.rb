@@ -15,6 +15,7 @@ StecmsAppointment::Engine.routes.draw do
 		end
 
 		collection do
+			get :list
 			get :calendar
 			get :agenda
 			get :get_variants
@@ -61,7 +62,7 @@ StecmsAppointment::Engine.routes.draw do
 				post :multiple_bookings
 			end
 
-			member do 
+			member do
 				get :get_booking
 				# post :get_booking
 				get :remove_booking

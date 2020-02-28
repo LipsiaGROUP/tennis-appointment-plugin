@@ -1,7 +1,7 @@
 require_dependency "stecms_appointment/application_controller"
 
 module StecmsAppointment
-  class CustomersController < ApplicationController
+  class CustomersController < BackendController
     before_action :set_customer, only: [:show, :edit, :update, :destroy]
 
     def search
@@ -11,20 +11,24 @@ module StecmsAppointment
 
     # GET /customers
     def index
+      authorize Customer
       @customers = Customer.all
     end
 
     # GET /customers/1
     def show
+      authorize @customer
     end
 
     # GET /customers/new
     def new
       @customer = Customer.new
+      authorize @customer
     end
 
     # GET /customers/1/edit
     def edit
+      authorize @customer
     end
 
     # POST /customers
@@ -63,5 +67,5 @@ module StecmsAppointment
       def customer_params
         params.require(:customer).permit(:name, :email, :password, :cell, :gender, :birthday, :address, :city, :zip, :notes)
       end
+    end
   end
-end

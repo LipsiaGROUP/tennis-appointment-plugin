@@ -19,8 +19,15 @@ module StecmsAppointment
     end
     
     def update
-      setting = ::StecmsAppointment::Setting.find(params[:id])
       authorize ::StecmsAppointment::BusinessHour
+
+      setting = ::StecmsAppointment::Setting.find(params[:id])
+      prms = params[:setting][:business_hours_attributes].map{|x| x[1]}
+      prms.each{ |x| x[:active] = (x[:active] == "1") }
+      params[:setting][:business_hours_attributes] = []
+      params[:setting][:business_hours_attributes] = prms
+      params[:setting][:id] = setting.id
+
       if setting.update_attributes(bussines_hour_params)
         redirect_to business_hours_url, notice: 'Business Hour was successfully updated.'
       end
@@ -30,7 +37,7 @@ module StecmsAppointment
 
       # Only allow a trusted parameter "white list" through.
       def bussines_hour_params
-        params.require(:setting).permit(:id, business_hours_attributes: [:id, :day, :h_start, :h_end, :h_start2, :h_end2, :is_active, :_destroy])
+        params.require(:setting).permit(:id, business_hours_attributes: [:id, :day, :h_start, :h_end, :h_start2, :h_end2, :is_active, :active, :_destroy])
       end
 
       def set_active_page

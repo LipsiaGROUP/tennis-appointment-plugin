@@ -1,6 +1,8 @@
 module StecmsAppointment
   class BusinessHour < ActiveRecord::Base
-  	belongs_to :setting
+	  belongs_to :setting
+	  scope :active, -> { where(active: true).where("(h_start != '00:00' AND h_end != '00:00')") }
+	  scope :is_off, -> { where(active: false) }
 
 	  attr_accessor :is_active
 
@@ -12,7 +14,7 @@ module StecmsAppointment
 	    #
 	    def get_schedule
 	      hours = {}
-	      result = select(:day, :h_start, :h_end, :h_start2, :h_end2).order(:day)
+	      result = active.select(:day, :h_start, :h_end, :h_start2, :h_end2).order(:day)
 	      if result.present?
 	        result.each do |schedule|
 	          schedule.h_start2 = nil if schedule.h_start2 == "00:00"
