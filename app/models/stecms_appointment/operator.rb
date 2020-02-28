@@ -384,11 +384,11 @@ module StecmsAppointment
 				  op = self.operator_hours.active_day.where(day: date.wday).first
 				  
 				  if op.present?
-					  #  break time operator
-					  if op.h_start2 != "00:00"
-						  today_overlap_hours = set_breack_time(op.h_start2, op.h_end2)
-					  elsif buisnes.h_start2 != "00:00"
-						  today_overlap_hours = set_breack_time(buisnes.h_start2, buisnes.h_end2)
+					  #  break time by buisnes if start 00:00 wil get from operator
+					  if buisnes.h_start2 != "00:00"# || buisnes.h_end2 != "00:00"
+						today_overlap_hours = set_breack_time(buisnes.h_start2, buisnes.h_end2)
+					  elsif op.h_start2 != "00:00" #|| op.h_end2 != "00:00"
+						today_overlap_hours = set_breack_time(op.h_start2, op.h_end2)
 					  end
 					  # end break time operator
 					  
