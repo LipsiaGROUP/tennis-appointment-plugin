@@ -29,8 +29,18 @@ module CalendarBooking
       month += 1
     end
 
+    is_off_days = ::StecmsAppointment::BusinessHour.is_off.pluck(:day)
+
     days = (start_day..start_day.end_of_month).to_a
-    day_list = days.each.with_index(1).map { |day, index| {id: index, date: sprintf("%02d", day.day), day: I18n.l(day, format: '%A'), shortDay: I18n.l(day, format: '%a')} }
+    day_list =[]
+     days.each.with_index(1).each do  |day, index| 
+      day_list << {id: index, 
+        date: sprintf("%02d", day.day), 
+        day: I18n.l(day, format: '%A'), 
+        shortDay: I18n.l(day, format: '%a'),
+        is_off: (is_off_days.include?(day.wday))
+      } 
+    end
     
     {months: months, days: day_list}
 	end

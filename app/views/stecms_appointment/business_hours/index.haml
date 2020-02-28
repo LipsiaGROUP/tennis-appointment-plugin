@@ -26,7 +26,7 @@
                       %tr
                         %td.text-left
                           = hour.input_field :day, as: :hidden
-                          = hour.input_field :is_active, as: :boolean, class: 'cb-active-day', checked: hour.object.new_record? ? false : true
+                          = hour.input_field :active, as: :boolean, class: 'cb-active-day', checked: hour.object.new_record? ? false : hour.object.active
                           = hour.label "#{days_of_week[hour.object.day]}"
 
                         %td

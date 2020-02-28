@@ -18,7 +18,7 @@
         %td
           %fieldset.schedule_select
             = hour.hidden_field :day
-            = hour.check_box :is_active, label: false, class: 'cb-active-day', checked: hour.object.new_record? ? false : true
+            = hour.check_box :active, label: false, class: 'cb-active-day', checked: hour.object.new_record? ? false : hour.object.active
             = hour.label days_of_week[hour.object.day].html_safe
         %td= hour.select :h_start, get_time_collection, include_blank: false
         %td= hour.select :h_end, get_time_collection, include_blank: false

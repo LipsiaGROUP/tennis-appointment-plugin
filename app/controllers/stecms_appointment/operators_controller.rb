@@ -52,6 +52,10 @@ module StecmsAppointment
 
     # PATCH/PUT /Operators/1
     def update
+      prms = params[:operator][:operator_hours_attributes].map{|x| x[1]}
+      prms.each{ |x| x[:active] = (x[:active] == "1") }
+      params[:operator][:operator_hours_attributes] = []
+      params[:operator][:operator_hours_attributes] = prms
       if @operator.update(operator_params)
         redirect_to operators_url, notice: 'operator was successfully updated.'
       else
@@ -79,7 +83,7 @@ module StecmsAppointment
       # Only allow a trusted parameter "white list" through.
       def operator_params
         params.require(:operator).permit(:id, :operator_name, :mobile, :email, :operator_active, :description, :avatar,
-          operator_hours_attributes: [:id, :day, :h_start, :h_end, :h_start2, :h_end2, :is_active, :_destroy], service_ids: [])
+          operator_hours_attributes: [:id, :day, :h_start, :h_end, :h_start2, :h_end2, :is_active, :active, :_destroy], service_ids: [])
       end
 
       def set_active_page
