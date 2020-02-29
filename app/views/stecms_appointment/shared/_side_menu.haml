@@ -3,6 +3,9 @@
     %a.nav-link{class: ("active" if @side_menu == "customer"), href: StecmsAppointment::Engine.routes.url_helpers.customers_path}
       = "Customers"
   %li.nav-item
+    %a.nav-link{class: ("active" if @side_menu == "list_bookings"), href: StecmsAppointment::Engine.routes.url_helpers.list_bookings_path}
+      = "List Bookings"
+  %li.nav-item
     %a.nav-link{class: ("active" if @side_menu == "bookings"), href: StecmsAppointment::Engine.routes.url_helpers.bookings_path}
       = "Appointment Calendar"
   %li.nav-item

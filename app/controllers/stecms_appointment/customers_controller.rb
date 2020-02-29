@@ -3,6 +3,7 @@ require_dependency "stecms_appointment/application_controller"
 module StecmsAppointment
   class CustomersController < BackendController
     before_action :set_customer, only: [:show, :edit, :update, :destroy]
+    before_action :set_side_menu
 
     def search
       @customer = ::StecmsAppointment::Customer.search_customers(params[:term])
@@ -12,7 +13,7 @@ module StecmsAppointment
     # GET /customers
     def index
       authorize Customer
-      @customers = Customer.all
+      @customers = Customer.all.order("created_at DESC")
     end
 
     # GET /customers/1
@@ -59,6 +60,11 @@ module StecmsAppointment
 
     private
       # Use callbacks to share common setup or constraints between actions.
+
+      def set_side_menu
+        @side_menu = "customers"
+      end
+
       def set_customer
         @customer = Customer.find(params[:id])
       end

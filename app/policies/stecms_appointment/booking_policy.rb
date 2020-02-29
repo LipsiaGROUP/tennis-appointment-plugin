@@ -3,6 +3,10 @@ class StecmsAppointment::BookingPolicy < StecmsAppointmentPolicy
     user.can(:see_bookings)
   end
 
+  def list?
+    user.can(:see_bookings)
+  end
+
   def confirm_delete?
     destroy?
   end
