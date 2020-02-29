@@ -1,9 +1,12 @@
-%ul.nav.flex-column.notifications-nav
+%ul.nav.flex-column.notifications-nav.side-menu-stecms_appointment
   %li.nav-item
-    %a.nav-link{class: ("active" if @side_menu == "customer"), href: StecmsAppointment::Engine.routes.url_helpers.customers_path}
+    %a.nav-link{class: ("active" if @side_menu == "list_bookings"), href: StecmsAppointment::Engine.routes.url_helpers.list_bookings_path}
+      = "List Bookings"
+  %li.nav-item
+    %a.nav-link{class: ("active" if @side_menu == "customers"), href: StecmsAppointment::Engine.routes.url_helpers.customers_path}
       = "Customers"
-  %li.nav-item
-    %a.nav-link{class: ("active" if @side_menu == "bookings"), href: StecmsAppointment::Engine.routes.url_helpers.bookings_path}
+  -# %li.nav-item
+  -#   %a.nav-link{class: ("active" if @side_menu == "bookings"), href: StecmsAppointment::Engine.routes.url_helpers.bookings_path}
       = "Appointment Calendar"
   %li.nav-item
     %a.nav-link{class: ("active" if @side_menu == "operators"), href: StecmsAppointment::Engine.routes.url_helpers.operators_path}

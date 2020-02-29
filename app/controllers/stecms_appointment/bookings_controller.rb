@@ -13,6 +13,12 @@ module StecmsAppointment
       @data_master_is_ready = ::StecmsAppointment::Booking.data_master_is_ready?
     end
 
+    def list
+      authorize ::StecmsAppointment::Booking
+      @bookings = ::StecmsAppointment::Booking.order("created_at DESC")
+      @side_menu = "list_bookings"
+    end
+
     def calendar
       authorize ::StecmsAppointment::Booking
       date_start = params[:start].to_date.to_time.to_i
