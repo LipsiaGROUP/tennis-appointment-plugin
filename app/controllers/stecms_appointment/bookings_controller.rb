@@ -110,22 +110,22 @@ module StecmsAppointment
         if booking.valid?
           booking.save
 
-          if composed_booking[:composed]
-            composed_booking[:result].each do |compose_booking_attr|
-              compose_booking_attr.delete('ancestry')
-              booking.children.create(compose_booking_attr)
-            end
-            booking.is_composed_treatment = true
-            booking.save
+          # if composed_booking[:composed]
+          #   composed_booking[:result].each do |compose_booking_attr|
+          #     compose_booking_attr.delete('ancestry')
+          #     booking.create(compose_booking_attr)
+          #   end
+          #   booking.is_composed_treatment = true
+          #   booking.save
 
-            @booking_event_hash = []
-            bookings =  Booking.with_joined_tables.where('stecms_appointment_bookings.id IN (?)', booking.children.pluck(:id))
-            bookings.each { |obj| @booking_event_hash << obj.generate_event_hash(true) }
-          else
+          #   @booking_event_hash = []
+          #   bookings =  Booking.with_joined_tables.where('stecms_appointment_bookings.id IN (?)', booking.children.pluck(:id))
+          #   bookings.each { |obj| @booking_event_hash << obj.generate_event_hash(true) }
+          # else
             booking_with_info = ::StecmsAppointment::Booking.with_joined_tables.where('stecms_appointment_bookings.id = ?', booking.id).first
             @booking_event_hash = booking_with_info.generate_event_hash
 
-          end
+          # end
           format.js
         else
           @error_messages = booking.errors.full_messages.join(", ")

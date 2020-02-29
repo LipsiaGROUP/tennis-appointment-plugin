@@ -6,6 +6,7 @@ module StecmsAppointment
     before_action :set_side_menu
 
     def search
+      authorize Customer
       @customer = ::StecmsAppointment::Customer.search_customers(params[:term])
       render json: @customer, status: :ok
     end
@@ -35,6 +36,7 @@ module StecmsAppointment
     # POST /customers
     def create
       @customer = Customer.new(customer_params)
+      authorize @customer
 
       if @customer.save
         redirect_to @customer, notice: 'Customer was successfully created.'
@@ -45,6 +47,7 @@ module StecmsAppointment
 
     # PATCH/PUT /customers/1
     def update
+      authorize Customer
       if @customer.update(customer_params)
         redirect_to @customer, notice: 'Customer was successfully updated.'
       else
@@ -54,6 +57,7 @@ module StecmsAppointment
 
     # DELETE /customers/1
     def destroy
+      authorize @customer
       @customer.destroy
       redirect_to customers_url, notice: 'Customer was successfully destroyed.'
     end
