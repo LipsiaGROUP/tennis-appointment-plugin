@@ -31,14 +31,22 @@ module CalendarBooking
 
     is_off_days = ::StecmsAppointment::BusinessHour.is_off.pluck(:day)
 
+    is_closed_date = ::StecmsAppointment::BusinessHour.is_off.pluck(:day)
+
+    # y = (str..en).to_a
+
     days = (start_day..start_day.end_of_month).to_a
     day_list =[]
      days.each.with_index(1).each do  |day, index| 
+      
+      off_holiday = StecmsAppointment::ClosedDate.closed_date_exist? day.to_time.to_i
+      
       day_list << {id: index, 
         date: sprintf("%02d", day.day), 
         day: I18n.l(day, format: '%A'), 
         shortDay: I18n.l(day, format: '%a'),
-        is_off: (is_off_days.include?(day.wday))
+        is_off: (is_off_days.include?(day.wday)),
+        is_off_holiday: off_holiday
       } 
     end
     
