@@ -18,7 +18,8 @@
               %tr{id: "operator-#{item.id}"}
                 %td=item.operator_name
                 %td
-                  =link_to t("admin.words.edit"), StecmsAppointment::Engine.routes.url_helpers.edit_operator_path(item), class: 'mr-2', remote: true
+                  =link_to t("admin.words.edit"), StecmsAppointment::Engine.routes.url_helpers.edit_operator_path(item), class: 'btn btn-primary btn-sm', remote: true
+                  =link_to t("admin.words.delete"), StecmsAppointment::Engine.routes.url_helpers.operator_path(item), class: "btn btn-danger btn-sm", method: :delete, data: { confirm: "Are you sure ?"}
 
 
 - content_for :css_head do

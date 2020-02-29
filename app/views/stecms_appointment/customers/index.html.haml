@@ -1,16 +1,16 @@
 =render layout: "stecms_appointment/shared/panel" do
-  =render_card_box title: "admin.users.title", collapse: false do
+  =render_card_box title: t("admin.users.title"), collapse: false do
     .table-responsive
       %table.table.table-sm#user-roles-table
         %thead
           %tr
             %th=t("admin.users.table.email")
             %th=t("admin.users.table.fullname")
-            %th=t("admin.users.table.cell")
-            %th=t("admin.users.table.gender")
-            %th=t("admin.users.table.birthday")
-            %th=t("admin.users.table.address")
-            %th=t("admin.users.table.created_at")
+            %th Cellula
+            -# %th=t("admin.users.table.gender")
+            -# %th=t("admin.users.table.birthday")
+            %th Indirizzo
+            -# %th=t("admin.users.table.created_at")
             %th=" "
         %tbody
           - @customers.each do |customer|
@@ -18,10 +18,10 @@
               %td= customer.email
               %td= customer.name
               %td= customer.cell
-              %td= customer.gender
-              %td= customer.birthday
+              -# %td= customer.gender
+              -# %td= customer.birthday
               %td= customer.address
-              %td= customer.city
-              %td= link_to 'List Booking', customer_path(customer), class: "btn btn-primary"
+              -# %td= customer.city
+              %td= link_to 'Elenco di appuntamenti', customer_path(customer), class: "btn btn-primary"
     %br/
-    = link_to 'New Customer', new_customer_path, class: "btn btn-primary"
+    = link_to 'Nuovo cliente', new_customer_path, class: "btn btn-primary"
