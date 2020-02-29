@@ -1,20 +1,21 @@
 =render layout: "stecms_appointment/shared/panel" do
-  = render_card_box title: "Bookings Listing", collapse: false do
+  = render_card_box title: "Elenco di appuntamenti", collapse: false do
     .table-responsive
       %table.table.table-condensed.mt-3
         %thead
           %tr
             %th=t("admin.users.table.email")
-            %th=t("admin.users.table.fullname")
-            %th=t("admin.users.table.cell")
-            %th Date
-            %th Hour
-            %th Treatment
-            %th Operator
-            %th Price
-            %th Duration
-            %th Status
-            %th From
+            %th Nome
+            -# %th=t("admin.users.table.cell")
+            %th Data
+            %th Ora
+            %th Trattamento
+            -# %th Operator
+            %th Prezzo
+            -# %th Duration
+            %th Stato
+            -# %th From
+            %th
             %th
 
         %tbody
@@ -23,19 +24,21 @@
             %tr
               - service = book.service
               - service = book.service
-              %td= customer.email
-              %td= customer.name
-              %td= customer.cell
-              %td= Time.at(book.start_time).to_date
-              %td= Time.at(book.start_time).strftime('%H:%M')
-              %td= service.title
-              %td= book.operator.operator_name
-              %td= book.price
-              %td= service.duration_in_minute
-              %td= book.status
-              %td= book.from_where
+              %td= customer&.email
+              %td= customer&.name
+              -# %td= customer&.cell
+              %td= Time.at(book.start_time).to_date.strftime('%d-%m-%Y') if book.start_time.present?
+              %td= Time.at(book.start_time).strftime('%H:%M') if book.start_time.present?
+              %td= service&.title
+              -# %td= book&.operator&.operator_name
+              %td= "€ #{book&.price}"
+              -# %td= service&.duration_in_minute
+              %td= book&.status
+              -# %td= book&.from_where
               %td
-                = link_to "edit", edit_booking_path(book.id), class: "lbtn-flat primary actions-a btn-modify event-link", remote: true
+                = link_to t("admin.words.edit"), edit_booking_path(book.id), class: "lbtn-flat primary actions-a btn-modify event-link text-right", remote: true
+              -# %td
+              -#   = link_to t("admin.words.delete"), booking_path(id: book, html: true), method: :delete, class: 'text-tet', data: { confirm: t("closed_date.confirm_remove")}
 
 
 #editAppointment.modal

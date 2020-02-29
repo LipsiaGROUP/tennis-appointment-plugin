@@ -1,22 +1,22 @@
 =render layout: "stecms_appointment/shared/panel" do
-  =render_card_box title: "History Booking List", collapse: false do
+  =render_card_box title: "Elenco prenotazioni storia", collapse: false do
     %p
-      %strong Name:
+      %strong Nome:
       = @customer.name
     %p
       %strong Email:
       = @customer.email
     %p
-      %strong Cell:
+      %strong Cellula:
       = @customer.cell
     %p
-      %strong Birthday:
+      %strong Compleanno:
       = @customer.birthday
     %p
-      %strong Address:
+      %strong Indirizzo:
       = @customer.address
     %p
-      %strong City:
+      %strong Città:
       = @customer.city
 
 
@@ -25,23 +25,23 @@
       %table.table.table-sm#user-roles-table
         %thead
           %tr
-            %th Date
-            %th Hour
-            %th Treatment
+            %th Data
+            %th Ora
+            %th Trattamento
             %th Operator
-            %th Price
-            %th Duration
-            %th Status
-            %th From
+            %th Prezzo
+            %th Durata
+            %th Stato
+            -# %th From
         %tbody
           - @customer.bookings.order("created_at DESC").limit(10).each do |book|
             %tr
               - service = book.service
-              %td= Time.at(book.start_time).to_date
+              %td= Time.at(book.start_time).to_date.strftime('%d-%m-%Y')
               %td= Time.at(book.start_time).strftime('%H:%M')
-              %td= service.title
-              %td= book.operator.operator_name
-              %td= book.price
-              %td= service.duration_in_minute
-              %td= book.status
-              %td= book.from_where
+              %td= service&.title
+              %td= book.operator&.operator_name
+              %td= book&.price
+              %td= service&.duration_in_minute
+              %td= book&.status
+              -# %td= book&.from_where

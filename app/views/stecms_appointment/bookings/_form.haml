@@ -42,9 +42,10 @@
             - if f.object.new_record?
               = f.input_field :schedule_time, as: :select, collection: times_by_interval(60), id: 'service_booking_schedule_time_5i', class: 'time', style: 'margin-left: 4px;', include_blank: false, selected: "#{params[:time]}:00"
             - else
-              - selected_time = fixnum_to_date(f.object.start_time)
-              - collection_time = mio_collection_time(selected_time, times_by_interval(60))
-              = f.input_field :schedule_time, as: :select, collection: collection_time, id: 'service_booking_schedule_time_5i', class: 'time', style: 'margin-left: 4px;', selected: selected_time.strftime('%H:%M:%S'), include_blank: false
+              - if f.object.start_time.present?
+                - selected_time = fixnum_to_date(f.object.start_time)
+                - collection_time = mio_collection_time(selected_time, times_by_interval(60))
+                = f.input_field :schedule_time, as: :select, collection: collection_time, id: 'service_booking_schedule_time_5i', class: 'time', style: 'margin-left: 4px;', selected: selected_time.strftime('%H:%M:%S'), include_blank: false
 
         .control-group.integer.optional.service_booking_service_id
           = f.label :stecms_appointment_service_id, 'Trattamento', class: 'integer control-label', for: 'service_booking_service_id'
