@@ -3,7 +3,7 @@
     %button.close{"aria-hidden"=>"true", "data-dismiss"=>"modal"} &times;
     %h3 Nuovo Cliente
   .new-form 
-    = simple_form_for @new_customer, url: customers_path, html: { id: 'new_customer', class: 'form-horizontal new_user', remote: is_remote, data: { validate: false } } do |f|
+    = simple_form_for @new_customer, url: customers_path, html: { id: 'new_customer', class: 'form-horizontal new_user', remote: false, data: { validate: false } } do |f|
       .modal-body
         %ul#customerTab.nav.nav-tabs
           %li.active

@@ -33,7 +33,7 @@ module StecmsAppointment
 
       if calendar_bookings_hashes_param.present?
 
-        calendar_bookings_hashes = calendar_bookings_hashes_param.select{|v|v[:status] == "confirmed"}
+        calendar_bookings_hashes = calendar_bookings_hashes_param
         calendar_bookings_hashes << operators_schedules_hashes
         render json: calendar_bookings_hashes
       else

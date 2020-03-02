@@ -25,14 +25,15 @@
       %table.table.table-sm#user-roles-table
         %thead
           %tr
-            %th Data
+            %th Data Trattamento
             %th Ora
             %th Trattamento
             %th Operator
             %th Prezzo
             %th Durata
+            %th Data dell'ordine
             %th Stato
-            -# %th From
+            %th Da dove
         %tbody
           - @customer.bookings.order("created_at DESC").limit(10).each do |book|
             %tr
@@ -43,5 +44,6 @@
               %td= book.operator&.operator_name
               %td= book&.price
               %td= service&.duration_in_minute
+              %td= book&.created_at.strftime("%d-%m-%Y %I:%M")
               %td= book&.status
-              -# %td= book&.from_where
+              %td= book&.from_where
