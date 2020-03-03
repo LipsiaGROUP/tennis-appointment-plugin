@@ -23,8 +23,8 @@
             - @collection.each do |item|
               %tr{id: "service-#{item.id}"}
                 %td=item.title
-                %td=item.duration_in_minute
-                %td=item.price
+                %td="#{item.duration_in_minute} min"
+                %td="€ #{item.price}"
                 %td
                   =link_to t("admin.words.edit"), StecmsAppointment::Engine.routes.url_helpers.edit_service_path(item), class: 'mr-2 edit-treatment-btn', remote: true
                   =link_to t("admin.words.delete"), StecmsAppointment::Engine.routes.url_helpers.service_path(item), method: :delete, class: 'text-danger', data: { confirm: t("admin.rpush_web.settings.index.delete") }
