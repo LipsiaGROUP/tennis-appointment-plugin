@@ -13,6 +13,8 @@
             -# %th Operator
             %th Prezzo
             -# %th Duration
+            %th Data dell'ordine
+            %th Da dove
             %th Stato
             -# %th From
             %th
@@ -33,8 +35,9 @@
               -# %td= book&.operator&.operator_name
               %td= "€ #{book&.price}"
               -# %td= service&.duration_in_minute
+              %td= book&.created_at.strftime("%d-%m-%Y %I:%M")
+              %td= book&.from_where
               %td= book&.status
-              -# %td= book&.from_where
               %td
                 = link_to t("admin.words.edit"), edit_booking_path(book.id), class: "lbtn-flat primary actions-a btn-modify event-link text-right", remote: true
               -# %td

@@ -35,7 +35,7 @@
         .control-group.string.optional.service_booking_schedule_date.pull-left
           = f.label :start_time, 'Data', class: 'control-label', for: 'service_booking_schedule_date'
           .controls
-            = f.input_field :start_time, as: :string, id: 'service_booking_schedule_date', placeholder: 'Scegli data', value: f.object.start_time ? l(f.object.start_date, format: '%A, %d %B %Y') : l(Time.at(cookies[:start_calendar].to_i), format: '%A, %d %B %Y')
+            = f.input_field :start_time, as: :string, id: 'service_booking_schedule_date', placeholder: 'Scegli data', readonly: true, value: f.object.start_time ? l(f.object.start_date, format: '%A, %d %B %Y') : l(Time.at(cookies[:start_calendar].to_i), format: '%A, %d %B %Y')
 
         .control-group.time.optional.service_booking_schedule_time{"style"=> ("margin-bottom: 0px !important") }
           .controls
