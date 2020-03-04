@@ -68,7 +68,7 @@ module StecmsAppointment
           params[:booking].except!("time_id", "month_id", "date_id", "year_id", "visitor_phone", "visitor_name", "visitor_email", "voucher_code")
           params[:booking][:start_time] = start_time
           params[:booking][:end_time] = end_time
-
+          
           if ["custom_app_ios", "custom_app_android"].include? params[:booking][:from_where]
             if params[:booking][:from_where].eql?('custom_app_ios')
               params[:booking][:from_where] = "c_a_ios"
@@ -179,8 +179,8 @@ module StecmsAppointment
                 booking_obj[:booking][:from_where] = "c_a_andro"
               end
             end
-
-            if booking_obj[:booking][:from_where].blank? or booking_obj[:booking][:from_where].to_s.length > 9
+            
+            if booking_obj[:booking][:from_where].blank?
               booking_obj[:booking][:from_where] = "caapp"
             end
             
