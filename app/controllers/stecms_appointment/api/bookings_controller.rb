@@ -195,6 +195,13 @@ module StecmsAppointment
             booking_obj[:booking].delete(:operator_id)
             params[:booking] = booking_obj[:booking]
             booking = ::StecmsAppointment::Booking.new(booking_params)
+
+            binding.pry
+            unless visitor_email_param.present? && booking_obj[:user_email].present?
+              booking_obj[:user_email] = request.headers[:uid]
+            end
+
+
             if booking_obj[:user_email].present?
               user = User.where(email: booking_obj[:user_email]).last
               if user
