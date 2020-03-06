@@ -211,7 +211,7 @@ module StecmsAppointment
               end
               booking.stecms_appointment_customer_id = customer.try(:id)
             else
-              check_user = ::StecmsAppointment::Customer.where(email: booking_obj[:visitor_email]).first
+              check_user = ::StecmsAppointment::Customer.where(email: visitor_email_param).first
               if check_user
                 booking.stecms_appointment_customer_id = check_user.id
               else
