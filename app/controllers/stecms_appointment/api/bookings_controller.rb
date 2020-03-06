@@ -196,7 +196,6 @@ module StecmsAppointment
             params[:booking] = booking_obj[:booking]
             booking = ::StecmsAppointment::Booking.new(booking_params)
 
-            binding.pry
             unless visitor_email_param.present? && booking_obj[:user_email].present?
               booking_obj[:user_email] = request.headers[:uid]
             end
