@@ -189,7 +189,9 @@ module StecmsAppointment
 	  end
 
 	  def operator_name
-	  	self.operator.operator_name
+		if self.operator.present?
+			self.operator.operator_name
+		end		  
 	  end
 
 	  def set_title
