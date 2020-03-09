@@ -3,7 +3,7 @@ module StecmsAppointment
 	  class ServicesController < ApiController
 
 	  	def index
-	  		@services = ::StecmsAppointment::Service.active
+	  		@services = ::StecmsAppointment::Service.active.order('title ASC')
 	  	end
 
 	  	def show
