@@ -89,25 +89,25 @@
             %span.add-on
               %i.icon-time
             = f.input_field :duration, id: 'service_pricing_level_duration_value', class: 'input-mini validate', value: f.object.duration_in_minute, min: 1, placeholder: 'minuti', dom: 'duration'
-    -# - if params[:composed].blank? and !f.object.is_composed
-      -# .control-group
-      -#   = f.label :discount_price, 'Prezzo scontato', class: 'control-label sale-price-label'
-      -#   .controls
-      -#     .input-prepend
-      -#       %span.add-on €
-      -#       = f.input_field :discount_price, as: :decimal, value: (f.object.discount_price.to_f.try(:zero?) ? nil : f.object.discount_price), id: 'service_pricing_level_sale_price', class: 'input-mini', min: 0
+    - if params[:composed].blank? and !f.object.is_composed
+      .control-group
+        = f.label :discount_price, 'Prezzo scontato', class: 'control-label sale-price-label'
+        .controls
+          .input-prepend
+            %span.add-on €
+            = f.input_field :discount_price, as: :decimal, value: (f.object.discount_price.to_f.try(:zero?) ? nil : f.object.discount_price), id: 'service_pricing_level_sale_price', class: 'input-mini', min: 0
 
-      -# .service_discount_valid
-      -#   .control-group
-      -#     = f.label :discount_valid_from, 'Validit&agrave; sconto'.html_safe, class: 'control-label'
-      -#     .controls.input-daterange
-      -#       .input-prepend
-      -#         %span.add-on dal
-      -#         = f.input_field :discount_valid_from, as: :string, value: f.object.discount_valid_from.try(:strftime, '%d-%m-%Y'), id: 'service_discount_valid_from', class: 'input-small service_discount_valid_from', style: 'position: relative; z-index: 2000'
+      .service_discount_valid
+        .control-group
+          = f.label :discount_valid_from, 'Validit&agrave; sconto'.html_safe, class: 'control-label'
+          .controls.input-daterange
+            .input-prepend
+              %span.add-on dal
+              = f.input_field :discount_valid_from, as: :string, value: f.object.discount_valid_from.try(:strftime, '%d-%m-%Y'), id: 'service_discount_valid_from', class: 'input-small service_discount_valid_from', style: 'position: relative; z-index: 2000'
             
-      -#       .input-prepend
-      -#         %span.add-on al
-      -#         = f.input_field :discount_valid_to, as: :string, value: f.object.discount_valid_to.try(:strftime, '%d-%m-%Y'), id: 'service_discount_valid_to', class: 'input-small service_discount_valid_to', style: 'position: relative; z-index: 2000'
+            .input-prepend
+              %span.add-on al
+              = f.input_field :discount_valid_to, as: :string, value: f.object.discount_valid_to.try(:strftime, '%d-%m-%Y'), id: 'service_discount_valid_to', class: 'input-small service_discount_valid_to', style: 'position: relative; z-index: 2000'
 
       -# .control-group
       -#   .control-label

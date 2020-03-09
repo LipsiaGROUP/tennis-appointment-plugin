@@ -13,7 +13,7 @@ module StecmsAppointment
       end
 
       def get_bookings
-        bookings = Booking.joins(:user).select{|x|x.user.email == current_user.email}
+        bookings = Booking.joins(:user).order('created_at DESC').select{|x|x.user.email == current_user.email}
         render json: bookings
       end
 
