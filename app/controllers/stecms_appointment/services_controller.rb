@@ -17,7 +17,7 @@ module StecmsAppointment
 
     # GET /services/new
     def new
-      @service = ::StecmsAppointment::Service.new  
+      @service = ::StecmsAppointment::Service.new
       authorize @service
     end
 
@@ -31,7 +31,7 @@ module StecmsAppointment
     def create
       @service = ::StecmsAppointment::Service.new(service_params)
       authorize @service
-      
+
       if @service.save
         redirect_to services_url, notice: 'Service was successfully created.'
       else
@@ -64,7 +64,8 @@ module StecmsAppointment
       def setup_form
         @service_categories = ::StecmsAppointment::ServiceCategory.all
         @active_treatments = ::StecmsAppointment::Service.all
-        # @current_operator_ids = @service.operator_ids
+        @operators = ::StecmsAppointment::Operator.all
+        @current_operator_ids = params[:action] == "new" ? [] : @service.operator_ids
       end
 
       # Only allow a trusted parameter "white list" through.

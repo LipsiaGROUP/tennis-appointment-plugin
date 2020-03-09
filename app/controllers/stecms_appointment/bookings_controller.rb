@@ -24,9 +24,11 @@ module StecmsAppointment
       date_start = params[:start].to_date.to_time.to_i
       cookies[:start_calendar] = date_start
       date_end = params[:end].to_date.to_time.to_i
+
       if (params[:start].to_date..params[:end].to_date).to_a.size == 8 && params[:employee_id] == "null"
         params[:employee_id] = ::StecmsAppointment::Operator.all.pluck(:id)
       end
+
       calendar_bookings_hashes_param = ::StecmsAppointment::Booking.get_calendar_bookings(date_start, date_end,
         params[:employee_id])
 
