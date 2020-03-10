@@ -252,7 +252,8 @@ module StecmsAppointment
           user = User.where(email: email_param).last
 
           if user
-            LipsiaMailer.after_booking_mobile(user, @param_booking).deliver
+            customer = ::StecmsAppointment::Customer.where(email: user.email).last
+            LipsiaMailer.after_booking_mobile(customer, @param_booking).deliver
           else
             customer = ::StecmsAppointment::Customer.where(email: visitor_email_first).last
             LipsiaMailer.after_booking_mobile(customer, @param_booking).deliver
