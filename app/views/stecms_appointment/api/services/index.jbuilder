@@ -9,6 +9,6 @@ json.services @services do |service|
   json.s_treatment_id service.id
   json.discount_valid_from service.discount_valid_from
   json.discount_valid_to service.discount_valid_to
-  
+  json.description service.description
 
 end
