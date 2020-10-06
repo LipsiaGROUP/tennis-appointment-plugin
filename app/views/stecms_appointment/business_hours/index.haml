@@ -9,18 +9,18 @@
               %fieldset
                 %table.schedule.provider-schedule
                   %thead
-                    %tr
-                      %th
-                      %th.hours-tip-day{"colspan"=> "2"} Se fai orario continuato compila SOLO queste due colonne.
-                      %th &nbsp;&nbsp;&nbsp;&nbsp;
-                      %th.hours-tip-evening{"colspan"=> "2"} Se chiudi per la pausa pranzo indica qui gli orari pomeridiani.
+                    -# %tr
+                    -#   %th
+                    -#   %th.hours-tip-day{"colspan"=> "2"} Se fai orario continuato compila SOLO queste due colonne.
+                    -#   %th &nbsp;&nbsp;&nbsp;&nbsp;
+                    -#   %th.hours-tip-evening{"colspan"=> "2"} Se chiudi per la pausa pranzo indica qui gli orari pomeridiani.
                     %tr
                       %th{"style"=>"min-width:100px;"}  Giorno
                       %th dalle ore
                       %th alle ore
-                      %th +
-                      %th dalle ore
-                      %th alle ore
+                      -# %th +
+                      -# %th dalle ore
+                      -# %th alle ore
                   %tbody
                     = f.simple_fields_for :business_hours, @setting.business_hours.sort_by { |h| h.day } do |hour|
                       %tr
@@ -30,18 +30,18 @@
                           = hour.label "#{days_of_week[hour.object.day]}"
 
                         %td
-                          = hour.input_field :h_start, collection: get_time_collection, include_blank: false
+                          = hour.input_field :h_start, collection: get_time_collection_per_hour, include_blank: false
 
                         %td
-                          = hour.input_field :h_end, collection: get_time_collection, include_blank: false
+                          = hour.input_field :h_end, collection: get_time_collection_per_hour, include_blank: false
 
                         %td
 
-                        %td
-                          = hour.input_field :h_start2, collection: get_time_collection, include_blank: false
+                        -# %td
+                        -#   = hour.input_field :h_start2, collection: get_time_collection, include_blank: false
 
-                        %td
-                          = hour.input_field :h_end2, collection: get_time_collection, include_blank: false
+                        -# %td
+                        -#   = hour.input_field :h_end2, collection: get_time_collection, include_blank: false
             %br
             .span9
               .pull-right

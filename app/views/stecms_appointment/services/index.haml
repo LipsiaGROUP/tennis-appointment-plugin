@@ -1,13 +1,13 @@
 =render layout: "stecms_appointment/shared/panel" do
 
   =render_card_box title: "Service", collapse: false do
-    = link_to StecmsAppointment::Engine.routes.url_helpers.new_service_path, id: 'new-treatment-button3', class: 'btn-flat success pull-right event-link', remote: true do
-      %i.fa.fa-paper-plane
-      Nuovo Trattamento
+    -# = link_to StecmsAppointment::Engine.routes.url_helpers.new_service_path, id: 'new-treatment-button3', class: 'btn-flat success pull-right event-link', remote: true do
+    -#   %i.fa.fa-paper-plane
+    -#   Nuovo Trattamento
 
-    = link_to StecmsAppointment::Engine.routes.url_helpers.new_service_path(composed: true), id: 'new-treatment-button3', class: 'btn-flat success pull-right event-link', style: 'margin-right: 15px', remote: true do
-      %i.fa.fa-paper-plane
-      Nuovo Trattamento composto
+    -# = link_to StecmsAppointment::Engine.routes.url_helpers.new_service_path(composed: true), id: 'new-treatment-button3', class: 'btn-flat success pull-right event-link', style: 'margin-right: 15px', remote: true do
+    -#   %i.fa.fa-paper-plane
+    -#   Nuovo Trattamento composto
 
     .table-responsive
       %table.table.table-condensed.mt-3

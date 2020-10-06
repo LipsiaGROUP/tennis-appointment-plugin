@@ -1,17 +1,17 @@
-%table.schedule.employee-schedule
+%table.schedule.employee-schedule.float-left
   %tbody
-    %tr
-      %th
-      %th.hours-tip-day{colspan: "2"} Se fai orario continuato compila SOLO queste due colonne.
-      %th
-      %th.hours-tip-evening{colspan: "2"} Se chiudi per la pausa pranzo indica qui gli orari pomeridiani.
+    -# %tr
+    -#   %th
+    -#   %th.hours-tip-day{colspan: "2"} Se fai orario continuato compila SOLO queste due colonne.
+    -#   %th
+    -#   %th.hours-tip-evening{colspan: "2"} Se chiudi per la pausa pranzo indica qui gli orari pomeridiani.
     %tr
       %th
       %th dalle ore
       %th alle ore
-      %th +
-      %th dalle ore
-      %th alle ore
+      -# %th +
+      -# %th dalle ore
+      -# %th alle ore
 
     = f.fields_for :operator_hours, @operator.operator_hours.sort_by { |h| h.day } do |hour|
       %tr
@@ -20,8 +20,8 @@
             = hour.hidden_field :day
             = hour.check_box :active, label: false, class: 'cb-active-day', checked: hour.object.new_record? ? false : hour.object.active
             = hour.label days_of_week[hour.object.day].html_safe
-        %td= hour.select :h_start, get_time_collection, include_blank: false
-        %td= hour.select :h_end, get_time_collection, include_blank: false
-        %td
-        %td= hour.select :h_start2, get_time_collection, include_blank: false
-        %td= hour.select :h_end2, get_time_collection, include_blank: false
+        %td= hour.select :h_start, get_time_collection_per_hour, include_blank: false
+        %td= hour.select :h_end, get_time_collection_per_hour, include_blank: false
+        -# %td
+        -# %td= hour.select :h_start2, get_time_collection, include_blank: false
+        -# %td= hour.select :h_end2, get_time_collection, include_blank: false

@@ -21852,7 +21852,7 @@ loadCalendar = function(i, n, o, r, a, l) {
                     "success": function(t) {
                       $('.popover').hide();
 
-                      r = void 0, $(".fc-header-center").append("<div id='date_picker' style='position: absolute;z-index:10;margin-left:247px'>"), result = t[t.length - 1], $("#staffList").find("option").remove(), options = "<option value='0'>&nbsp;Tutto lo Staff</option>", $.each(result, function(t, e) {
+                      r = void 0, $(".fc-header-center").append("<div id='date_picker' style='position: absolute;z-index:10;margin-left:247px'>"), result = t[t.length - 1], $("#staffList").find("option").remove(), options = "<option value='0'>&nbsp;Elenco dei campi</option>", $.each(result, function(t, e) {
                         options += "<option class='employee-item' value=" + e.id + ">&nbsp;" + e.name + "</option>"
                       }), $("#staffList").html(options), result.length > 1 ? ($(".fc-staff").show(), $("#staffList option").attr("selected", !1), $("#staffList option[value=" + selectedEmployee + "]").attr("selected", !0), $(".staffDropDownLabel").html($("#staffList option:selected").text())) : ($(".fc-staff").hide(), $("#staffList option:eq(2)").attr("selected", !1), $("#staffList option:eq(1)").attr("selected", !0)), n = selectedEmployee;
                       var e = [];
@@ -21947,9 +21947,9 @@ $(".fc-header-title").addClass("fc-button-content"), $(".fc-header-title").wrap(
   $(this).removeClass("fc-state-hover")
 }), $(".fc-button, .fc-button.fc-button-next, .fc-button.fc-button-prev, .fc-button-header-title ").css({
   "top": "4px"
-}), $(".fc-button-resourceDay .fc-button-content").text("Giorno"), staff_beta = '<span class="btn-group fc-staff" style="top: 3px"><span class="drop-container btn" style="width: 156px;" ><span class="drop-arrow caret"></span><i class="icon-">&#xf183;</i><span class="staffDropDownLabel"></span><select id="staffList" class="staffDropDown select-menu" style="width: 200px; height: 32px;" onchange="fetchStaffEvents(this);"></select></span></span>', space = '<span class="fc-header-space"></span>', $(".fc-header-left").prepend(space), $(".fc-header-left").prepend(staff_beta);
+}), $(".fc-button-resourceDay .fc-button-content").text("Giorno"), staff_beta = '<span class="btn-group fc-staff" style="top: 3px"><span class="drop-container btn" style="width: 156px;" ><span class="drop-arrow caret"></span><span class="staffDropDownLabel"></span><select id="staffList" class="staffDropDown select-menu" style="width: 200px; height: 32px;" onchange="fetchStaffEvents(this);"></select></span></span>', space = '<span class="fc-header-space"></span>', $(".fc-header-left").prepend(space), $(".fc-header-left").prepend(staff_beta);
 var u = $("#employee-filter").data("employees");
-options = "<option value='0'>&nbsp;Tutto lo Staff</option>", $.each(u, function(t, e) {
+options = "<option value='0'>&nbsp;Elenco dei campi</option>", $.each(u, function(t, e) {
   options += "<option class='employee-item' value=" + e.id + ">&nbsp;" + e.full_name + "</option>"
 }), $("#staffList").html(options), u.length > 1 ? $(".fc-staff").show() : $(".fc-staff").hide(), void 0 === n ? "agendaWeek" == view.name ? $("#staffList option:eq(1)").attr("selected", !0) : $("#staffList option:eq(0)").attr("selected", !0) : $("#staffList").find("option[value=" + n + "]").attr("selected", !0), $(".staffDropDownLabel").html($("#staffList option:selected").text());
 var p = $("#location-filter").data("locations");
