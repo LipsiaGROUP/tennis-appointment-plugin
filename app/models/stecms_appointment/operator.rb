@@ -530,7 +530,7 @@ module StecmsAppointment
 			end
   
 			if date_treatment.eql?(today.to_date)
-			  max_hour = today.hour + 5
+			  max_hour = today.hour + 1
 			  time_array.delete_if do |hour|
 				hour_and_minutes = hour.split(":")
 				hour_and_minutes[0].to_i < max_hour
