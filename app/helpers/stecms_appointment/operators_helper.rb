@@ -30,6 +30,10 @@ module StecmsAppointment
       "23:50", "23:55"]
     end
 
+    def get_collection_user_role
+      User::Role.all
+    end
+    
     def get_time_collection_per_hour
       '00'.upto('24').map{|x| "#{x}:00"}.to_a
     end

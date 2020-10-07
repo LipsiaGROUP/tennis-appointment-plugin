@@ -82,7 +82,7 @@ module StecmsAppointment
 
       # Only allow a trusted parameter "white list" through.
       def operator_params
-        params.require(:operator).permit(:id, :operator_name, :mobile, :email, :operator_active, :description, :avatar,
+        params.require(:operator).permit(:id, :operator_name, :mobile, :email, :operator_active, :description, :avatar, :user_role, :max_amount_booking,
           operator_hours_attributes: [:id, :day, :h_start, :h_end, :h_start2, :h_end2, :is_active, :active, :_destroy], service_ids: [])
       end
 
