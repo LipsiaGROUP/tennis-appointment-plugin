@@ -223,7 +223,17 @@ module StecmsAppointment
 	  	booking_hash[:start] = start_date.strftime("%Y-%m-%d %H:%M")
 	  	booking_hash[:end] = end_date.strftime("%Y-%m-%d %H:%M")
 	  	booking_hash[:allDay] = false
-	  	booking_hash[:id] = booking.id
+			booking_hash[:id] = booking.id
+			
+			user_id = booking.user.user_id
+			role_id = User.find(user_id).role_id
+			
+			if user_id.present? && role_id.present?
+				role_user = User::Role.find(role_id)
+				booking_hash[:role_user] = role_user.name
+				booking_hash[:role_user_color] = role_user.color_hex
+			end
+
 
 	  	hide_buttons = true if ['noshow', 'checkout'].include? booking.status
 

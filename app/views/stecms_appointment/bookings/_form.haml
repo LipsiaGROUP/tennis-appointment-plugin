@@ -63,7 +63,7 @@
         .control-group.select.optional.service_booking_status.hide
           = f.label :status, 'Stato', class: 'select control-label', for: 'service_booking_status'
           .controls
-            = f.input_field :status, as: :select, collection: [['Nuovo', 'unconfirmed'], ['Confermato', 'confirmed'], ['Non presentato', 'noshow']], id: 'service_booking_status', class: 'select', include_blank: false
+            = f.input_field :status, as: :select, collection: [['Unconfirmed', 'unconfirmed'], ['Paid', 'paid']], id: 'service_booking_status', class: 'select', include_blank: false
 
       #notes.tab-pane
         .control-group.text.optional.service_booking_notes

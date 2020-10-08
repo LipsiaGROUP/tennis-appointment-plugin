@@ -19897,13 +19897,17 @@ function r(i) {
                                         o = s ? " style='" + s + "'" : "",
                                         r = ["fc-event", "fc-event-skin", "fc-event-vert"];
 
-                                        if (t.status == "confirmed") {
-                                          status_of_booking = "bg_color_confirmed"
+                                        if (t.status == "paid") {
+                                          color_background_card = "#b2efc0"
                                         } else {
-                                          status_of_booking = ""
+                                          if (t.role_user_color != "" || t.role_user_color !== undefined) {
+                                            color_background_card = t.role_user_color
+                                          } else {
+                                            color_background_card = ""
+                                          }
                                         }
 
-                                        return N(t) && r.push("fc-event-draggable"), e.isStart && r.push("fc-corner-top"), e.isEnd && r.push("fc-corner-bottom"), r = r.concat(t.className), t.source && (r = r.concat(t.source.className || [])), i += n ? "a href='" + q(t.url) + "'" : "div", i += " class='" + r.join(" ") + "' style='position:absolute;z-index:8;top:" + e.top + "px;left:" + e.left + "px;" + s + "'><div class='fc-event-inner fc-event-skin " + status_of_booking + "'" + o + "><div class='fc-event-head fc-event-skin " + status_of_booking + "'" + o + "><div class='fc-event-time'>" + q(ae(t.start, t.end, b("timeFormat"))) + "</div></div><div class='fc-event-content'><div class='fc-event-title'>" + q(t.title) + "</div></div><div class='fc-event-bg'></div></div>", e.isEnd && w(t) && (i += "<div class='ui-resizable-handle ui-resizable-s'>=</div>"), i += "</" + (n ? "a" : "div") + ">"
+                                        return N(t) && r.push("fc-event-draggable"), e.isStart && r.push("fc-corner-top"), e.isEnd && r.push("fc-corner-bottom"), r = r.concat(t.className), t.source && (r = r.concat(t.source.className || [])), i += n ? "a href='" + q(t.url) + "'" : "div", i += " class='" + r.join(" ") + "' style='position:absolute;z-index:8;top:" + e.top + "px;left:" + e.left + "px;" + s + "'><div class='fc-event-inner fc-event-skin' style='background-color: " + color_background_card + "'" + o + "><div class='fc-event-head fc-event-skin' style='background-color: " + color_background_card + "' " + o + "><div class='fc-event-time'>" + q(ae(t.start, t.end, b("timeFormat"))) + "</div></div><div class='fc-event-content'><div class='fc-event-title'>" + q(t.title) + "<span class='mx-1'> (" + t.status + ") </span>" + "</div></div><div class='fc-event-bg'></div></div>", e.isEnd && w(t) && (i += "<div class='ui-resizable-handle ui-resizable-s'>=</div>"), i += "</" + (n ? "a" : "div") + ">"
                                       }
 
                                       function u(t, e, i) {
@@ -21866,6 +21870,8 @@ loadCalendar = function(i, n, o, r, a, l) {
                           "user": $(this).attr("user"),
                           "name": $(this).attr("name"),
                           "allDay": $(this).attr("allDay"),
+                          "role_user": $(this).attr("role_user"),
+                          "role_user_color": $(this).attr("role_user_color"),
                           "booking_form": $(this).attr("booking_form"),
                           "className": $(this).attr("className"),
                           "id": $(this).attr("id"),
@@ -21912,7 +21918,7 @@ loadCalendar = function(i, n, o, r, a, l) {
                   })
 },
 "eventRender": function(i, n) {
-  s = $.fullCalendar.formatDate(i.start, "H:mm"), e = $.fullCalendar.formatDate(i.end, "H:mm"), t = s, user_info = "ServiceBooking" == i.type ? void 0 != i.user && null != i.user ? i.user : "Occasionale" : void 0 != i.fill_count && null != i.fill_count ? " (" + i.fill_count + ")" : "Orario bloccato", n.find(".fc-event-time").text(t), n.find(".fc-event-time").append("<span class='customize-fc-event-head'> " + user_info + "</span>"), null == hidden_event_id || i.id != hidden_event_id || "busyTime" == i.tag ? $(n).show() : ($(n).hide(), hidden_event = n), view = $("#booking_calendar").fullCalendar("getView").name, null != selectedEmployee && i.resourceId != selectedEmployee && "agendaWeek" == view && $(n).hide()
+  s = $.fullCalendar.formatDate(i.start, "H:mm"), e = $.fullCalendar.formatDate(i.end, "H:mm"), t = s, user_info = "ServiceBooking" == i.type ? void 0 != i.user && null != i.user ? i.user : "Occasionale" : void 0 != i.fill_count && null != i.fill_count ? " (" + i.fill_count + ")" : "Orario bloccato", n.find(".fc-event-time").text(t), n.find(".fc-event-time").append("<span class='customize-fc-event-head'> " + user_info + "</span>" + "<span class='mx-2'>(" + i.role_user + ")</span>"), null == hidden_event_id || i.id != hidden_event_id || "busyTime" == i.tag ? $(n).show() : ($(n).hide(), hidden_event = n), view = $("#booking_calendar").fullCalendar("getView").name, null != selectedEmployee && i.resourceId != selectedEmployee && "agendaWeek" == view && $(n).hide()
 },
 "eventAfterRender": function(t, e) {
   if (c && t.id == l) {
