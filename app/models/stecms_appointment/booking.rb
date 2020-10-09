@@ -230,9 +230,10 @@ module StecmsAppointment
 			role_id = User.find(user_id).role_id
 			
 			if user_id.present? && role_id.present?
-				role_user = User::Role.find(role_id)
-				booking_hash[:role_user] = role_user.name
-				booking_hash[:role_user_color] = role_user.color_hex
+				if (role_user = User::Role.find(role_id)).present?
+					booking_hash[:role_user] = role_user.name
+					booking_hash[:role_user_color] = role_user.color_hex
+				end
 			end
 		end
 
