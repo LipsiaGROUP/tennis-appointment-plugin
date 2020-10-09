@@ -227,7 +227,7 @@ module StecmsAppointment
 		
 		if (user_booking_id = booking.user.user_id).present?
 			user_id = user_booking_id
-			role_id = User.find(user_id).role_id
+			role_id = User.where(id: user_id).first.role_id
 			
 			if user_id.present? && role_id.present?
 				if (role_user = User::Role.find(role_id)).present?
