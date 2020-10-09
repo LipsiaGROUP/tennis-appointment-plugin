@@ -227,9 +227,10 @@ module StecmsAppointment
 		
 		if (user_booking_id = booking.user.user_id).present?
 			user_id = user_booking_id
-			role_id = User.where(id: user_id).first.role_id
+			role_user = User.where(id: user_id).first
 			
-			if user_id.present? && role_id.present?
+			if user_id.present? && role_user.present?
+				role_id = role_user.role_id
 				if (role_user = User::Role.find(role_id)).present?
 					booking_hash[:role_user] = role_user.name
 					booking_hash[:role_user_color] = role_user.color_hex
