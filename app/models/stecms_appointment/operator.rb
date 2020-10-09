@@ -522,12 +522,12 @@ module StecmsAppointment
 			  end
 			end
 		  else
-			if ((today.hour >= 16) and date_treatment.eql?(today.tomorrow.to_date)) or ((today.hour < 11) and date_treatment.eql?(today.to_date))
-			  time_array.delete_if do |hour|
-				hour_and_minutes = hour.split(":")
-				(hour_and_minutes[0].to_i <= 11 and hour_and_minutes[1].to_i < 30) or ( hour_and_minutes[0].to_i < 11 and hour_and_minutes[1].to_i < 60 )
-			  end
-			end
+			# if ((today.hour >= 16) and date_treatment.eql?(today.tomorrow.to_date)) or ((today.hour < 11) and date_treatment.eql?(today.to_date))
+			#   time_array.delete_if do |hour|
+			# 	hour_and_minutes = hour.split(":")
+			# 	(hour_and_minutes[0].to_i <= 11 and hour_and_minutes[1].to_i < 30) or ( hour_and_minutes[0].to_i < 11 and hour_and_minutes[1].to_i < 60 )
+			#   end
+			# end
   
 			if date_treatment.eql?(today.to_date)
 			  max_hour = today.hour + 1
