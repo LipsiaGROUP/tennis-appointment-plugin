@@ -48,12 +48,12 @@
                 = f.input_field :schedule_time, as: :select, collection: collection_time, id: 'service_booking_schedule_time_5i', class: 'time', style: 'margin-left: 4px;', selected: selected_time.strftime('%H:%M:%S'), include_blank: false
 
         .control-group.integer.optional.service_booking_service_id
-          = f.label :stecms_appointment_service_id, 'Trattamento', class: 'integer control-label', for: 'service_booking_service_id'
+          = f.label :stecms_appointment_service_id, 'Service', class: 'integer control-label', for: 'service_booking_service_id'
           .controls
             = f.input_field :stecms_appointment_service_id, collection: @service_categories, id: 'service_booking_service_id', class: 'select2-container', onchange: 'selectServicePricingLevel($(this).val());'
 
         .control-group.select.optional.service_booking_employee_id
-          = f.label :operator_id, 'Operatore', class: 'select control-label', for: 'service_booking_employee_id'
+          = f.label :operator_id, 'Campo', class: 'select control-label', for: 'service_booking_employee_id'
           .controls
             - if params[:employee_id].present?
               = f.input_field :stecms_appointment_operator_id, as: :select, collection: @operators.pluck(:operator_name, :id), id: 'service_booking_employee_id', selected: params[:employee_id]
@@ -64,6 +64,11 @@
           = f.label :status, 'Stato', class: 'select control-label', for: 'service_booking_status'
           .controls
             = f.input_field :status, as: :select, collection: [['Unconfirmed', 'unconfirmed'], ['Paid', 'paid']], id: 'service_booking_status', class: 'select', include_blank: false
+
+        .control-group.select.optional.service_booking_status.hide
+          = f.label :employee_name, 'Employee', class: 'select control-label', for: 'service_booking_status'
+          .controls
+            = f.input_field :employee_name, as: :select, collection: get_employees, id: 'service_booking_status', class: 'select', include_blank: false
 
       #notes.tab-pane
         .control-group.text.optional.service_booking_notes

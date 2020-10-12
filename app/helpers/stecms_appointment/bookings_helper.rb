@@ -18,6 +18,16 @@ module StecmsAppointment
     def fixnum_to_date(fixnum)
       Time.at(fixnum)
     end
+    
+    def get_employees
+      user_employees = User::Role.where(level: 1).first.users
+
+      array = []
+      user_employees.each do |x|
+        array << [x.name,x.name]
+      end
+      array
+    end
 
   	def get_operators_schedules_hashes
   		StecmsAppointment::Operator.get_operators_schedules_hashes.to_json

@@ -223,7 +223,13 @@ module StecmsAppointment
 	  	booking_hash[:start] = start_date.strftime("%Y-%m-%d %H:%M")
 	  	booking_hash[:end] = end_date.strftime("%Y-%m-%d %H:%M")
 	  	booking_hash[:allDay] = false
-	  	booking_hash[:id] = booking.id
+		booking_hash[:id] = booking.id
+		
+		if (employee_name = booking.employee_name).present? && booking.status == "paid"
+			booking_hash[:employee_name] = employee_name
+		else
+			booking_hash[:employee_name] = ""
+		end
 		
 		if (user_booking_id = booking.user.user_id).present?
 			user_id = user_booking_id

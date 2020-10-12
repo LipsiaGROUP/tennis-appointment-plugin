@@ -25,7 +25,7 @@
             - else
               Occasionale
 
-          %td{"style"=>"font-size: 0.95em; font-weight: bold;padding-left: 60px"} Trattamento
+          %td{"style"=>"font-size: 0.95em; font-weight: bold;padding-left: 60px"} Service
           %td = @booking.treatment.des_treatment
         %tr
           %td{"colspan"=>"3"} 
@@ -37,7 +37,7 @@
         %tr
           %td{"colspan"=>"3"} 
         %tr
-          %td{"style"=>"font-size: 0.95em; font-weight: bold"} Operatore
+          %td{"style"=>"font-size: 0.95em; font-weight: bold"} Campo
           %td = @booking.operator.operator_name if @booking.operator
           %td{"style"=>"font-size: 0.95em; font-weight: bold;padding-left: 60px"} Prezzo
           %td
