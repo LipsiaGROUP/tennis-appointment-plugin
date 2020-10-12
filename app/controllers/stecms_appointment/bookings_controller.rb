@@ -273,7 +273,7 @@ module StecmsAppointment
 
       # Only allow a trusted parameter "white list" through.
       def booking_params
-        current_params = params.require(:booking).permit(:stecms_appointment_operator_id, :start_time, :stecms_appointment_service_id, :status, :note,
+        current_params = params.require(:booking).permit(:stecms_appointment_operator_id, :start_time, :stecms_appointment_service_id, :status, :note, :employee_name,
           :variant_id, :stecms_appointment_customer_id, :schedule_time)
 
         start_time =

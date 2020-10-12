@@ -19897,17 +19897,20 @@ function r(i) {
                                         o = s ? " style='" + s + "'" : "",
                                         r = ["fc-event", "fc-event-skin", "fc-event-vert"];
 
-                                        if (t.status == "paid") {
-                                          color_background_card = "#b2efc0"
+                                        if (t.role_user_color != "" || t.role_user_color !== undefined) {
+                                          color_background_card = t.role_user_color
                                         } else {
-                                          if (t.role_user_color != "" || t.role_user_color !== undefined) {
-                                            color_background_card = t.role_user_color
-                                          } else {
-                                            color_background_card = ""
-                                          }
+                                          color_background_card = ""
                                         }
 
-                                        return N(t) && r.push("fc-event-draggable"), e.isStart && r.push("fc-corner-top"), e.isEnd && r.push("fc-corner-bottom"), r = r.concat(t.className), t.source && (r = r.concat(t.source.className || [])), i += n ? "a href='" + q(t.url) + "'" : "div", i += " class='" + r.join(" ") + "' style='position:absolute;z-index:8;top:" + e.top + "px;left:" + e.left + "px;" + s + "'><div class='fc-event-inner fc-event-skin' style='background-color: " + color_background_card + "'" + o + "><div class='fc-event-head fc-event-skin' style='background-color: " + color_background_card + "' " + o + "><div class='fc-event-time'>" + q(ae(t.start, t.end, b("timeFormat"))) + "</div></div><div class='fc-event-content'><div class='fc-event-title'>" + q(t.title) + "<span class='mx-1'> (" + t.status + ") </span>" + "</div></div><div class='fc-event-bg'></div></div>", e.isEnd && w(t) && (i += "<div class='ui-resizable-handle ui-resizable-s'>=</div>"), i += "</" + (n ? "a" : "div") + ">"
+                                        if (t.status == "paid") {
+                                          icon_status= "fa fa-check fa-lg"
+                                        } else {
+                                          icon_status= "fa fa-warning fa-lg"
+
+                                        }
+
+                                        return N(t) && r.push("fc-event-draggable"), e.isStart && r.push("fc-corner-top"), e.isEnd && r.push("fc-corner-bottom"), r = r.concat(t.className), t.source && (r = r.concat(t.source.className || [])), i += n ? "a href='" + q(t.url) + "'" : "div", i += " class='" + r.join(" ") + "' style='position:absolute;z-index:8;top:" + e.top + "px;left:" + e.left + "px;" + s + "'><div class='fc-event-inner fc-event-skin' style='background-color: " + color_background_card + "'" + o + "><div class='fc-event-head fc-event-skin' style='background-color: " + color_background_card + "' " + o + "><div class='fc-event-time'>" + q(ae(t.start, t.end, b("timeFormat"))) + "</div></div><div class='fc-event-content'><div class='fc-event-title'>" + q(t.title) + "<span class='mx-1'> (" + t.status + " - " + t.employee_name + ") </span>"  + "<i class='" + icon_status + "'></i>" + "</div>" + "</div>" + "<div class='fc-event-bg'></div></div>", e.isEnd && w(t) && (i += "<div class='ui-resizable-handle ui-resizable-s'>=</div>"), i += "</" + (n ? "a" : "div") + ">"
                                       }
 
                                       function u(t, e, i) {
@@ -21872,6 +21875,7 @@ loadCalendar = function(i, n, o, r, a, l) {
                           "allDay": $(this).attr("allDay"),
                           "role_user": $(this).attr("role_user"),
                           "role_user_color": $(this).attr("role_user_color"),
+                          "employee_name": $(this).attr("employee_name"),
                           "booking_form": $(this).attr("booking_form"),
                           "className": $(this).attr("className"),
                           "id": $(this).attr("id"),
