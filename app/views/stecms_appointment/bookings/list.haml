@@ -77,9 +77,11 @@
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes'
       }).then((result) => {
-        $.ajax({  
-          method: "DELETE",
-          url: "/backend/stecms_appointment/bookings/" + book_id
-        });
+        if (result.isConfirmed) {
+          $.ajax({  
+            method: "DELETE",
+            url: "/backend/stecms_appointment/bookings/" + book_id
+          });
+        }
       })
   })
