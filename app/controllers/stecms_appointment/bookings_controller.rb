@@ -235,6 +235,19 @@ module StecmsAppointment
       @description_extended = "#{des_treatment} con #{operator_name} in data #{start_date} ore #{start_time}"
     end
 
+    def destroy
+      if @booking.present?
+        if @booking.destroy
+          @status = true
+        else
+          @status = false
+        end
+      end
+      respond_to do |format|
+        format.js
+      end
+    end
+    
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_booking

@@ -21461,11 +21461,11 @@ function r(i) {
     $(".alert").remove(), void 0 == n ? $("<div class='alert alert-" + t + "'>" + e + "</div>").insertBefore($(i)) : $(n).prepend($("<div class='alert alert-" + t + "'>" + e + "</div>").insertBefore($(i)))
   };
   $(document).ready(function() {
-    function t(t, e) {
-      bootbox.confirm(t, "Cancel", "Yes", function(t) {
-        t && e()
-      })
-    }
+    // function t(t, e) {
+    //   bootbox.confirm(t, "Cancel", "Yes", function(t) {
+    //     t && e()
+    //   })
+    // }
     $.rails.allowAction = function(e) {
       var i, n = e.data("confirm"),
       s = !1;

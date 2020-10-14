@@ -1,0 +1,22 @@
+<% if @status %>
+    $('#cancel-modal').modal('hide');
+    $('#booking_calendar').fullCalendar( 'removeEvents', <%= @booking.id %> );
+    $(".modal-backdrop.loading").remove()
+    $("#loading_image").hide()
+    $(".blockUI").remove()
+    $(".popover").hide()
+    $(".book-list-<%=@booking.id %>").hide()
+    Swal.fire({
+        icon: 'success',
+        title: 'Your booking has been deleted',
+        showConfirmButton: false,
+        timer: 1500
+    })
+<% else %>
+    Swal.fire({
+        icon: 'error',
+        title: 'Please try again',
+        showConfirmButton: false,
+        timer: 1500
+    })
+<% end%>

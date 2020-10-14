@@ -13,6 +13,8 @@
  *= require stecms_appointment/application_b
  *= require stecms_appointment/salonist
  *= require stecms_appointment/salonist-wizard
+
+ *= require stecms_appointment/sweetalert2.min
  *= require_self
  */
 
