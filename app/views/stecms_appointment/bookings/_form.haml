@@ -81,11 +81,11 @@
     %button.btn{"aria-hidden"=>"true", "data-dismiss"=>"modal"} Annulla
     %button#save-event.btn.btn-primary{"onclick"=>"$('.form-horizontal').enableClientSideValidations()"} Salva
 
-    - unless @booking.new_record?
-      .pull-left
-        = link_to confirm_delete_booking_path(@booking, status: 'cancelled'), class: 'btn btn-danger', dom: 'deleteBooking', remote: true, data: {method: "delete"} do
-          %i.icon-trash
-          Elimina Appuntamento
+    -# - unless @booking.new_record?
+    -#   .pull-left
+    -#     = link_to booking_path(id: @booking.id), method: :delete, remote: true, class: 'btn btn-danger' do
+    -#       %i.icon-trash
+    -#       Elimina Appuntamento
 
 :javascript
   $('#addNewCustomer').on('click', function() {

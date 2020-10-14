@@ -26,9 +26,9 @@
 				= link_to "#", id: 'btnNewBooking', class: 'btn event-link', remote: true do
 					%i.icon-calendar{style: "padding-right: 7px;"}
 					Appuntamento
-				= link_to StecmsAppointment::Engine.routes.url_helpers.new_busy_time_bookings_path, id: 'btnNewBusyTime', class: 'btn event-link', remote: true do
-					%i.icon-ban-circle{style: "padding-right: 7px;"}
-					Blocca orario
+				-# = link_to StecmsAppointment::Engine.routes.url_helpers.new_busy_time_bookings_path, id: 'btnNewBusyTime', class: 'btn event-link', remote: true do
+				-# 	%i.icon-ban-circle{style: "padding-right: 7px;"}
+				-# 	Blocca orario
 		.modal-footer
 			%button.btn{"aria-hidden" => "true", "data-dismiss" => "modal"} Annulla
 

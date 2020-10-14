@@ -11,3 +11,4 @@
 // about supported directives.
 //
 //= require stecms_appointment/app-it
+//= require stecms_appointment/sweetalert2.min
