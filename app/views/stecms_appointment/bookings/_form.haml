@@ -16,7 +16,7 @@
         .control-group.string.optional.service_booking_user_id.pull-left
           = f.label :user_id, 'Cliente', class: 'control-label', for: 'service_booking_user_id'
           .controls
-            = f.input_field :stecms_appointment_customer_id, as: :string, id: 'service_booking_user_id', class: 'search', placeholder: 'Cerca per nome o telefono'
+            = f.input_field :stecms_appointment_customer_id, as: :string, id: 'service_booking_user_id', class: 'search', placeholder: 'Cerca per nome o telefono', required: true
 
         %a#walkInCustomer.btn.event-link.pull-right{"href"=>"javascript:void(0);"} Occasionale
         = link_to '+ Nuovo', 'javascript:void(0)', id: 'addNewCustomer', class: 'btn event-link pull-right'
